@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programming Tutorial — Learn programming by doing</title>
+<meta name="description" content="A free programming tutorial built and maintained by a 13-agent pipeline. Learn Python and JavaScript with runnable lessons and exercises.">
+<script>(function(){try{var p=new URLSearchParams(location.search).get("theme");var t=p||(localStorage.getItem("pt-theme"))||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<style>
+/* ============ Radix design tokens (radix-ui/colors) ============ */
+:root{
+  --gray-1:#fafafa;--gray-2:#f5f5f5;--gray-3:#ececec;--gray-4:#e3e3e3;--gray-5:#d9d9d9;--gray-6:#bfbfbf;--gray-7:#a3a3a3;--gray-8:#717171;--gray-9:#525252;--gray-10:#383838;--gray-11:#262626;--gray-12:#171717;
+  --blue-1:#f5fbff;--blue-2:#e6f4fe;--blue-3:#cce7ff;--blue-4:#a9d4ff;--blue-5:#7bc0ff;--blue-6:#4da6ff;--blue-7:#2f95ff;--blue-8:#1478ff;--blue-9:#0b5ed7;--blue-10:#0747a6;--blue-11:#07357d;--blue-12:#05265c;
+  --violet-1:#f7f5fe;--violet-2:#efeafe;--violet-3:#e4d9ff;--violet-4:#cdbbff;--violet-5:#b294ff;--violet-6:#9a6fff;--violet-7:#8949ff;--violet-8:#7a2eff;--violet-9:#641acb;--violet-10:#52149c;--violet-11:#3e1075;--violet-12:#2b0b57;
+  --green-1:#f2fbf6;--green-2:#e8faf0;--green-3:#d4f5e4;--green-4:#b0ecd0;--green-5:#82dfb5;--green-6:#57c99a;--green-7:#3ab786;--green-8:#229a70;--green-9:#16845c;--green-10:#156e4d;--green-11:#145940;--green-12:#134634;
+  --gold-1:#fbfbeb;--gold-2:#f7f8dc;--gold-3:#f2f2bc;--gold-4:#ecdf99;--gold-5:#e2c86f;--gold-6:#d4a72c;--gold-7:#b7791f;--gold-8:#9a5f1d;--gold-9:#7a4d19;--gold-10:#633d18;--gold-11:#4c3014;--gold-12:#392510;
+  --red-1:#fef5f5;--red-2:#feeceb;--red-3:#fed7d7;--red-4:#fbbcbc;--red-5:#f7918d;--red-6:#ef635d;--red-7:#e5484d;--red-8:#d93036;--red-9:#bf2633;--red-10:#a11e2b;--red-11:#7d1a26;--red-12:#5c1a20;
+  --orange-5:#feab61;--orange-8:#c95a10;--orange-9:#a84a0e;
+
+  /* semantic — light */
+  --bg:var(--gray-1);--surface:#fff;--surface-2:var(--gray-2);
+  --border:rgb(23 23 23/.14);--border-strong:rgb(23 23 23/.30);
+  --text:var(--gray-12);--text-muted:var(--gray-9);--text-faint:var(--gray-8);
+  --primary:var(--blue-9);--primary-hover:var(--blue-10);--on-primary:#fff;
+  --link:var(--blue-9);
+  --accent-bg:var(--violet-2);--accent-text:var(--violet-11);--accent-border:rgb(100 26 203/.25);
+  --info-bg:var(--blue-2);--info-text:var(--blue-11);--info-border:rgb(11 94 215/.25);
+  --success-bg:var(--green-2);--success-text:var(--green-11);--success-border:rgb(22 132 92/.30);
+  --warning-bg:var(--gold-2);--warning-text:var(--gold-11);--warning-border:rgb(183 121 31/.35);
+  --danger-bg:var(--red-2);--danger-text:var(--red-11);--danger-border:rgb(191 38 51/.30);
+  --code-bg:var(--gray-2);
+  --code-keyword:var(--violet-9);--code-string:var(--green-10);--code-number:var(--orange-9);--code-comment:var(--gray-9);--code-fn:var(--blue-9);
+  --shadow-1:0 1px 2px rgb(23 23 23/.05),0 4px 14px rgb(23 23 23/.08);
+  --shadow-2:0 2px 4px rgb(23 23 23/.06),0 10px 24px rgb(23 23 23/.12);
+}
+[data-theme="dark"]{
+  --bg:var(--gray-12);--surface:var(--gray-11);--surface-2:var(--gray-10);
+  --border:rgb(245 245 245/.16);--border-strong:rgb(245 245 245/.32);
+  --text:var(--gray-2);--text-muted:var(--gray-6);--text-faint:var(--gray-7);
+  --primary:var(--blue-9);--primary-hover:var(--blue-8);--on-primary:#fff;
+  --link:var(--blue-4);
+  --accent-bg:rgb(122 46 255/.20);--accent-text:var(--violet-3);--accent-border:rgb(187 187 255/.30);
+  --info-bg:rgb(20 120 255/.16);--info-text:var(--blue-3);--info-border:rgb(123 192 255/.30);
+  --success-bg:rgb(22 132 92/.18);--success-text:var(--green-4);--success-border:rgb(90 201 154/.35);
+  --warning-bg:rgb(212 167 44/.14);--warning-text:var(--gold-4);--warning-border:rgb(226 200 111/.35);
+  --danger-bg:rgb(191 38 51/.16);--danger-text:var(--red-4);--danger-border:rgb(239 99 93/.35);
+  --code-bg:var(--gray-10);
+  --code-keyword:var(--violet-4);--code-string:var(--green-5);--code-number:var(--orange-5);--code-comment:var(--gray-6);--code-fn:var(--blue-4);
+  --shadow-1:0 1px 2px rgb(0 0 0/.30),0 4px 14px rgb(0 0 0/.35);
+  --shadow-2:0 2px 4px rgb(0 0 0/.35),0 10px 24px rgb(0 0 0/.45);
+}
+/* ============ base ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.6;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+code,pre,kbd,.mono{font-family:ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace}
+img,svg{display:inline-block;vertical-align:middle}
+a{color:var(--link)}
+h1,h2,h3{line-height:1.15;letter-spacing:-.01em}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+:focus-visible{outline:2px solid var(--link);outline-offset:2px;border-radius:4px}
+.skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:var(--primary);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;text-decoration:none;font-weight:600}
+.skip-link:focus{left:0}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}html{scroll-behavior:auto}}
+
+/* ============ header ============ */
+.site-header{position:sticky;top:0;z-index:50;background:var(--bg);background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.header-inner{display:flex;align-items:center;gap:20px;height:64px}
+.brand{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:16.5px;color:var(--text);text-decoration:none;white-space:nowrap}
+.brand-mark{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;background:var(--primary);color:#fff;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;font-weight:700}
+.main-nav{display:flex;gap:4px;margin-left:auto}
+.main-nav a{padding:8px 12px;border-radius:8px;text-decoration:none;color:var(--text-muted);font-size:14.5px;font-weight:500}
+.main-nav a:hover{color:var(--text);background:var(--surface-2)}
+.header-actions{display:flex;align-items:center;gap:10px}
+.icon-btn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer;display:grid;place-items:center;padding:0}
+.icon-btn:hover{color:var(--text);border-color:var(--border-strong)}
+.nav-toggle{display:none}
+
+/* ============ buttons ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border-radius:9px;font-size:15px;font-weight:600;line-height:1.2;text-decoration:none;border:1px solid transparent;cursor:pointer}
+.btn-primary{background:var(--primary);color:var(--on-primary)}
+.btn-primary:hover{background:var(--primary-hover)}
+.btn-ghost{background:transparent;color:var(--text);border-color:var(--border-strong)}
+.btn-ghost:hover{background:var(--surface-2)}
+
+/* ============ hero ============ */
+.hero{padding:72px 0 56px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--accent-text);background:var(--accent-bg);border:1px solid var(--accent-border);padding:5px 12px;border-radius:999px;margin-bottom:20px}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+h1{font-size:clamp(34px,5vw,52px);line-height:1.08;letter-spacing:-.02em;font-weight:800}
+.hero-sub{margin-top:18px;font-size:18px;color:var(--text-muted);max-width:52ch}
+.hero-ctas{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:28px;margin-top:36px;flex-wrap:wrap}
+.stat b{display:block;font-size:20px;font-weight:700}
+.stat span{font-size:13px;color:var(--text-muted)}
+
+/* ============ code card ============ */
+.code-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow-1);overflow:hidden}
+.code-head{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--border)}
+.dots{display:flex;gap:6px;margin-right:4px}
+.dots i{width:11px;height:11px;border-radius:50%}
+.dots i:nth-child(1){background:var(--red-7)}
+.dots i:nth-child(2){background:var(--gold-6)}
+.dots i:nth-child(3){background:var(--green-7)}
+.code-file{font-size:13px;color:var(--text-muted);font-family:ui-monospace,Menlo,Consolas,monospace}
+.copy-btn{margin-left:auto;font-size:12.5px;font-weight:600;padding:5px 10px;border-radius:7px;border:1px solid var(--border);background:var(--surface);color:var(--text-muted);cursor:pointer}
+.copy-btn:hover{color:var(--text);border-color:var(--border-strong)}
+.code-card pre,.lesson pre{padding:18px;overflow-x:auto;background:var(--code-bg);font-size:13.5px;line-height:1.75;tab-size:4}
+.tok-k{color:var(--code-keyword);font-weight:600}
+.tok-s{color:var(--code-string)}
+.tok-n{color:var(--code-number)}
+.tok-c{color:var(--code-comment);font-style:italic}
+.tok-f{color:var(--code-fn)}
+.output{border-top:1px dashed var(--border-strong);margin:0 18px 18px;padding:12px 14px;background:var(--surface-2);border-radius:8px;font-size:13px}
+.output-label{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-faint);margin-bottom:6px}
+.output code{font-size:13px}
+/* ============ sections & tracks ============ */
+.section{padding:80px 0}
+.section-head{max-width:640px;margin-bottom:40px}
+.section-title{font-size:clamp(26px,3.2vw,32px);font-weight:700;letter-spacing:-.015em}
+.section-sub{margin-top:10px;color:var(--text-muted);font-size:16px}
+.tracks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.track-card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;box-shadow:var(--shadow-1);transition:transform .15s cubic-bezier(.2,.8,.4,1),box-shadow .15s,border-color .15s}
+.track-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-2);border-color:var(--border-strong)}
+.tile{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-size:13px;font-weight:700;margin-bottom:16px}
+.tile-py{background:var(--accent-bg);color:var(--accent-text)}
+.tile-js{background:var(--warning-bg);color:var(--warning-text)}
+.tile-web{background:var(--info-bg);color:var(--info-text)}
+.track-card h3{font-size:20px;font-weight:600}
+.track-card p{margin-top:8px;font-size:14.5px;color:var(--text-muted);flex-grow:1}
+.track-foot{display:flex;align-items:center;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)}
+.track-count{font-size:13px;color:var(--text-faint)}
+.chip{margin-left:auto;font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--success-bg);color:var(--success-text)}
+
+/* ============ lesson ============ */
+.lesson-wrap{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.lesson{max-width:760px;margin:0 auto;padding:80px 24px}
+.lesson-meta{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--text-faint);margin-bottom:14px}
+.lesson h2{font-size:28px;font-weight:700;margin-top:48px}
+.lesson p{margin-top:16px;color:var(--text)}
+.lesson p code,.lesson li code{background:var(--code-bg);border:1px solid var(--border);padding:1.5px 6px;border-radius:6px;font-size:.875em}
+.lesson ul{margin-top:16px;padding-left:22px;color:var(--text)}
+.lesson li{margin-top:8px}
+.callout{display:flex;gap:12px;margin-top:24px;padding:14px 16px;border-radius:8px;border:1px solid;font-size:14.5px;line-height:1.6}
+.callout .ico{flex:none;width:20px;height:20px;margin-top:1px}
+.callout b{display:block;margin-bottom:2px}
+.callout-tip{background:var(--info-bg);border-color:var(--info-border);color:var(--text)}
+.callout-tip .ico,.callout-tip b{color:var(--info-text)}
+.callout-warn{background:var(--warning-bg);border-color:var(--warning-border);color:var(--text)}
+.callout-warn .ico,.callout-warn b{color:var(--warning-text)}
+.callout-success{background:var(--success-bg);border-color:var(--success-border);color:var(--text)}
+.callout-success .ico,.callout-success b{color:var(--success-text)}
+.callout-error{background:var(--danger-bg);border-color:var(--danger-border);color:var(--text)}
+.callout-error .ico,.callout-error b{color:var(--danger-text)}
+
+/* ============ exercise ============ */
+.exercise{margin-top:32px;border:1px solid var(--border-strong);border-radius:12px;overflow:hidden}
+.exercise-head{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--surface-2);border-bottom:1px solid var(--border)}
+.exercise-tag{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent-text);background:var(--accent-bg);border:1px solid var(--accent-border);padding:3px 9px;border-radius:999px}
+.exercise-head p{font-size:14px;color:var(--text-muted)}
+.exercise textarea{display:block;width:100%;min-height:150px;resize:vertical;background:var(--code-bg);color:var(--text);border:0;padding:16px;font-size:13.5px;line-height:1.7;tab-size:4}
+.exercise textarea:focus{outline:none;box-shadow:inset 0 0 0 2px var(--link)}
+.exercise-foot{display:flex;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid var(--border);background:var(--surface)}
+.btn-sm{padding:7px 14px;font-size:13.5px;border-radius:8px}
+.exercise-result{margin:0 16px 16px;display:none}
+.exercise-result.show{display:block}
+
+/* ============ footer ============ */
+.site-footer{padding:40px 0;border-top:1px solid var(--border)}
+.footer-inner{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-size:13.5px;color:var(--text-faint)}
+.footer-inner .brand{font-size:14.5px}
+.footer-links{margin-left:auto;display:flex;gap:18px}
+.footer-links a{color:var(--text-muted);text-decoration:none}
+.footer-links a:hover{color:var(--text)}
+
+/* ============ responsive ============ */
+@media (max-width:1024px){
+  .tracks-grid{grid-template-columns:repeat(2,1fr)}
+  .hero-grid{grid-template-columns:1fr;gap:36px}
+  .hero{padding:56px 0 40px}
+}
+@media (max-width:768px){
+  .main-nav{position:absolute;top:64px;left:0;right:0;display:none;flex-direction:column;gap:2px;padding:12px;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow-2)}
+  .main-nav.open{display:flex}
+  .nav-toggle{display:grid}
+  .section{padding:64px 0}
+  .lesson{padding:56px 20px}
+}
+@media (max-width:640px){
+  .tracks-grid{grid-template-columns:1fr}
+  .hero-stats{gap:20px}
+  .footer-links{margin-left:0}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#"><span class="brand-mark">&lt;/&gt;</span>Programming&nbsp;Tutorial</a>
+    <nav class="main-nav" id="main-nav" aria-label="Main">
+      <a href="#tracks">Tracks</a>
+      <a href="#lesson">Lessons</a>
+      <a href="#">About</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme" title="Theme: auto">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Free · No account needed</span>
+        <h1>Learn to program by building, not memorizing.</h1>
+        <p class="hero-sub">Short lessons, runnable code, and a small project at the end of every track. Pick a language, finish a lesson in 10 minutes, and ship something real.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#tracks">Start learning</a>
+          <a class="btn btn-ghost" href="#lesson">Preview a lesson</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>120+</b><span>lessons</span></div>
+          <div class="stat"><b>4</b><span>tracks</span></div>
+          <div class="stat"><b>0</b><span>paywalls</span></div>
+        </div>
+      </div>
+      <div class="code-card" aria-label="Sample lesson code">
+        <div class="code-head">
+          <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="code-file">hello.py</span>
+          <button class="copy-btn" type="button" data-copy="#hero-code">Copy</button>
+        </div>
+<pre id="hero-code"><code><span class="tok-c"># Lesson 1 · Variables</span>
+<span class="tok-k">def</span> <span class="tok-f">greet</span>(name):
+    message = <span class="tok-s">f"Hello, {name}!"</span>
+    <span class="tok-k">return</span> message
+
+<span class="tok-f">print</span>(<span class="tok-f">greet</span>(<span class="tok-s">"world"</span>))</code></pre>
+        <div class="output">
+          <span class="output-label">Output</span>
+          <code>$ python hello.py<br>Hello, world!</code>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============ TRACKS ============ -->
+  <section class="section" id="tracks">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Choose your track</h2>
+        <p class="section-sub">Each track is a focused path: concept → example → exercise → mini-project. No filler, no detours.</p>
+      </div>
+      <div class="tracks-grid">
+        <article class="track-card">
+          <span class="tile tile-py" aria-hidden="true">py</span>
+          <h3>Python Foundations</h3>
+          <p>Variables, control flow, functions and files — the building blocks every other track assumes. Start here if you're new.</p>
+          <div class="track-foot"><span class="track-count">24 lessons</span><span class="chip">Beginner</span></div>
+        </article>
+        <article class="track-card">
+          <span class="tile tile-js" aria-hidden="true">{ }</span>
+          <h3>JavaScript Essentials</h3>
+          <p>The language of the browser: values, functions, the DOM and events. Runs anywhere — no install required.</p>
+          <div class="track-foot"><span class="track-count">28 lessons</span><span class="chip">Beginner</span></div>
+        </article>
+        <article class="track-card">
+          <span class="tile tile-web" aria-hidden="true">&lt;/&gt;</span>
+          <h3>HTML &amp; CSS</h3>
+          <p>Structure and style real pages: semantic markup, layout with flexbox and grid, and responsive design.</p>
+          <div class="track-foot"><span class="track-count">20 lessons</span><span class="chip">Beginner</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LESSON PREVIEW ============ -->
+  <section class="lesson-wrap" id="lesson">
+    <article class="lesson">
+      <p class="lesson-meta"><span class="chip">Python Foundations</span> Lesson 1 · ~8 min read</p>
+      <h2 style="margin-top:0;font-size:34px;">Variables: named boxes for your data</h2>
+      <p>A <strong>variable</strong> is a name that refers to a value. When you write <code>x = 5</code>, Python creates the name <code>x</code> and points it at the number <code>5</code>. You can reassign the name any time — the box keeps whatever value you last put in.</p>
+<pre><code><span class="tok-k">def</span> <span class="tok-f">greet</span>(name):
+    message = <span class="tok-s">f"Hello, {name}!"</span>  <span class="tok-c"># f-string: text + values</span>
+    <span class="tok-k">return</span> message
+
+<span class="tok-f">print</span>(<span class="tok-f">greet</span>(<span class="tok-s">"world"</span>))   <span class="tok-c"># → Hello, world!</span></code></pre>
+      <div class="callout callout-tip">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11v5" stroke-linecap="round"/></svg>
+        <p><b>Tip</b>Name variables for what they hold — <code>message</code>, not <code>m</code>. Future you is a beginner again.</p>
+      </div>
+      <h2>Try it yourself</h2>
+      <p>Modify the function so it greets <em>you</em>. Change the name inside the <code>greet(...)</code> call, run it, and read the output. Then make it a little more personal.</p>
+      <div class="exercise">
+        <div class="exercise-head"><span class="exercise-tag">Exercise</span><p>Edit the code, then press Check answer</p></div>
+        <textarea id="ex-code" spellcheck="false" aria-label="Exercise code editor">def greet(name):
+    message = f"Hello, {name}!"
+    return message
+
+print(greet("world"))</textarea>
+        <div class="exercise-foot">
+          <button class="btn btn-primary btn-sm" id="ex-check" type="button">Check answer</button>
+          <button class="btn btn-ghost btn-sm" id="ex-reset" type="button">Reset</button>
+          <span id="ex-status" role="status" aria-live="polite"></span>
+        </div>
+        <div class="callout callout-success exercise-result" id="ex-success">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p><b>Correct</b>You changed the name and it still runs — that's exactly how variables work.</p>
+        </div>
+        <div class="callout callout-error exercise-result" id="ex-error">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01" stroke-linecap="round"/></svg>
+          <p><b>Not quite</b>Keep the <code>print(greet(...))</code> call and just change the string inside the quotes.</p>
+        </div>
+      </div>
+      <div class="callout callout-warn">
+        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 4 3 19h18L12 4z" stroke-linejoin="round"/><path d="M12 10v4M12 16.5h.01" stroke-linecap="round"/></svg>
+        <p><b>Heads up</b><code>name = "x"</code> and <code>name = 'x'</code> are the same string — pick one quote style and stay consistent.</p>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <a class="brand" href="#"><span class="brand-mark">&lt;/&gt;</span>Programming&nbsp;Tutorial</a>
+    <span>Built with plain HTML &amp; CSS · No trackers, no cookies</span>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="#">GitHub</a><a href="#">License</a><a href="#">Accessibility</a>
+    </nav>
+  </div>
+</footer>
+<script>
+(function () {
+  "use strict";
+
+  /* ---- theme: auto -> light -> dark, persisted ---- */
+  var root = document.documentElement;
+  var toggle = document.getElementById("theme-toggle");
+  var metaTheme = document.querySelector('meta[name="theme-color"]');
+  var mq = window.matchMedia("(prefers-color-scheme: dark)");
+
+  function apply(theme) {
+    if (theme === "light" || theme === "dark") root.setAttribute("data-theme", theme);
+    else root.removeAttribute("data-theme");
+    var effective = (theme === "auto" || !theme) ? (mq.matches ? "dark" : "light") : theme;
+    toggle.title = "Theme: " + effective + (theme === "auto" ? " (system)" : "");
+    if (metaTheme) metaTheme.setAttribute("content", effective === "dark" ? "#171717" : "#fafafa");
+  }
+
+  var urlTheme = null;
+  try { urlTheme = new URLSearchParams(location.search).get("theme"); } catch (e) {}
+  var stored = null;
+  try { stored = localStorage.getItem("pt-theme"); } catch (e) {}
+  apply(urlTheme || stored || "auto");
+
+  toggle.addEventListener("click", function () {
+    var cur = root.getAttribute("data-theme") || "auto";
+    var next = cur === "auto" ? "light" : cur === "light" ? "dark" : "auto";
+    try { localStorage.setItem("pt-theme", next); } catch (e) {}
+    apply(next);
+  });
+  if (mq.addEventListener) mq.addEventListener("change", function () { apply(root.getAttribute("data-theme") || "auto"); });
+
+  /* ---- mobile nav ---- */
+  var navToggle = document.getElementById("nav-toggle");
+  var nav = document.getElementById("main-nav");
+  navToggle.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  /* ---- copy buttons ---- */
+  Array.prototype.forEach.call(document.querySelectorAll("[data-copy]"), function (btn) {
+    btn.addEventListener("click", function () {
+      var target = document.querySelector(btn.getAttribute("data-copy"));
+      if (!target) return;
+      var text = target.innerText;
+      function done() {
+        var old = btn.textContent;
+        btn.textContent = "Copied \u2713";
+        setTimeout(function () { btn.textContent = old; }, 2000);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text); done(); });
+      } else { fallbackCopy(text); done(); }
+    });
+  });
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  /* ---- exercise: check / reset ---- */
+  var codeEl = document.getElementById("ex-code");
+  var statusEl = document.getElementById("ex-status");
+  var okBox = document.getElementById("ex-success");
+  var errBox = document.getElementById("ex-error");
+  var DEFAULT = 'def greet(name):\n    message = f"Hello, {name}!"\n    return message\n\nprint(greet("world"))';
+
+  function hideResults() {
+    okBox.classList.remove("show");
+    errBox.classList.remove("show");
+    statusEl.textContent = "";
+  }
+
+  document.getElementById("ex-check").addEventListener("click", function () {
+    var code = codeEl.value;
+    var m = /greet\(\s*["']([^"']+)["']\s*\)/.exec(code);
+    var valid = /def\s+greet\s*\(\s*name\s*\)/.test(code) && /return/.test(code) && m && m[1] !== "world";
+    hideResults();
+    if (valid) {
+      okBox.classList.add("show");
+      statusEl.textContent = "\u2713 Correct";
+    } else {
+      errBox.classList.add("show");
+      statusEl.textContent = "\u2715 Not quite";
+    }
+  });
+
+  document.getElementById("ex-reset").addEventListener("click", function () {
+    codeEl.value = DEFAULT;
+    hideResults();
+    codeEl.focus();
+  });
+})();
+</script>
+</body>
+</html>
