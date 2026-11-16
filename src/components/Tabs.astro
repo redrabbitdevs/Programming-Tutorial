@@ -30,7 +30,10 @@ const uid = `tabs-${tabGroupCounter}`;
         aria-controls={`${uid}-panel-${i}`}
         tabindex={i === 0 ? 0 : -1}
         data-tab-index={i}
-        class="rounded-md px-3 py-1.5 text-sm font-medium text-muted hover:text-text"
+        class:list={[
+          "rounded-md px-3 py-1.5 text-sm font-medium",
+          i === 0 ? "bg-surface text-text shadow-sm" : "text-muted hover:text-text"
+        ]}
       >
         {tab.label}
       </button>

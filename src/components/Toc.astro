@@ -32,8 +32,7 @@ const { headings } = Astro.props;
 )}
 
 <script>
-  const nav = document.querySelector<HTMLElement>("[data-toc]");
-  if (nav) {
+  for (const nav of document.querySelectorAll<HTMLElement>("[data-toc]")) {
     const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>("[data-toc-link]"));
     const order = links.map((link) => link.dataset.tocLink as string);
 
@@ -47,6 +46,15 @@ const { headings } = Astro.props;
     };
 
     const visible: string[] = [];
+    // At the bottom of the page a short final section can sit below the spy
+    // band, so pin its heading active there; otherwise the first heading
+    // inside the band wins.
+    const refresh = () => {
+      const atBottom = window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      if (atBottom) setActive(order[order.length - 1]);
+      else setActive(order.find((slug) => visible.includes(slug)) ?? null);
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -55,7 +63,7 @@ const { headings } = Astro.props;
           if (entry.isIntersecting && idx === -1) visible.push(slug);
           else if (!entry.isIntersecting && idx !== -1) visible.splice(idx, 1);
         }
-        setActive(order.find((slug) => visible.includes(slug)) ?? null);
+        refresh();
       },
       { rootMargin: "-80px 0px -60% 0px", threshold: 0 }
     );
@@ -64,5 +72,19 @@ const { headings } = Astro.props;
       const el = document.getElementById(slug);
       if (el) observer.observe(el);
     }
+
+    let ticking = false;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          ticking = false;
+          refresh();
+        });
+      },
+      { passive: true }
+    );
   }
 </script>
