@@ -1,1 +1,145 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Expose semantic tokens as Tailwind color utilities (bg-bg, text-text, ...).
+   `inline` makes utilities reference the token vars directly so theme
+   switches re-resolve at runtime. */
+@theme inline {
+  --color-bg: var(--token-bg);
+  --color-surface: var(--token-surface);
+  --color-surface-alt: var(--token-surface-alt);
+  --color-text: var(--token-text);
+  --color-muted: var(--token-text-muted);
+  --color-border: var(--token-border);
+  --color-accent: var(--token-accent);
+  --color-on-accent: var(--token-on-accent);
+  --color-accent-soft: var(--token-accent-soft);
+  --color-success: var(--token-success);
+  --color-warning: var(--token-warning);
+  --color-danger: var(--token-danger);
+}
+
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--token-bg);
+  color: var(--token-text);
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Theme crossfade — gated so reduced-motion users get an instant swap. */
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-animating body,
+  html.theme-animating header,
+  html.theme-animating main,
+  html.theme-animating footer {
+    transition:
+      background-color 150ms ease,
+      color 150ms ease,
+      border-color 150ms ease;
+  }
+}
+
+/* Visible focus everywhere (a11y baseline). */
+:focus-visible {
+  outline: 2px solid var(--token-accent);
+  outline-offset: 2px;
+}
+
+::selection {
+  background-color: var(--token-accent-soft);
+}
+
+/* Shiki dual-theme (css-vars rendering): light values are applied inline by
+   default; each token also carries its dark value in --shiki-dark. Swap them
+   when the site theme is dark. Covers both markdown-pipeline code blocks and
+   the CodeBlock component (same shiki config). */
+[data-theme="dark"] .astro-code {
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+[data-theme="dark"] .astro-code span[style*="--shiki-dark"] {
+  color: var(--shiki-dark) !important;
+}
+
+/* Search dialog backdrop. */
+#pt-search-dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
+}
+
+/* TOC scrollspy active state (see components/Toc.astro). */
+.pt-toc-link.pt-toc-active {
+  border-left-color: var(--token-accent);
+  color: var(--token-text);
+}
+
+/* Map Pagefind UI to the site tokens so search follows the active theme. */
+.pagefind-ui {
+  --pagefind-ui-foreground: var(--token-text);
+  --pagefind-ui-background: var(--token-surface);
+  --pagefind-ui-muted: var(--token-text-muted);
+  --pagefind-ui-border: var(--token-border);
+  --pagefind-ui-selected: var(--token-accent);
+}
+
+/* Staggered fade-up on section mount (CSS only, reduced-motion gated). */
+@keyframes pt-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pt-fade-up {
+    animation: pt-fade-up 300ms ease both;
+  }
+
+  .pt-fade-up:nth-child(2) {
+    animation-delay: 60ms;
+  }
+
+  .pt-fade-up:nth-child(3) {
+    animation-delay: 120ms;
+  }
+
+  .pt-fade-up:nth-child(4) {
+    animation-delay: 180ms;
+  }
+
+  /* Hover lift on cards. */
+  .pt-card-lift {
+    transition:
+      transform 150ms ease,
+      box-shadow 150ms ease;
+  }
+
+  .pt-card-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
+  }
+
+  /* Progress bar width transitions. */
+  .pt-progress-fill {
+    transition: width 300ms ease;
+  }
+}

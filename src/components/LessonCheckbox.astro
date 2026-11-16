@@ -1,0 +1,48 @@
+---
+// LessonCheckbox — "mark lesson complete" control. Persists to localStorage under
+// pt-progress-v1 as { "<lang>/<slug>": <ISO timestamp> } (local-only, no accounts).
+// Dispatches a `pt:progress` document event so TrackProgress bars and
+// continue-learning links update live. The id prop is the full key, e.g.
+// "python/beginner/01-hello".
+interface Props {
+  id: string;
+  label?: string;
+}
+
+const { id, label = "Mark this lesson as complete" } = Astro.props;
+---
+
+<label class="flex cursor-pointer select-none items-center gap-2 text-sm">
+  <input type="checkbox" data-progress-toggle={id} class="h-4 w-4 accent-(--token-accent)" />
+  <span>{label}</span>
+</label>
+
+<script>
+  const KEY = "pt-progress-v1";
+
+  function load(): Record<string, string> {
+    try {
+      return JSON.parse(localStorage.getItem(KEY) ?? "{}");
+    } catch {
+      return {};
+    }
+  }
+
+  for (const checkbox of document.querySelectorAll<HTMLInputElement>("input[data-progress-toggle]")) {
+    const id = checkbox.dataset.progressToggle as string;
+    checkbox.checked = Boolean(load()[id]);
+    checkbox.setAttribute("aria-label", `Mark lesson ${id} as complete`);
+
+    checkbox.addEventListener("change", () => {
+      const store = load();
+      if (checkbox.checked) store[id] = new Date().toISOString();
+      else delete store[id];
+      try {
+        localStorage.setItem(KEY, JSON.stringify(store));
+      } catch {
+        // Storage unavailable: completion applies for this session only.
+      }
+      document.dispatchEvent(new CustomEvent("pt:progress"));
+    });
+  }
+</script>

@@ -1,0 +1,47 @@
+/* Semantic design tokens — Radix Colors scale pairs mapped to site tokens.
+   Light scale from @radix-ui/colors/*.css (scoped to :root), dark scale from
+   *-dark.css (scoped to .dark). The theme island keeps data-theme and the
+   `dark` class on <html> in sync; every semantic token re-resolves per theme.
+   Contrast pairs verified AA (WCAG 2.1) for text uses. */
+
+@import "@radix-ui/colors/gray.css";
+@import "@radix-ui/colors/gray-dark.css";
+@import "@radix-ui/colors/blue.css";
+@import "@radix-ui/colors/blue-dark.css";
+@import "@radix-ui/colors/green.css";
+@import "@radix-ui/colors/green-dark.css";
+@import "@radix-ui/colors/yellow.css";
+@import "@radix-ui/colors/yellow-dark.css";
+@import "@radix-ui/colors/red.css";
+@import "@radix-ui/colors/red-dark.css";
+
+:root,
+[data-theme="light"] {
+  --token-bg: var(--gray-2);
+  --token-surface: var(--gray-1);
+  --token-surface-alt: var(--gray-3);
+  --token-text: var(--gray-12);
+  --token-text-muted: var(--gray-11);
+  --token-border: var(--gray-5);
+  --token-accent: var(--blue-11);
+  --token-on-accent: #ffffff;
+  --token-accent-soft: var(--blue-3);
+  --token-success: var(--green-11);
+  --token-warning: var(--yellow-12);
+  --token-danger: var(--red-11);
+}
+
+[data-theme="dark"] {
+  --token-bg: var(--gray-1);
+  --token-surface: var(--gray-2);
+  --token-surface-alt: var(--gray-3);
+  --token-text: var(--gray-12);
+  --token-text-muted: var(--gray-11);
+  --token-border: var(--gray-5);
+  --token-accent: var(--blue-10);
+  --token-on-accent: var(--gray-1);
+  --token-accent-soft: var(--blue-3);
+  --token-success: var(--green-10);
+  --token-warning: var(--yellow-10);
+  --token-danger: var(--red-10);
+}

@@ -1,0 +1,91 @@
+---
+// CodeBlock — highlighted code block (Shiki dual-theme, same theme pair as the
+// markdown pipeline in astro.config.mjs) with language label, optional sample
+// badge, and a copy button whose feedback is announced via an aria-live region.
+import { createHighlighter, isSpecialLang, type BundledLanguage } from "shiki";
+import { shikiLight, shikiDark } from "../styles/shiki-theme.mjs";
+
+interface Props {
+  code: string;
+  lang?: string;
+  title?: string;
+  sampleId?: string;
+}
+
+const { code, title, sampleId } = Astro.props;
+let lang: string = Astro.props.lang ?? "text";
+
+// Module-level highlighter singleton: one theme registration per build worker,
+// shared by every CodeBlock instance on a page. Languages are loaded on demand
+// (same pattern as Astro's markdown pipeline).
+let highlighterPromise: ReturnType<typeof createHighlighter> | undefined;
+
+function getSharedHighlighter() {
+  highlighterPromise ??= createHighlighter({
+    langs: ["plaintext"],
+    themes: [shikiLight, shikiDark]
+  });
+  return highlighterPromise;
+}
+
+const highlighter = await getSharedHighlighter();
+if (!isSpecialLang(lang) && !highlighter.getLoadedLanguages().includes(lang)) {
+  try {
+    await highlighter.loadLanguage(lang as BundledLanguage);
+  } catch {
+    console.warn(`[CodeBlock] Unknown language "${lang}" — rendering as plaintext`);
+    lang = "plaintext";
+  }
+}
+
+const html = highlighter.codeToHtml(code, {
+  lang,
+  themes: { light: "pt-light", dark: "pt-dark" },
+  defaultColor: "light"
+});
+---
+
+<figure data-codeblock data-code={JSON.stringify(code)} class="my-4 overflow-hidden rounded-lg border border-border">
+  <figcaption class="flex items-center justify-between gap-2 border-b border-border bg-surface-alt px-3 py-1.5 text-xs text-muted">
+    <span>{title ?? lang}</span>
+    <span class="flex items-center gap-2">
+      {sampleId && (
+        <span class="rounded bg-accent-soft px-1.5 py-0.5 font-mono text-[11px] text-text" title="Validated sample id">
+          sample={sampleId}
+        </span>
+      )}
+      <button type="button" data-copy-button class="rounded border border-border bg-surface px-2 py-0.5 text-xs text-text hover:bg-surface-alt" aria-label="Copy code to clipboard">
+        Copy
+      </button>
+    </span>
+  </figcaption>
+  <div class="overflow-x-auto" set:html={html}></div>
+  <p data-copy-status role="status" class="sr-only"></p>
+</figure>
+
+<script>
+  for (const figure of document.querySelectorAll<HTMLElement>("[data-codeblock]")) {
+    const button = figure.querySelector<HTMLButtonElement>("[data-copy-button]");
+    const status = figure.querySelector<HTMLElement>("[data-copy-status]");
+    if (!button || !status) continue;
+
+    button.addEventListener("click", async () => {
+      let text: string;
+      try {
+        text = JSON.parse(figure.dataset.code ?? "''");
+      } catch {
+        text = "";
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        button.textContent = "Copied!";
+        status.textContent = "Code copied to clipboard";
+      } catch {
+        status.textContent = "Copy failed — select the code and copy manually";
+      }
+      window.setTimeout(() => {
+        button.textContent = "Copy";
+      }, 2000);
+    });
+  }
+</script>

@@ -16,6 +16,7 @@ All Kilo sessions in this repo inherit these rules. Source of truth for all deci
 
 - All git work on branches named `agent/<role>/<topic>`; open PRs with `gh pr create`; never push to `main` directly.
 - Merge only after the plan's publish gate passes for the task type (CI green + required sign-offs). Only the Orchestrator runs `gh pr merge`.
+- Never block or manually poll while waiting on a PR's CI gate: schedule a recurring cron check (`*/5 * * * *`, `gh pr checks <n>`) that reports only terminal-state transitions (pass → "ready for Orchestrator merge", fail → failing check + log excerpt) and stays silent otherwise.
 
 ## Pipeline pointers
 

@@ -1,0 +1,49 @@
+---
+// Callout — annotated note with type-specific icon and accent. Types: tip,
+// info, warning, danger. Rendered as an aside with role="note" (a11y).
+interface Props {
+  type: "tip" | "info" | "warning" | "danger";
+  title?: string;
+}
+
+const { type, title } = Astro.props;
+
+const styles: Record<Props["type"], { border: string; bg: string; label: string; icon: string }> = {
+  tip: {
+    border: "border-l-success",
+    bg: "bg-success/10",
+    label: "Tip",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0" aria-hidden="true"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.4 1 2.3h6c0-.9.4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg>`
+  },
+  info: {
+    border: "border-l-accent",
+    bg: "bg-accent/10",
+    label: "Info",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>`
+  },
+  warning: {
+    border: "border-l-warning",
+    bg: "bg-warning/10",
+    label: "Warning",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z"/><path d="M12 9v4M12 17h.01"/></svg>`
+  },
+  danger: {
+    border: "border-l-danger",
+    bg: "bg-danger/10",
+    label: "Danger",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>`
+  }
+};
+
+const s = styles[type];
+---
+
+<aside role="note" class={`my-4 rounded-md border border-border border-l-4 ${s.border} ${s.bg} p-4`}>
+  <p class="flex items-center gap-2 text-sm font-semibold">
+    <span class={type === "tip" ? "text-success" : type === "info" ? "text-accent" : type === "warning" ? "text-warning" : "text-danger"} set:html={s.icon}></span>
+    {title ?? s.label}
+  </p>
+  <div class="mt-1.5 text-sm leading-relaxed">
+    <slot />
+  </div>
+</aside>

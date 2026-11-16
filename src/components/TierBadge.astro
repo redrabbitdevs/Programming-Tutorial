@@ -1,0 +1,23 @@
+---
+// TierBadge — difficulty pill for the three track tiers. Palette: green (beginner),
+// blue (intermediate), amber (advanced) — increasing intensity without error connotation.
+interface Props {
+  tier: "beginner" | "intermediate" | "advanced";
+}
+
+const { tier } = Astro.props;
+
+const styles: Record<Props["tier"], string> = {
+  beginner: "bg-success/15 text-success",
+  intermediate: "bg-accent/15 text-accent",
+  advanced: "bg-warning/20 text-warning"
+};
+
+const labels: Record<Props["tier"], string> = {
+  beginner: "Beginner",
+  intermediate: "Intermediate",
+  advanced: "Advanced"
+};
+---
+
+<span class={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${styles[tier]}`}>{labels[tier]}</span>

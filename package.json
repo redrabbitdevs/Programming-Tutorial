@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^8.1.6",
+    "@radix-ui/colors": "^3.0.0",
     "astro": "^7.4.12"
   },
   "devDependencies": {

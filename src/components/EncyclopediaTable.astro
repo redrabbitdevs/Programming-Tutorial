@@ -1,0 +1,157 @@
+---
+// EncyclopediaTable — server-rendered table of compact language records with
+// client-side filter (paradigm / era / status) and sort (name / year). Records are
+// embedded as JSON in data attributes; filtering reorders the existing rows so no
+// network round-trip is needed. A live count announces results to screen readers.
+interface LangRecord {
+  name: string;
+  slug?: string;
+  paradigms: string[];
+  year?: number;
+  era?: string;
+  status: "active" | "legacy" | "historical";
+  hasTrack: boolean;
+}
+
+interface Props {
+  records: LangRecord[];
+}
+
+const { records } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const paradigms = [...new Set(records.flatMap((r) => r.paradigms))].sort();
+const eras = [...new Set(records.map((r) => r.era).filter((e): e is string => Boolean(e)))].sort();
+const statuses: LangRecord["status"][] = ["active", "legacy", "historical"];
+
+const statusStyles: Record<LangRecord["status"], string> = {
+  active: "bg-success/15 text-success",
+  legacy: "bg-surface-alt text-muted",
+  historical: "bg-surface-alt text-muted"
+};
+---
+
+<div data-encyclopedia-table class="overflow-hidden rounded-lg border border-border bg-surface">
+  <div class="flex flex-wrap items-center gap-2 border-b border-border p-3">
+    <select data-filter="paradigm" aria-label="Filter by paradigm" class="h-8 rounded-md border border-border bg-surface px-2 text-sm">
+      <option value="">All paradigms</option>
+      {paradigms.map((p) => (
+        <option value={p}>{p}</option>
+      ))}
+    </select>
+    <select data-filter="era" aria-label="Filter by era" class="h-8 rounded-md border border-border bg-surface px-2 text-sm">
+      <option value="">All eras</option>
+      {eras.map((e) => (
+        <option value={e}>{e}</option>
+      ))}
+    </select>
+    <select data-filter="status" aria-label="Filter by status" class="h-8 rounded-md border border-border bg-surface px-2 text-sm">
+      <option value="">All statuses</option>
+      {statuses.map((s) => (
+        <option value={s}>{s}</option>
+      ))}
+    </select>
+    <select data-sort aria-label="Sort languages" class="ml-auto h-8 rounded-md border border-border bg-surface px-2 text-sm">
+      <option value="name:asc">Name A–Z</option>
+      <option value="name:desc">Name Z–A</option>
+      <option value="year:asc">Year (oldest)</option>
+      <option value="year:desc">Year (newest)</option>
+    </select>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="border-b border-border text-left text-xs uppercase tracking-wide text-muted">
+          <th scope="col" class="px-3 py-2 font-semibold">Name</th>
+          <th scope="col" class="px-3 py-2 font-semibold">Paradigms</th>
+          <th scope="col" class="px-3 py-2 font-semibold">Year</th>
+          <th scope="col" class="px-3 py-2 font-semibold">Era</th>
+          <th scope="col" class="px-3 py-2 font-semibold">Status</th>
+        </tr>
+      </thead>
+      <tbody data-rows>
+        {records.map((record) => (
+          <tr data-record={JSON.stringify(record)} class="border-b border-border/60 last:border-b-0">
+            <td class="px-3 py-2 font-medium">
+              {record.slug ? (
+                <a href={`${base}languages/${record.slug}/`} class="hover:text-accent hover:underline">{record.name}</a>
+              ) : (
+                record.name
+              )}
+              {record.hasTrack && (
+                <span class="ml-2 rounded-full bg-accent px-1.5 py-0.5 text-[11px] font-semibold text-on-accent">Track</span>
+              )}
+            </td>
+            <td class="px-3 py-2 text-muted">{record.paradigms.join(" · ")}</td>
+            <td class="px-3 py-2 tabular-nums text-muted">{record.year ?? "—"}</td>
+            <td class="px-3 py-2 text-muted">{record.era ?? "—"}</td>
+            <td class="px-3 py-2">
+              <span class={`inline-flex rounded-full px-2 py-0.5 text-[11px] font-medium capitalize ${statusStyles[record.status]}`}>{record.status}</span>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p data-count aria-live="polite" class="border-t border-border px-3 py-2 text-xs text-muted"></p>
+</div>
+
+<script>
+  for (const wrap of document.querySelectorAll<HTMLElement>("[data-encyclopedia-table]")) {
+    const tbody = wrap.querySelector<HTMLTableSectionElement>("[data-rows]");
+    if (!tbody) continue;
+    const rows = Array.from(tbody.querySelectorAll<HTMLTableRowElement>("tr"));
+    const data = new Map(rows.map((row) => [row, JSON.parse(row.dataset.record ?? "{}")]));
+    const count = wrap.querySelector<HTMLElement>("[data-count]");
+
+    const filters: Record<string, string> = {};
+    let sortKey = "name";
+    let sortDir = 1;
+
+    const apply = () => {
+      const visibleRows = rows.filter((row) => {
+        const record = data.get(row);
+        if (filters.paradigm && !(record.paradigms ?? []).includes(filters.paradigm)) return false;
+        if (filters.era && record.era !== filters.era) return false;
+        if (filters.status && record.status !== filters.status) return false;
+        return true;
+      });
+
+      visibleRows.sort((a, b) => {
+        const ra = data.get(a);
+        const rb = data.get(b);
+        let result: number;
+        if (sortKey === "year") {
+          const ya = ra.year ?? Number.POSITIVE_INFINITY;
+          const yb = rb.year ?? Number.POSITIVE_INFINITY;
+          result = ya - yb;
+        } else {
+          result = String(ra.name).localeCompare(String(rb.name));
+        }
+        return result * sortDir;
+      });
+
+      for (const row of visibleRows) tbody.appendChild(row);
+      count?.replaceChildren(`${visibleRows.length} of ${rows.length} languages`);
+    };
+
+    for (const select of wrap.querySelectorAll<HTMLSelectElement>("[data-filter]")) {
+      select.addEventListener("change", () => {
+        filters[select.dataset.filter as string] = select.value;
+        apply();
+      });
+    }
+
+    const sortSelect = wrap.querySelector<HTMLSelectElement>("[data-sort]");
+    sortSelect?.addEventListener("change", () => {
+      const [key, dir] = (sortSelect.value ?? "name:asc").split(":");
+      sortKey = key;
+      sortDir = dir === "desc" ? -1 : 1;
+      apply();
+    });
+
+    apply();
+  }
+</script>

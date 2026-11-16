@@ -1,0 +1,107 @@
+---
+// Track layout — track hub for one language: title, progress bars with reset,
+// "Continue learning" link (points at the first uncompleted lesson in curriculum
+// order; updates live as lessons are checked off), and the full curriculum map.
+import Base from "./Base.astro";
+import TierBadge from "../components/TierBadge.astro";
+import TrackProgress from "../components/TrackProgress.astro";
+
+type Tier = "beginner" | "intermediate" | "advanced";
+
+interface LessonRef {
+  slug: string; // full lesson slug, e.g. "beginner/01-hello"
+  title: string;
+}
+
+interface TierSection {
+  tier: Tier;
+  lessons: LessonRef[];
+}
+
+interface Props {
+  lang: string;
+  title?: string;
+  description?: string;
+  tiers: TierSection[];
+}
+
+const { lang, title, description, tiers } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const allLessonIds = tiers.flatMap((tier) => tier.lessons.map((lesson) => lesson.slug));
+const firstHref = allLessonIds.length > 0 ? `${base}learn/${lang}/${allLessonIds[0]}/` : base;
+---
+
+<Base title={`${title ?? lang} track — Programming Tutorial`} description={description}>
+  <div class="mx-auto max-w-6xl px-4 py-8">
+    <header>
+      <h1 class="text-3xl font-bold tracking-tight">{title ?? `${lang[0]?.toUpperCase()}${lang.slice(1)} track`}</h1>
+      {description && <p class="mt-2 max-w-2xl text-muted">{description}</p>}
+    </header>
+
+    <section aria-label="Progress" class="mt-6 max-w-xl">
+      <TrackProgress trackId={lang} tiers={tiers.map((tier) => ({ tier: tier.tier, lessonIds: tier.lessons.map((lesson) => lesson.slug) }))} showReset />
+    </section>
+
+    <p class="mt-6">
+      <a data-continue-link data-continue-order={JSON.stringify(allLessonIds)} data-lang={lang} href={firstHref} class="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-on-accent hover:opacity-90">
+        Continue learning
+        <span aria-hidden="true">→</span>
+      </a>
+    </p>
+
+    {tiers.map((tier) => (
+      <section class="mt-10" aria-label={`${tier.tier} tier`}>
+        <h2 class="flex items-center gap-2 text-xl font-semibold">
+          <TierBadge tier={tier.tier} />
+          <span class="capitalize">{tier.tier}</span>
+        </h2>
+        <ol class="mt-4 space-y-2">
+          {tier.lessons.map((lesson) => (
+            <li>
+              <a href={`${base}learn/${lang}/${lesson.slug}/`} class="pt-card-lift flex items-center justify-between gap-3 rounded-lg border border-border bg-surface px-4 py-3 hover:border-accent">
+                <span class="font-medium text-text">{lesson.title}</span>
+                <span class="text-xs text-muted" data-done-marker={`${lang}/${lesson.slug}`}></span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))}
+  </div>
+</Base>
+
+<script>
+  // "Continue learning" target + per-lesson done markers, both driven by the
+  // pt-progress-v1 localStorage store (see LessonCheckbox / TrackProgress).
+  const KEY = "pt-progress-v1";
+
+  function load(): Record<string, string> {
+    try {
+      return JSON.parse(localStorage.getItem(KEY) ?? "{}");
+    } catch {
+      return {};
+    }
+  }
+
+  for (const link of document.querySelectorAll<HTMLAnchorElement>("[data-continue-link]")) {
+    const lang = link.dataset.lang as string;
+    const order: string[] = JSON.parse(link.dataset.continueOrder ?? "[]");
+
+    const update = () => {
+      if (order.length === 0) return;
+      const store = load();
+      const firstOpen = order.find((slug) => !store[`${lang}/${slug}`]);
+      link.href = `${import.meta.env.BASE_URL}learn/${lang}/${firstOpen ?? order[order.length - 1]}/`;
+    };
+
+    update();
+    document.addEventListener("pt:progress", () => {
+      update();
+      for (const marker of document.querySelectorAll<HTMLElement>("[data-done-marker]")) {
+        const key = marker.dataset.doneMarker as string;
+        marker.textContent = load()[key] ? "✓ Completed" : "";
+      }
+    });
+  }
+</script>

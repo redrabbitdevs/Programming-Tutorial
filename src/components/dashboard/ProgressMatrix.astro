@@ -1,0 +1,79 @@
+---
+// ProgressMatrix — per-language, per-tier completion grid (done/total with a mini
+// bar). Server-rendered snapshot for the /dashboard page (Phase 2); rows are
+// produced from curriculum JSON + published lesson status at build time.
+type Tier = "beginner" | "intermediate" | "advanced";
+
+interface Cell {
+  done: number;
+  total: number;
+}
+
+interface Row {
+  lang: string;
+  tiers: Partial<Record<Tier, Cell>>;
+}
+
+interface Props {
+  rows: Row[];
+}
+
+const { rows } = Astro.props;
+
+const tierColumns: Tier[] = ["beginner", "intermediate", "advanced"];
+
+function cellClass(cell: Cell) {
+  if (cell.total === 0) return "bg-surface-alt";
+  if (cell.done === cell.total) return "bg-success/40";
+  if (cell.done > 0) return "bg-accent/40";
+  return "bg-surface-alt";
+}
+---
+
+{rows.length > 0 ? (
+  <div class="overflow-x-auto rounded-lg border border-border bg-surface">
+    <table class="w-full text-sm">
+      <caption class="sr-only">Track completion by language and tier</caption>
+      <thead>
+        <tr class="border-b border-border text-left text-xs uppercase tracking-wide text-muted">
+          <th scope="col" class="px-3 py-2 font-semibold">Language</th>
+          {tierColumns.map((tier) => (
+            <th scope="col" class="px-3 py-2 font-semibold capitalize">{tier}</th>
+          ))}
+          <th scope="col" class="px-3 py-2 font-semibold">Overall</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => {
+          const totals = tierColumns.flatMap((tier) => row.tiers[tier] ?? []);
+          const done = totals.reduce((n, cell) => n + cell.done, 0);
+          const total = totals.reduce((n, cell) => n + cell.total, 0);
+          const overallPct = total === 0 ? 0 : Math.round((done / total) * 100);
+          return (
+            <tr class="border-b border-border/60 last:border-b-0">
+              <th scope="row" class="px-3 py-2 text-left font-medium capitalize">{row.lang}</th>
+              {tierColumns.map((tier) => {
+                const cell = row.tiers[tier];
+                return (
+                  <td class="px-3 py-2">
+                    {cell ? (
+                      <div class="flex items-center gap-2">
+                        <span class="w-10 tabular-nums text-muted">{cell.done}/{cell.total}</span>
+                        <span class={`h-1.5 w-full max-w-24 overflow-hidden rounded-full ${cellClass(cell)}`} aria-hidden="true"></span>
+                      </div>
+                    ) : (
+                      <span class="text-muted">—</span>
+                    )}
+                  </td>
+                );
+              })}
+              <td class="px-3 py-2 tabular-nums text-muted">{total === 0 ? "—" : `${overallPct}%`}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+) : (
+  <p class="rounded-md border border-border bg-surface p-4 text-sm text-muted">No track progress recorded yet.</p>
+)}

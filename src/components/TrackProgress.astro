@@ -1,0 +1,102 @@
+---
+// TrackProgress — per-tier and overall progress bars for one track, read from the
+// same localStorage store as LessonCheckbox (pt-progress-v1). Bars update live on
+// `pt:progress` events. Optional reset control clears only this track's keys.
+interface TierGroup {
+  tier: "beginner" | "intermediate" | "advanced";
+  lessonIds: string[]; // full slugs, e.g. "beginner/01-hello"
+}
+
+interface Props {
+  trackId: string;
+  tiers: TierGroup[];
+  showReset?: boolean;
+}
+
+const { trackId, tiers, showReset = false } = Astro.props;
+---
+
+<div data-track-progress={trackId} data-tiers={JSON.stringify(tiers)} class="space-y-3" role="group" aria-label={`${trackId} track progress`}>
+  <div>
+    <div class="flex items-center justify-between text-sm">
+      <span class="font-medium">Overall</span>
+      <span data-pct="overall" class="text-muted tabular-nums">0%</span>
+    </div>
+    <div class="mt-1 h-2 overflow-hidden rounded-full bg-surface-alt">
+      <div class="pt-progress-fill h-full rounded-full bg-accent" style="width: 0%" data-fill="overall"></div>
+    </div>
+  </div>
+
+  {tiers.map((group) => (
+    <div>
+      <div class="flex items-center justify-between text-sm">
+        <span class="capitalize text-muted">{group.tier}</span>
+        <span data-pct={group.tier} class="text-muted tabular-nums">0%</span>
+      </div>
+      <div class="mt-1 h-2 overflow-hidden rounded-full bg-surface-alt">
+        <div class="pt-progress-fill h-full rounded-full bg-accent" style="width: 0%" data-fill={group.tier}></div>
+      </div>
+    </div>
+  ))}
+
+  {showReset && (
+    <button type="button" data-progress-reset={trackId} class="text-xs text-muted underline hover:text-text">
+      Reset progress for this track
+    </button>
+  )}
+</div>
+
+<script>
+  const KEY = "pt-progress-v1";
+
+  function load(): Record<string, string> {
+    try {
+      return JSON.parse(localStorage.getItem(KEY) ?? "{}");
+    } catch {
+      return {};
+    }
+  }
+
+  for (const wrap of document.querySelectorAll<HTMLElement>("[data-track-progress]")) {
+    const trackId = wrap.dataset.trackProgress as string;
+    const groups: { tier: string; lessonIds: string[] }[] = JSON.parse(wrap.dataset.tiers ?? "[]");
+
+    const render = () => {
+      const store = load();
+      let doneTotal = 0;
+      let allTotal = 0;
+      for (const group of groups) {
+        const total = group.lessonIds.length;
+        const done = group.lessonIds.filter((id) => Boolean(store[`${trackId}/${id}`])).length;
+        doneTotal += done;
+        allTotal += total;
+        const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+        wrap.querySelector<HTMLElement>(`[data-pct="${group.tier}"]`)?.replaceChildren(`${pct}%`);
+        const fill = wrap.querySelector<HTMLElement>(`[data-fill="${group.tier}"]`);
+        if (fill) fill.style.width = `${pct}%`;
+      }
+      const overallPct = allTotal === 0 ? 0 : Math.round((doneTotal / allTotal) * 100);
+      wrap.querySelector<HTMLElement>('[data-pct="overall"]')?.replaceChildren(`${overallPct}%`);
+      const overallFill = wrap.querySelector<HTMLElement>('[data-fill="overall"]');
+      if (overallFill) overallFill.style.width = `${overallPct}%`;
+    };
+
+    render();
+    document.addEventListener("pt:progress", render);
+
+    const resetBtn = wrap.querySelector<HTMLButtonElement>("[data-progress-reset]");
+    resetBtn?.addEventListener("click", () => {
+      if (!window.confirm(`Reset all saved progress for the ${trackId} track?`)) return;
+      const store = load();
+      for (const key of Object.keys(store)) {
+        if (key.startsWith(`${trackId}/`)) delete store[key];
+      }
+      try {
+        localStorage.setItem(KEY, JSON.stringify(store));
+      } catch {
+        // Storage unavailable: nothing persisted to clear.
+      }
+      document.dispatchEvent(new CustomEvent("pt:progress"));
+    });
+  }
+</script>

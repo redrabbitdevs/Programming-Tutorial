@@ -1,0 +1,43 @@
+---
+// LessonNav — previous/next lesson links with tier badges. Renders a two-column
+// grid so the layout stays balanced when one side is missing.
+import TierBadge from "./TierBadge.astro";
+
+interface NavEntry {
+  title: string;
+  href: string;
+  tier: "beginner" | "intermediate" | "advanced";
+}
+
+interface Props {
+  prev?: NavEntry;
+  next?: NavEntry;
+}
+
+const { prev, next } = Astro.props;
+---
+
+<nav aria-label="Lesson navigation" class="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
+  {prev ? (
+    <a href={prev.href} class="pt-card-lift group rounded-lg border border-border bg-surface p-4 hover:border-accent">
+      <span class="text-xs text-muted">← Previous</span>
+      <span class="mt-1 flex items-center gap-2">
+        <TierBadge tier={prev.tier} />
+        <span class="truncate font-medium text-text group-hover:text-accent">{prev.title}</span>
+      </span>
+    </a>
+  ) : (
+    <span aria-hidden="true" class="hidden sm:block"></span>
+  )}
+  {next ? (
+    <a href={next.href} class="pt-card-lift group rounded-lg border border-border bg-surface p-4 text-right hover:border-accent">
+      <span class="text-xs text-muted">Next →</span>
+      <span class="mt-1 flex items-center justify-end gap-2">
+        <span class="truncate font-medium text-text group-hover:text-accent">{next.title}</span>
+        <TierBadge tier={next.tier} />
+      </span>
+    </a>
+  ) : (
+    <span aria-hidden="true" class="hidden sm:block"></span>
+  )}
+</nav>
