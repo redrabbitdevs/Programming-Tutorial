@@ -324,7 +324,7 @@ for (const [slug, rec] of languageRecords) {
 function routePath(file) {
   // src/pages path -> URL path (index -> directory, dynamic segments kept)
   let p = relative(join(root, 'src/pages'), file).split('\\').join('/')
-  if (p.endsWith('.astro') || p.endsWith('.mdx')) p = p.slice(0, -5)
+  if (p.endsWith('.astro') || p.endsWith('.mdx')) p = p.replace(/\.(astro|mdx)$/, '')
   if (p === 'index' || p.endsWith('/index')) p = p.replace(/\/?index$/, '')
   return '/' + p
 }

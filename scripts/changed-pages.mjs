@@ -39,7 +39,7 @@ if (files.some((f) => SHARED.some((re) => re.test(f)))) {
 // src/pages path -> URL path (index -> directory, dynamic segments kept)
 function routePath(rel) {
   let p = relative(join(root, 'src/pages'), rel).split('\\').join('/')
-  if (p.endsWith('.astro') || p.endsWith('.mdx')) p = p.slice(0, -5)
+  if (p.endsWith('.astro') || p.endsWith('.mdx')) p = p.replace(/\.(astro|mdx)$/, '')
   if (p === 'index' || p.endsWith('/index')) p = p.replace(/\/?index$/, '')
   return '/' + p
 }
