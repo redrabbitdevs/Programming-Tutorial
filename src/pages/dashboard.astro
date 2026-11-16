@@ -1,0 +1,195 @@
+---
+// Dashboard — public pipeline status (linked from footer). Build-time data from
+// committed data/pipeline/*.json + data/curriculum/*.json via import.meta.glob;
+// live open-PR badges via client-side api.github.com with graceful fallback to
+// the committed snapshot when the API is rate-limited or unreachable.
+import Base from "../layouts/Base.astro";
+import TaskBoard from "../components/dashboard/TaskBoard.astro";
+import ActivityFeed from "../components/dashboard/ActivityFeed.astro";
+import ProgressMatrix from "../components/dashboard/ProgressMatrix.astro";
+
+type PipelineTask = {
+  id: string;
+  title?: string;
+  agent?: string;
+  type?: string;
+  lang?: string | null;
+  branch?: string | null;
+  pr?: number | null;
+  status: string;
+};
+
+// Build-time reads (Vite globs — no Node imports needed in the page)
+const tasksModule = import.meta.glob("../../data/pipeline/tasks.json", { eager: true })["../../data/pipeline/tasks.json"] as
+  | { default?: { tasks?: PipelineTask[] } }
+  | undefined;
+const activityRaw = (import.meta.glob("../../data/pipeline/activity.jsonl", { query: "?raw", import: "default", eager: true })[
+  "../../data/pipeline/activity.jsonl"
+] ?? "") as string;
+const curriculumModules = import.meta.glob("../../data/curriculum/*.json", { eager: true });
+
+function loadTasks(): PipelineTask[] {
+  const tasks = tasksModule?.default?.tasks;
+  return Array.isArray(tasks) ? tasks : [];
+}
+
+function loadActivity(): { ts: string; actor: string; action: string; taskId?: string }[] {
+  const entries: { ts: string; actor: string; action: string; taskId?: string }[] = [];
+  for (const line of activityRaw.split("\n")) {
+    if (!line.trim()) continue;
+    try {
+      const e = JSON.parse(line);
+      entries.push({
+        ts: String(e.ts ?? ""),
+        actor: String(e.kind ?? "event"),
+        action: String(e.note ?? ""),
+        taskId: e.taskId ? String(e.taskId) : undefined,
+      });
+    } catch {
+      // skip malformed lines rather than failing the build
+    }
+  }
+  return entries.sort((a, b) => (a.ts < b.ts ? 1 : -1)).slice(0, 30);
+}
+
+const TASK_STATUS_MAP: Record<string, "backlog" | "in-progress" | "review" | "done"> = {
+  backlog: "backlog",
+  assigned: "in-progress",
+  in_progress: "in-progress",
+  review: "review",
+  rejected: "review",
+  approved: "done",
+  published: "done",
+};
+
+const pipelineTasks = loadTasks();
+const boardTasks = pipelineTasks.map((t) => ({
+  id: t.id,
+  title: (t.title ?? `${t.type ?? "task"}${t.lang ? ` · ${t.lang}` : ""}`).concat(t.status === "rejected" ? " (rejected — rework)" : ""),
+  status: TASK_STATUS_MAP[t.status] ?? "backlog",
+  role: t.agent,
+}));
+const activity = loadActivity();
+
+// Progress matrix from committed curriculum JSON (entry status published = done)
+type Tier = "beginner" | "intermediate" | "advanced";
+const TIERS: Tier[] = ["beginner", "intermediate", "advanced"];
+const rows: { lang: string; tiers: Partial<Record<Tier, { done: number; total: number }>> }[] = [];
+for (const [path, mod] of Object.entries(curriculumModules)) {
+  const lang = path.split("/").pop()!.replace(/\.json$/, "");
+  try {
+    const raw = (mod as { default?: { lessons?: { tier?: string; status?: string }[] } }).default;
+    if (!Array.isArray(raw?.lessons)) continue;
+    const tiers: Partial<Record<Tier, { done: number; total: number }>> = {};
+    for (const tier of TIERS) {
+      const entries = raw.lessons.filter((l) => l.tier === tier);
+      if (!entries.length) continue;
+      tiers[tier] = {
+        total: entries.length,
+        done: entries.filter((l) => l.status === "published").length,
+      };
+    }
+    rows.push({ lang, tiers });
+  } catch {
+    // invalid curriculum JSON is reported by validate.mjs; skip here
+  }
+}
+
+const snapshotPrs = pipelineTasks.filter((t) => t.pr != null);
+---
+
+<Base title="Pipeline dashboard" description="Live status of the content pipeline — task board, activity timeline, track progress, and open pull requests.">
+  <div class="mx-auto max-w-6xl px-4 py-12 sm:py-16">
+    <header class="pt-fade-up">
+      <h1 class="text-3xl font-bold tracking-tight">Pipeline dashboard</h1>
+      <p class="mt-2 max-w-2xl text-sm text-muted">
+        Live status of the content pipeline — task board, activity timeline, and track progress. Data is committed to
+        <code class="font-mono text-xs">data/pipeline/</code> and rendered at build time; PR badges refresh from the GitHub API when available.
+      </p>
+    </header>
+
+    <section class="pt-fade-up mt-10" aria-labelledby="prs-h">
+      <h2 id="prs-h" class="text-xl font-semibold">Open pull requests</h2>
+      <div id="pr-list" class="mt-3 space-y-2" data-repo="redrabbitdevs/Programming-Tutorial">
+        {snapshotPrs.length > 0 ? (
+          snapshotPrs.map((t) => (
+            <p class="rounded-md border border-border bg-surface p-3 text-sm">
+              <a href={`https://github.com/redrabbitdevs/Programming-Tutorial/pull/${t.pr}`} class="font-medium underline decoration-accent underline-offset-2">
+                PR #{t.pr}
+              </a>
+              <span class="text-muted"> — {t.title ?? t.id}</span>
+            </p>
+          ))
+        ) : (
+          <p class="rounded-md border border-border bg-surface p-3 text-sm text-muted" id="pr-empty">No open pull requests recorded.</p>
+        )}
+      </div>
+      <p id="pr-fallback-note" class="mt-2 hidden text-xs text-muted">
+        Live PR data unavailable (GitHub API rate limit or offline) — showing the committed snapshot from the last build.
+      </p>
+    </section>
+
+    <section class="pt-fade-up mt-10" aria-labelledby="board-h">
+      <h2 id="board-h" class="text-xl font-semibold">Task board</h2>
+      <div class="mt-3">
+        <TaskBoard tasks={boardTasks} />
+      </div>
+    </section>
+
+    <section class="pt-fade-up mt-10 grid gap-10 lg:grid-cols-2" aria-label="Progress and activity">
+      <div>
+        <h2 class="text-xl font-semibold">Track progress</h2>
+        <div class="mt-3">
+          <ProgressMatrix rows={rows} />
+        </div>
+      </div>
+      <div>
+        <h2 class="text-xl font-semibold">Recent activity</h2>
+        <div class="mt-3">
+          <ActivityFeed entries={activity} />
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Live PR badges: client-side fetch to the public GitHub API (unauthenticated,
+    // 60 req/h). On any failure keep the committed snapshot and show a note.
+    const list = document.querySelector<HTMLDivElement>("#pr-list");
+    if (list) {
+      const repo = list.dataset.repo ?? "redrabbitdevs/Programming-Tutorial";
+      fetch(`https://api.github.com/repos/${repo}/pulls?state=open&per_page=20`, {
+        headers: { Accept: "application/vnd.github+json" },
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+          return res.json();
+        })
+        .then((prs: { number: number; title: string; html_url: string }[]) => {
+          list.textContent = "";
+          for (const pr of prs) {
+            const p = document.createElement("p");
+            p.className = "rounded-md border border-border bg-surface p-3 text-sm";
+            const a = document.createElement("a");
+            a.href = pr.html_url;
+            a.textContent = `PR #${pr.number}`;
+            a.className = "font-medium underline decoration-accent underline-offset-2";
+            const span = document.createElement("span");
+            span.className = "text-muted";
+            span.textContent = ` — ${pr.title}`;
+            p.append(a, span);
+            list.appendChild(p);
+          }
+          if (!prs.length) {
+            const p = document.createElement("p");
+            p.className = "rounded-md border border-border bg-surface p-3 text-sm text-muted";
+            p.textContent = "No open pull requests.";
+            list.appendChild(p);
+          }
+        })
+        .catch(() => {
+          document.querySelector<HTMLParagraphElement>("#pr-fallback-note")?.classList.remove("hidden");
+        });
+    }
+  </script>
+</Base>

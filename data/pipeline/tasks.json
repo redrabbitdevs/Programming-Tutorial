@@ -1,0 +1,201 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "T-001",
+      "title": "Author data/curriculum/python.json (~28 lessons, 3 tiers incl. capstone)",
+      "agent": "curriculum-architect",
+      "type": "lesson",
+      "lang": "python",
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    },
+    {
+      "id": "T-002",
+      "title": "Python batch 1 — beginner part 1 (6 lessons)",
+      "agent": "lesson-writer",
+      "type": "lesson",
+      "lang": "python",
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    },
+    {
+      "id": "T-003",
+      "title": "Python batch 2 — beginner part 2 + intermediate start (6 lessons)",
+      "agent": "lesson-writer",
+      "type": "lesson",
+      "lang": "python",
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    },
+    {
+      "id": "T-004",
+      "title": "Python batch 3 — intermediate core: data structures, complexity, algorithms (6 lessons)",
+      "agent": "lesson-writer",
+      "type": "lesson",
+      "lang": "python",
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    },
+    {
+      "id": "T-005",
+      "title": "Python batch 4 — advanced part 1 (5 lessons)",
+      "agent": "lesson-writer",
+      "type": "lesson",
+      "lang": "python",
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    },
+    {
+      "id": "T-006",
+      "title": "Python batch 5 — advanced part 2 + capstone project (5 lessons)",
+      "agent": "lesson-writer",
+      "type": "lesson",
+      "lang": "python",
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    },
+    {
+      "id": "T-007",
+      "title": "/learn/python/ track hub page (tier list, progress bars, continue learning)",
+      "agent": "design-engineer",
+      "type": "design",
+      "lang": "python",
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    },
+    {
+      "id": "T-008",
+      "title": "Python encyclopedia entry — data/languages/python.json + src/content/languages/python.mdx",
+      "agent": "reference-curator",
+      "type": "encyclopedia",
+      "lang": "python",
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    },
+    {
+      "id": "T-009",
+      "title": "Full ~900+ language roadmap — data/languages/<slug>.json records (Wikipedia + TIOBE sourced)",
+      "agent": "reference-curator",
+      "type": "encyclopedia",
+      "lang": null,
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    },
+    {
+      "id": "T-010",
+      "title": "/languages/ index page — client-side filter/sort over embedded compact JSON",
+      "agent": "design-engineer",
+      "type": "design",
+      "lang": null,
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    },
+    {
+      "id": "T-011",
+      "title": "Encyclopedia batch 1 — top-35 TIOBE language pages (incl. Python, TypeScript)",
+      "agent": "reference-curator",
+      "type": "encyclopedia",
+      "lang": null,
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    },
+    {
+      "id": "T-012",
+      "title": "Encyclopedia batches 2+ — remaining roadmap pages (lighter encyclopedia gate)",
+      "agent": "reference-curator",
+      "type": "encyclopedia",
+      "lang": null,
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    },
+    {
+      "id": "T-013",
+      "title": "Pilot release prep — OG images, sitemap, robots.txt verified, Pagefind index built",
+      "agent": "site-ops",
+      "type": "infra",
+      "lang": null,
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    },
+    {
+      "id": "T-014",
+      "title": "Pilot release — full e2e green, final pass, merge + deploy + smoke test, README pipeline docs",
+      "agent": "orchestrator",
+      "type": "infra",
+      "lang": null,
+      "branch": null,
+      "pr": null,
+      "status": "backlog",
+      "updatedAt": "2026-11-16T10:15:57Z",
+      "history": [
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+      ]
+    }
+  ]
+}
