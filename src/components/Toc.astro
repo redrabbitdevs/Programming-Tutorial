@@ -22,7 +22,7 @@ const { headings } = Astro.props;
     <ul class="mt-2 space-y-1 border-l border-border">
       {headings.map((heading) => (
         <li style={`padding-left: ${Math.max(0, heading.depth - 2) * 0.75}rem`}>
-          <a href={`#${heading.slug}`} data-toc-link={heading.slug} class="pt-toc-link -ml-px block border-l-2 border-transparent py-0.5 text-muted hover:text-text">
+          <a href={`#${heading.slug}`} data-toc-link={heading.slug} class="pt-toc-link -ml-px block border-l-2 border-transparent py-0.5 pl-3 text-muted hover:text-text">
             {heading.text}
           </a>
         </li>
