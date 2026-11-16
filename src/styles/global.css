@@ -67,14 +67,31 @@ body {
 
 /* Shiki dual-theme (css-vars rendering): light values are applied inline by
    default; each token also carries its dark value in --shiki-dark. Swap them
-   when the site theme is dark. Covers both markdown-pipeline code blocks and
-   the CodeBlock component (same shiki config). */
-[data-theme="dark"] .astro-code {
+   when the site theme is dark. Markdown-pipeline blocks carry `astro-code`
+   (Astro rewrites the shiki class name); the CodeBlock component renders raw
+   shiki output, so both selectors are needed. */
+[data-theme="dark"] .astro-code,
+[data-theme="dark"] [data-codeblock] pre {
   background-color: var(--shiki-dark-bg) !important;
 }
 
-[data-theme="dark"] .astro-code span[style*="--shiki-dark"] {
+[data-theme="dark"] .astro-code span[style*="--shiki-dark"],
+[data-theme="dark"] [data-codeblock] pre span[style*="--shiki-dark"] {
   color: var(--shiki-dark) !important;
+}
+
+/* CodeBlock matches the markdown pipeline's wrap behavior (wrap: true in
+   astro.config.mjs applies these properties to the <pre>). */
+[data-codeblock] pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* A CodeBlock nested in a Tabs panel sits flush under the tab strip instead
+   of floating as a second framed box (see components/Tabs.astro). */
+.pt-tabpanel > [data-codeblock] {
+  margin: 0;
+  border: 0;
 }
 
 /* Search dialog backdrop. */
@@ -86,6 +103,15 @@ body {
 .pt-toc-link.pt-toc-active {
   border-left-color: var(--token-accent);
   color: var(--token-text);
+}
+
+/* Anchor targets clear the sticky header when jumped to from the TOC
+   (offset matches the `top-20` sticky position in layouts). */
+section[id],
+h1[id],
+h2[id],
+h3[id] {
+  scroll-margin-top: 5rem;
 }
 
 /* Map Pagefind UI to the site tokens so search follows the active theme. */
