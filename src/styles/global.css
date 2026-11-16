@@ -87,6 +87,14 @@ body {
   word-wrap: break-word;
 }
 
+/* Shiki emits no padding of its own; inset code text from frame edges. Covers
+   standalone CodeBlock, blocks nested in Tabs panels, and pipeline output. */
+[data-codeblock] pre,
+.astro-code,
+.pt-tabpanel pre {
+  padding: 0.75rem 1rem;
+}
+
 /* A CodeBlock nested in a Tabs panel sits flush under the tab strip instead
    of floating as a second framed box (see components/Tabs.astro). */
 .pt-tabpanel > [data-codeblock] {
