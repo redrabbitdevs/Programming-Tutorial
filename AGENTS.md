@@ -16,7 +16,7 @@ All Kilo sessions in this repo inherit these rules. Source of truth for all deci
 
 - All git work on branches named `agent/<role>/<topic>`; open PRs with `gh pr create`; never push to `main` directly.
 - Auto-merge on green: when a PR's required gate check (`check + validate + build`) passes, the session watching the CI gate runs `gh pr merge <n> --squash --admin` immediately — no manual approval step. Task-type sign-offs (publish gate) must be posted in the PR before its final push, so CI green on the final commit is the merge trigger.
-- Never block or manually poll while waiting on a PR's CI gate: schedule a recurring cron check (`*/5 * * * *`, `gh pr checks <n>`) that acts only on terminal-state transitions (pass → post result + auto-merge, fail → failing check + log excerpt) and stays silent otherwise.
+- Never block, manually poll, or run a persistent polling cron while waiting on a PR's CI gate. Monitoring is on-demand: when you open (or push to) a PR, schedule a one-shot `schedule_wakeup` (~3–5 min out) to check the gate; on each wakeup re-arm another only while the PR is still pending — pass → post result + auto-merge (`gh pr merge <n> --squash --admin`) and stop; fail → post failing check name(s) + log excerpt and stop; PR closed/merged → stop.
 
 ## Pipeline pointers
 

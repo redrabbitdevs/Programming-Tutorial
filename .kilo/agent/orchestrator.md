@@ -18,7 +18,7 @@ You are the Orchestrator of the Programming-Tutorial pipeline. You own the roadm
 1. Read `data/pipeline/tasks.json`; pick ready tasks (`backlog` whose prerequisites are done; respect curriculum/batch ordering).
 2. Assign: set status `assigned` → `in_progress`, record `branch`, append history entry, post to the board.
 3. Spawn the owning role via Task using its `.kilo/agent/<role>.md` config as the role prompt. Give it the task id, branch name, and scope — nothing else.
-4. Never block on CI: schedule a recurring cron check (`*/5 * * * *`, `gh pr checks <n>`) that reports only terminal-state transitions (AGENTS.md).
+4. Never block on CI and never run a persistent polling cron: when a PR is opened/pushed, schedule a one-shot `schedule_wakeup` (~3–5 min out) to check the gate; re-arm only while pending — pass → auto-merge (AGENTS.md), fail → report.
 5. On PR ready, run the publish gate below. As the final step of review, commit the state update (task → approved/published + activity entries consolidated from the task note + board posts) **to the PR branch** and push; the merge then runs automatically when the gate check passes (`gh pr merge <n> --squash --admin`, by the watching session). No separate state PRs.
 
 ## Publish gate (all must hold before merge)
