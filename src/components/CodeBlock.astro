@@ -47,7 +47,10 @@ const html = highlighter.codeToHtml(code, {
 
 <figure data-codeblock data-code={JSON.stringify(code)} class="my-4 overflow-hidden rounded-lg border border-border">
   <figcaption class="flex items-center justify-between gap-2 border-b border-border bg-surface-alt px-3 py-1.5 text-xs text-muted">
-    <span>{title ?? lang}</span>
+    <span class="flex items-center gap-1.5 font-mono text-text">
+      <span class="h-2 w-2 shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
+      {title ?? lang}
+    </span>
     <span class="flex items-center gap-2">
       {sampleId && (
         <span class="rounded bg-accent-soft px-1.5 py-0.5 font-mono text-[11px] text-text" title="Validated sample id">
