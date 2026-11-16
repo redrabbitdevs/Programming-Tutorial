@@ -1,0 +1,50 @@
+---
+// TaskBoard — pipeline task board grouped into status columns (backlog,
+// in-progress, review, done). Server-rendered from props; the /dashboard page
+// (Phase 2) feeds it tasks.json state.
+interface Task {
+  id: string;
+  title: string;
+  status: "backlog" | "in-progress" | "review" | "done";
+  role?: string;
+}
+
+interface Props {
+  tasks: Task[];
+}
+
+const { tasks } = Astro.props;
+
+const columns: { status: Task["status"]; label: string }[] = [
+  { status: "backlog", label: "Backlog" },
+  { status: "in-progress", label: "In progress" },
+  { status: "review", label: "Review" },
+  { status: "done", label: "Done" }
+];
+---
+
+<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+  {columns.map((column) => {
+    const items = tasks.filter((task) => task.status === column.status);
+    return (
+      <section aria-label={`${column.label} (${items.length})`} class="rounded-lg border border-border bg-surface p-3">
+        <h3 class="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-muted">
+          {column.label}
+          <span class="tabular-nums">{items.length}</span>
+        </h3>
+        <ul class="mt-2 space-y-2">
+          {items.map((task) => (
+            <li class="rounded-md border border-border bg-bg p-2.5 text-sm">
+              <p class="font-medium leading-snug">{task.title}</p>
+              <p class="mt-1 flex items-center justify-between gap-2 text-xs text-muted">
+                <span class="font-mono">{task.id}</span>
+                {task.role && <span>{task.role}</span>}
+              </p>
+            </li>
+          ))}
+          {items.length === 0 && <li class="text-xs text-muted">Empty</li>}
+        </ul>
+      </section>
+    );
+  })}
+</div>

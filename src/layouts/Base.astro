@@ -1,0 +1,64 @@
+---
+// Base layout — document shell for every page: head (meta, canonical, pre-paint
+// theme script), SkipLink, Header, main landmark, Footer. All pages import this.
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SkipLink from "../components/SkipLink.astro";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Programming Tutorial",
+  description = "Learn programming from beginner to advanced, across every major language — validated code samples, on-device progress tracking, and a 900+ language encyclopedia."
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const base = import.meta.env.BASE_URL;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <script is:inline>
+      // Pre-paint theme: resolves the stored mode (pt-theme: system|light|dark)
+      // before first paint so there is no flash of the wrong theme. Mirrors
+      // src/scripts-islands/theme.js — keep both in sync.
+      (function () {
+        try {
+          const modes = ["system", "light", "dark"];
+          const stored = localStorage.getItem("pt-theme");
+          const mode = modes.indexOf(stored) !== -1 ? stored : "system";
+          const dark = mode === "dark" || (mode === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+          const root = document.documentElement;
+          root.dataset.theme = dark ? "dark" : "light";
+          root.classList.toggle("dark", dark);
+          if (mode === "system") {
+            window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+              const d = e.matches;
+              document.documentElement.dataset.theme = d ? "dark" : "light";
+              document.documentElement.classList.toggle("dark", d);
+            });
+          }
+        } catch { /* storage or matchMedia unavailable: default light theme stays */ }
+      })();
+    </script>
+  </head>
+  <body class="flex min-h-screen flex-col bg-bg text-text">
+    <SkipLink />
+    <Header />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

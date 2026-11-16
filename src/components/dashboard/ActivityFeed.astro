@@ -1,0 +1,35 @@
+---
+// ActivityFeed — chronological feed of pipeline events (newest first), rendered
+// from the activity.jsonl log by the /dashboard page (Phase 2). Timestamps are
+// formatted client-locale via Intl at render time (build-time is fine for a
+// static snapshot).
+interface Entry {
+  ts: string; // ISO timestamp
+  actor: string;
+  action: string;
+  taskId?: string;
+}
+
+interface Props {
+  entries: Entry[];
+}
+
+const { entries } = Astro.props;
+
+const formatter = new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" });
+---
+
+{entries.length > 0 ? (
+  <ol class="space-y-2">
+    {entries.map((entry) => (
+      <li class="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 rounded-md border border-border bg-surface p-3 text-sm">
+        <time datetime={entry.ts} class="shrink-0 text-xs tabular-nums text-muted">{formatter.format(new Date(entry.ts))}</time>
+        <span class="font-medium">{entry.actor}</span>
+        <span class="text-muted">{entry.action}</span>
+        {entry.taskId && <span class="ml-auto font-mono text-xs text-muted">{entry.taskId}</span>}
+      </li>
+    ))}
+  </ol>
+) : (
+  <p class="rounded-md border border-border bg-surface p-4 text-sm text-muted">No activity recorded yet.</p>
+)}

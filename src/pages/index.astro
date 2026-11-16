@@ -1,20 +1,36 @@
 ---
-// Phase 0 scaffold placeholder — replaced by the Phase 1 design system.
-import '../styles/global.css'
+// Home — hero + entry points. The full language directory and featured tracks are
+// populated as curriculum/encyclopedia data lands (Phases 4–6); until then this is
+// the branded shell on the Base layout.
+import Base from "../layouts/Base.astro";
+
+const base = import.meta.env.BASE_URL;
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Programming Tutorial</title>
-  </head>
-  <body class="flex min-h-screen items-center justify-center bg-white text-black">
-    <main class="text-center">
-      <h1 class="text-3xl font-bold">Programming Tutorial</h1>
-      <p class="mt-2 text-neutral-600">
-        Phase 0 scaffold — Astro 5 + MDX + Tailwind v4.
+<Base>
+  <div class="mx-auto max-w-6xl px-4 py-16 sm:py-24">
+    <section class="pt-fade-up max-w-3xl">
+      <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Learn programming, end to end.</h1>
+      <p class="mt-4 text-lg text-muted">
+        Beginner-to-advanced tracks for every major language — code samples validated in CI, progress saved on your device, and a
+        900+ language encyclopedia.
       </p>
-    </main>
-  </body>
-</html>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={`${base}docs/design-system/`} class="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-on-accent hover:opacity-90">
+          Design system
+        </a>
+        <a href={`${base}dashboard/`} class="rounded-md border border-border bg-surface px-4 py-2 text-sm font-semibold text-text hover:bg-surface-alt">
+          Pipeline dashboard
+        </a>
+      </div>
+    </section>
+
+    <section class="pt-fade-up mt-16" aria-labelledby="tracks-h">
+      <h2 id="tracks-h" class="text-xl font-semibold">Tracks</h2>
+      <p class="mt-2 max-w-2xl text-sm text-muted">
+        Full beginner → intermediate → advanced tracks ship as each language completes the pipeline. The Python track is first —
+        more languages follow in TIOBE order.
+      </p>
+    </section>
+  </div>
+</Base>

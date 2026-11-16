@@ -1,0 +1,28 @@
+---
+// SearchBar — Pagefind search UI. Initializes PagefindUI on mount with the site
+// base path (GitHub Pages subpath). In dev mode the index does not exist yet, so
+// a fallback message is shown instead. The pagefind assets are only loaded in
+// production builds (see Header.astro), which also guards against 404s in dev.
+---
+
+<div data-searchbar class="w-full">
+  <div id="pt-search-root" class="w-full"></div>
+  <p data-search-fallback hidden class="rounded-md border border-border bg-surface-alt p-3 text-sm text-muted">
+    Search is available after a production build (the Pagefind index is generated in
+    <code class="font-mono">postbuild</code>).
+  </p>
+</div>
+
+<script>
+  const root = document.getElementById("pt-search-root");
+  const fallback = document.querySelector<HTMLElement>("[data-search-fallback]");
+  if (root && fallback) {
+    const PagefindUI = (window as unknown as { PagefindUI?: new (options: object) => void }).PagefindUI;
+    if (PagefindUI) {
+      new PagefindUI({ element: root, baseUrl: import.meta.env.BASE_URL });
+    } else {
+      root.hidden = true;
+      fallback.hidden = false;
+    }
+  }
+</script>

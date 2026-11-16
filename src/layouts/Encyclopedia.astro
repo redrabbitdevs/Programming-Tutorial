@@ -1,0 +1,76 @@
+---
+// Encyclopedia layout — shell for one language page: back link, name, status and
+// metadata badges (paradigms, year, era, TIOBE rank), then the MDX body.
+import Base from "./Base.astro";
+
+type Status = "active" | "legacy" | "historical";
+
+interface Props {
+  name: string;
+  slug: string;
+  status?: Status;
+  paradigms?: string[];
+  year?: number;
+  era?: string;
+  tiobeRank?: number;
+  hasTrack?: boolean;
+}
+
+const { name, slug, status = "active", paradigms = [], year, era, tiobeRank, hasTrack = false } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const statusStyles: Record<Status, string> = {
+  active: "bg-success/15 text-success",
+  legacy: "bg-surface-alt text-muted",
+  historical: "bg-surface-alt text-muted"
+};
+---
+
+<Base title={`${name} — Programming Tutorial encyclopedia`} description={`${name}: paradigms, history, and status. Part of the Programming Tutorial language encyclopedia.`}>
+  <article class="mx-auto max-w-4xl px-4 py-8">
+    <header>
+      <a href={`${base}languages/`} class="text-sm text-muted hover:text-text hover:underline">
+        ← All languages
+      </a>
+      <div class="mt-3 flex flex-wrap items-center gap-2">
+        <h1 class="text-3xl font-bold tracking-tight">{name}</h1>
+        <span class={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize ${statusStyles[status]}`}>{status}</span>
+        {hasTrack && (
+          <a href={`${base}learn/${slug}/`} class="rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold text-on-accent hover:opacity-90">
+            Full track →
+          </a>
+        )}
+      </div>
+      <dl class="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-muted">
+        {paradigms.length > 0 && (
+          <div class="flex gap-1.5">
+            <dt class="font-medium">Paradigms:</dt>
+            <dd>{paradigms.join(" · ")}</dd>
+          </div>
+        )}
+        {year && (
+          <div class="flex gap-1.5">
+            <dt class="font-medium">First appeared:</dt>
+            <dd>{year}</dd>
+          </div>
+        )}
+        {era && (
+          <div class="flex gap-1.5">
+            <dt class="font-medium">Era:</dt>
+            <dd>{era}</dd>
+          </div>
+        )}
+        {tiobeRank && (
+          <div class="flex gap-1.5">
+            <dt class="font-medium">TIOBE rank:</dt>
+            <dd>#{tiobeRank}</dd>
+          </div>
+        )}
+      </dl>
+    </header>
+
+    <div class="mt-8">
+      <slot />
+    </div>
+  </article>
+</Base>

@@ -1,0 +1,86 @@
+---
+// Tabs — multi-language snippet switcher (WAI-ARIA tabs pattern, automatic
+// activation on arrow keys). Each tab either carries pre-rendered `html` or
+// falls back to a named slot (`slot="tab-0"`, …) so lessons can nest CodeBlock
+// instances. A module counter keeps ids unique when a page has several groups.
+interface Tab {
+  label: string;
+  html?: string;
+}
+
+interface Props {
+  tabs: Tab[];
+  ariaLabel?: string;
+}
+
+const { tabs, ariaLabel = "Code examples" } = Astro.props;
+
+let tabGroupCounter = 0;
+tabGroupCounter += 1;
+const uid = `tabs-${tabGroupCounter}`;
+---
+
+<div data-tabs class="my-4 overflow-hidden rounded-lg border border-border">
+  <div role="tablist" aria-label={ariaLabel} class="flex flex-wrap gap-1 bg-surface-alt p-1.5">
+    {tabs.map((tab, i) => (
+      <button
+        role="tab"
+        id={`${uid}-tab-${i}`}
+        aria-selected={i === 0 ? "true" : "false"}
+        aria-controls={`${uid}-panel-${i}`}
+        tabindex={i === 0 ? 0 : -1}
+        data-tab-index={i}
+        class="rounded-md px-3 py-1.5 text-sm font-medium text-muted hover:text-text"
+      >
+        {tab.label}
+      </button>
+    ))}
+  </div>
+  {tabs.map((tab, i) => (
+    <div role="tabpanel" id={`${uid}-panel-${i}`} aria-labelledby={`${uid}-tab-${i}`} hidden={i !== 0} class="pt-tabpanel bg-surface">
+      {tab.html ? (
+        <div set:html={tab.html}></div>
+      ) : (
+        <slot name={`tab-${i}`} />
+      )}
+    </div>
+  ))}
+</div>
+
+<script>
+  const ACTIVE = "bg-surface text-text shadow-sm";
+  const INACTIVE = "text-muted hover:text-text";
+
+  for (const group of document.querySelectorAll<HTMLElement>("[data-tabs]")) {
+    const tabs = Array.from(group.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = Array.from(group.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
+
+    const select = (index: number) => {
+      tabs.forEach((tab, i) => {
+        tab.setAttribute("aria-selected", String(i === index));
+        tab.tabIndex = i === index ? 0 : -1;
+        tab.classList.toggle(ACTIVE, i === index);
+        tab.classList.toggle(INACTIVE, i !== index);
+        panels[i].hidden = i !== index;
+      });
+    };
+
+    select(0);
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => select(i));
+      tab.addEventListener("keydown", (e: KeyboardEvent) => {
+        let next: number | null = null;
+        if (e.key === "ArrowRight") next = (i + 1) % tabs.length;
+        else if (e.key === "ArrowLeft") next = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === "Home") next = 0;
+        else if (e.key === "End") next = tabs.length - 1;
+        if (next !== null) {
+          e.preventDefault();
+          select(next);
+          tabs[next].focus();
+        }
+      });
+    });
+  }
+</script>

@@ -1,0 +1,295 @@
+---
+// /docs/design-system — internal widget reference (Phase 1). Every design-system
+// component demonstrated live; doubles as visual QA for both themes. Not part of
+// the public site nav beyond the header link.
+import Base from "../../layouts/Base.astro";
+import Toc from "../../components/Toc.astro";
+import Callout from "../../components/Callout.astro";
+import TierBadge from "../../components/TierBadge.astro";
+import CodeBlock from "../../components/CodeBlock.astro";
+import Tabs from "../../components/Tabs.astro";
+import LessonCheckbox from "../../components/LessonCheckbox.astro";
+import TrackProgress from "../../components/TrackProgress.astro";
+import LessonNav from "../../components/LessonNav.astro";
+import LanguageCard from "../../components/LanguageCard.astro";
+import SearchBar from "../../components/SearchBar.astro";
+import EncyclopediaTable from "../../components/EncyclopediaTable.astro";
+import TaskBoard from "../../components/dashboard/TaskBoard.astro";
+import ActivityFeed from "../../components/dashboard/ActivityFeed.astro";
+import ProgressMatrix from "../../components/dashboard/ProgressMatrix.astro";
+
+const base = import.meta.env.BASE_URL;
+
+type Status = "active" | "legacy" | "historical";
+interface SampleRecord {
+  name: string;
+  slug?: string;
+  paradigms: string[];
+  year?: number;
+  era?: string;
+  status: Status;
+  hasTrack: boolean;
+}
+type TaskStatus = "backlog" | "in-progress" | "review" | "done";
+interface SampleTask {
+  id: string;
+  title: string;
+  status: TaskStatus;
+  role?: string;
+}
+
+const headings = [
+  { depth: 2, slug: "overview", text: "Overview" },
+  { depth: 2, slug: "tokens", text: "Tokens" },
+  { depth: 2, slug: "callouts", text: "Callouts" },
+  { depth: 2, slug: "badges", text: "Badges" },
+  { depth: 2, slug: "code-blocks", text: "Code blocks & tabs" },
+  { depth: 2, slug: "progress", text: "Progress tracking" },
+  { depth: 2, slug: "navigation", text: "Lesson navigation" },
+  { depth: 2, slug: "language-cards", text: "Language cards" },
+  { depth: 2, slug: "search", text: "Search" },
+  { depth: 2, slug: "encyclopedia-table", text: "Encyclopedia table" },
+  { depth: 2, slug: "dashboard-widgets", text: "Dashboard widgets" },
+  { depth: 2, slug: "animations", text: "Animation" }
+];
+
+const sampleRecords: SampleRecord[] = [
+  { name: "Python", slug: "python", paradigms: ["multi-paradigm"], year: 1991, era: "modern", status: "active", hasTrack: true },
+  { name: "C", slug: "c", paradigms: ["imperative"], year: 1972, era: "classic", status: "active", hasTrack: false },
+  { name: "Java", slug: "java", paradigms: ["object-oriented"], year: 1995, era: "modern", status: "active", hasTrack: false },
+  { name: "Fortran", slug: "fortran", paradigms: ["imperative", "procedural"], year: 1957, era: "classic", status: "legacy", hasTrack: false },
+  { name: "COBOL", slug: "cobol", paradigms: ["imperative"], year: 1959, era: "classic", status: "legacy", hasTrack: false },
+  { name: "Rust", slug: "rust", paradigms: ["multi-paradigm"], year: 2010, era: "modern", status: "active", hasTrack: false },
+  { name: "Scratch", slug: "scratch", paradigms: ["visual"], year: 2007, era: "modern", status: "active", hasTrack: false },
+  { name: "ABAP", slug: "abap", paradigms: ["procedural"], year: 1983, era: "classic", status: "legacy", hasTrack: false }
+];
+
+const demoTasks: SampleTask[] = [
+  { id: "task-001", title: "Scaffold Astro site + CI/CD", status: "done", role: "Site Ops" },
+  { id: "task-002", title: "Design system + widgets", status: "in-progress", role: "Design Engineer" },
+  { id: "task-003", title: "Pipeline infrastructure + dashboard", status: "backlog", role: "Site Ops" },
+  { id: "task-004", title: "Python track: fundamentals batch 1", status: "review", role: "Lesson Writer" },
+  { id: "task-005", title: "Top-35 TIOBE encyclopedia pages", status: "backlog", role: "Reference Curator" }
+];
+
+const demoActivity = [
+  { ts: "2026-11-16T07:40:00Z", actor: "Orchestrator", action: "merged PR #1 (repo foundation) to main", taskId: "task-001" },
+  { ts: "2026-11-16T07:55:00Z", actor: "Design Engineer", action: "opened design-system branch with tokens + widgets", taskId: "task-002" },
+  { ts: "2026-11-16T08:10:00Z", actor: "Lesson Writer", action: "submitted Python fundamentals batch 1 for review", taskId: "task-004" }
+];
+
+const demoMatrix = [
+  { lang: "python", tiers: { beginner: { done: 10, total: 10 }, intermediate: { done: 6, total: 10 }, advanced: { done: 2, total: 8 } } },
+  { lang: "javascript", tiers: { beginner: { done: 4, total: 10 }, intermediate: { done: 0, total: 10 } } }
+];
+
+const pythonSample = `def greet(name: str) -> str:
+    """Return a greeting for the given name."""
+    return f"Hello, {name}!"
+
+
+print(greet("world"))`;
+
+const jsSample = `function greet(name) {
+  return \`Hello, \${name}!\`;
+}
+
+console.log(greet("world"));`;
+---
+
+<Base title="Design system — Programming Tutorial">
+  <div class="mx-auto max-w-6xl px-4 py-8">
+    <header>
+      <h1 class="text-3xl font-bold tracking-tight">Design system</h1>
+      <p class="mt-2 max-w-2xl text-muted">
+        Internal reference for the site's tokens and widgets. Every component below is rendered live — switch themes with the
+        toggle in the header to verify both palettes. This page is not part of the public content; it documents Phase 1 of the
+        build plan.
+      </p>
+    </header>
+
+    <div class="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_240px]">
+      <div class="min-w-0 space-y-12">
+        <section id="overview" aria-labelledby="overview-h">
+          <h2 id="overview-h" class="text-xl font-semibold">Overview</h2>
+          <p class="mt-2 text-sm leading-relaxed text-muted">
+            The design system is built on semantic tokens mapped from <code class="font-mono">@radix-ui/colors</code> scale pairs
+            (WCAG-safe light/dark), exposed as Tailwind v4 utilities (<code class="font-mono">bg-bg</code>,
+            <code class="font-mono">text-muted</code>, <code class="font-mono">border-border</code>, …). Interactivity is vanilla JS
+            islands — no framework runtime. All client state lives in localStorage under two keys:
+            <code class="font-mono">pt-theme</code> (system|light|dark) and
+            <code class="font-mono">pt-progress-v1</code> (<code class="font-mono">{"{ &lt;lang&gt;/&lt;slug&gt;: ISO timestamp }"}</code>).
+          </p>
+        </section>
+
+        <section id="tokens" aria-labelledby="tokens-h">
+          <h2 id="tokens-h" class="text-xl font-semibold">Tokens</h2>
+          <p class="mt-2 text-sm text-muted">Semantic tokens re-resolve per theme via <code class="font-mono">data-theme</code> on <code class="font-mono">&lt;html&gt;</code>.</p>
+          <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {["bg", "surface", "surface-alt", "border", "accent", "on-accent", "accent-soft", "success", "warning", "danger"].map((token) => (
+            <div class="overflow-hidden rounded-lg border border-border">
+              <div class="h-14" style={`background-color: var(--token-${token});`}></div>
+              <p class="bg-surface px-2 py-1.5 font-mono text-xs text-muted">--token-{token}</p>
+            </div>
+          ))}
+          <div class="overflow-hidden rounded-lg border border-border">
+            <div class="flex h-14 items-center justify-center bg-surface font-semibold" style="color: var(--token-text);">Aa</div>
+            <p class="bg-surface px-2 py-1.5 font-mono text-xs text-muted">--token-text</p>
+          </div>
+          <div class="overflow-hidden rounded-lg border border-border">
+            <div class="flex h-14 items-center justify-center bg-surface text-sm" style="color: var(--token-text-muted);">Aa muted</div>
+            <p class="bg-surface px-2 py-1.5 font-mono text-xs text-muted">--token-text-muted</p>
+          </div>
+          </div>
+        </section>
+
+        <section id="callouts" aria-labelledby="callouts-h">
+          <h2 id="callouts-h" class="text-xl font-semibold">Callouts</h2>
+          <p class="mt-2 text-sm text-muted"><code class="font-mono">&lt;Callout type="tip|info|warning|danger" title?&gt;</code></p>
+          <div class="mt-4 space-y-3">
+            <Callout type="tip">A short, actionable hint that helps the reader do something better.</Callout>
+            <Callout type="info" title="Good to know">Context that explains why, not just what.</Callout>
+            <Callout type="warning" title="Careful">Something that will confuse or break if ignored.</Callout>
+            <Callout type="danger" title="Data loss risk">Irreversible operations and destructive commands.</Callout>
+          </div>
+        </section>
+
+        <section id="badges" aria-labelledby="badges-h">
+          <h2 id="badges-h" class="text-xl font-semibold">Badges</h2>
+          <p class="mt-2 text-sm text-muted"><code class="font-mono">&lt;TierBadge tier="beginner|intermediate|advanced" /&gt;</code></p>
+          <div class="mt-4 flex flex-wrap items-center gap-2">
+            <TierBadge tier="beginner" />
+            <TierBadge tier="intermediate" />
+            <TierBadge tier="advanced" />
+            <span class="inline-flex rounded-full bg-success/15 px-2.5 py-0.5 text-xs font-semibold text-success">active</span>
+            <span class="inline-flex rounded-full bg-surface-alt px-2.5 py-0.5 text-xs font-semibold text-muted">legacy</span>
+            <span class="inline-flex rounded-full bg-accent px-2.5 py-0.5 text-xs font-semibold text-on-accent">Full track</span>
+          </div>
+        </section>
+
+        <section id="code-blocks" aria-labelledby="code-blocks-h">
+          <h2 id="code-blocks-h" class="text-xl font-semibold">Code blocks & tabs</h2>
+          <p class="mt-2 text-sm text-muted">
+            <code class="font-mono">&lt;CodeBlock code lang title? sampleId?&gt;</code> renders Shiki dual-theme output (same theme
+            pair as the MDX pipeline), with a copy button that announces via an aria-live region.
+            <code class="font-mono">&lt;Tabs tabs&gt;</code> switches between snippets (arrow-key navigable).
+          </p>
+          <div class="mt-4">
+            <CodeBlock code={pythonSample} lang="python" title="greet.py" sampleId="py-001-hello" />
+          </div>
+          <Tabs tabs={[{ label: "Python" }, { label: "JavaScript" }]}>
+            <CodeBlock slot="tab-0" code={pythonSample} lang="python" title="greet.py" />
+            <CodeBlock slot="tab-1" code={jsSample} lang="javascript" title="greet.js" />
+          </Tabs>
+        </section>
+
+        <section id="progress" aria-labelledby="progress-h">
+          <h2 id="progress-h" class="text-xl font-semibold">Progress tracking</h2>
+          <p class="mt-2 text-sm text-muted">
+            <code class="font-mono">&lt;LessonCheckbox id /&gt;</code> persists completion to localStorage and dispatches
+            <code class="font-mono">pt:progress</code>; <code class="font-mono">&lt;TrackProgress trackId tiers showReset? /&gt;</code>
+            reads the same store. The demo below is wired to a fake <code class="font-mono">demo</code> track so it never touches real progress.
+          </p>
+          <div class="mt-4 max-w-xl space-y-6">
+            <LessonCheckbox id="demo/python/01-hello" label="Mark demo lesson as complete" />
+            <TrackProgress
+              trackId="demo"
+              tiers={[
+                { tier: "beginner", lessonIds: ["python/01-hello", "python/02-variables", "python/03-control-flow"] },
+                { tier: "intermediate", lessonIds: ["python/10-lists-dicts"] }
+              ]}
+              showReset
+            />
+          </div>
+        </section>
+
+        <section id="navigation" aria-labelledby="navigation-h">
+          <h2 id="navigation-h" class="text-xl font-semibold">Lesson navigation</h2>
+          <p class="mt-2 text-sm text-muted"><code class="font-mono">&lt;LessonNav prev? next? /&gt;</code></p>
+          <div class="mt-4">
+            <LessonNav
+              prev={{ title: "Variables and types", href: `${base}docs/design-system/`, tier: "beginner" }}
+              next={{ title: "Control flow", href: `${base}docs/design-system/`, tier: "beginner" }}
+            />
+          </div>
+        </section>
+
+        <section id="language-cards" aria-labelledby="language-cards-h">
+          <h2 id="language-cards-h" class="text-xl font-semibold">Language cards</h2>
+          <p class="mt-2 text-sm text-muted">
+            <code class="font-mono">&lt;LanguageCard name slug? paradigms? year? status? hasTrack? /&gt;</code> — links to the track
+            hub when one exists, otherwise to the encyclopedia page, otherwise renders as a planned entry.
+          </p>
+          <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <LanguageCard name="Python" slug="python" paradigms={["multi-paradigm"]} year={1991} hasTrack />
+            <LanguageCard name="Fortran" slug="fortran" paradigms={["imperative"]} year={1957} status="legacy" />
+            <LanguageCard name="Ada" paradigms={["imperative", "concurrent"]} year={1980} />
+          </div>
+        </section>
+
+        <section id="search" aria-labelledby="search-h">
+          <h2 id="search-h" class="text-xl font-semibold">Search</h2>
+          <p class="mt-2 text-sm text-muted">
+            <code class="font-mono">&lt;SearchBar /&gt;</code> initializes PagefindUI with the site base path. The header trigger opens
+            it in a dialog; this is the standalone variant. In dev mode (no index built) a fallback message shows instead.
+          </p>
+          <div class="mt-4 max-w-lg">
+            <SearchBar />
+          </div>
+        </section>
+
+        <section id="encyclopedia-table" aria-labelledby="encyclopedia-table-h">
+          <h2 id="encyclopedia-table-h" class="text-xl font-semibold">Encyclopedia table</h2>
+          <p class="mt-2 text-sm text-muted">
+            <code class="font-mono">&lt;EncyclopediaTable records /&gt;</code> — filters (paradigm/era/status) and sort run client-side
+            over the embedded compact JSON. Sample data below.
+          </p>
+          <div class="mt-4">
+            <EncyclopediaTable records={sampleRecords} />
+          </div>
+        </section>
+
+        <section id="dashboard-widgets" aria-labelledby="dashboard-widgets-h">
+          <h2 id="dashboard-widgets-h" class="text-xl font-semibold">Dashboard widgets</h2>
+          <p class="mt-2 text-sm text-muted">
+            Server-rendered snapshots for the public pipeline dashboard (Phase 2). Sample data below.
+          </p>
+          <div class="mt-4 space-y-8">
+            <div>
+              <h3 class="mb-3 text-sm font-semibold text-muted">TaskBoard</h3>
+              <TaskBoard tasks={demoTasks} />
+            </div>
+            <div>
+              <h3 class="mb-3 text-sm font-semibold text-muted">ActivityFeed</h3>
+              <ActivityFeed entries={demoActivity} />
+            </div>
+            <div>
+              <h3 class="mb-3 text-sm font-semibold text-muted">ProgressMatrix</h3>
+              <ProgressMatrix rows={demoMatrix} />
+            </div>
+          </div>
+        </section>
+
+        <section id="animations" aria-labelledby="animations-h">
+          <h2 id="animations-h" class="text-xl font-semibold">Animation</h2>
+          <p class="mt-2 text-sm text-muted">
+            CSS transitions/keyframes only: staggered fade-up on mount (<code class="font-mono">.pt-fade-up</code>), hover lift on cards
+            (<code class="font-mono">.pt-card-lift</code>), progress-bar width transitions (<code class="font-mono">.pt-progress-fill</code>).
+            All gated behind <code class="font-mono">prefers-reduced-motion: no-preference</code>; theme crossfade is ≤150 ms.
+          </p>
+          <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {["Fade-up 1", "Fade-up 2", "Fade-up 3"].map((label) => (
+              <div class="pt-fade-up pt-card-lift rounded-lg border border-border bg-surface p-4 text-sm font-medium">{label}</div>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <aside class="hidden lg:block">
+        <div class="sticky top-20">
+          <Toc headings={headings} />
+        </div>
+      </aside>
+    </div>
+  </div>
+</Base>
