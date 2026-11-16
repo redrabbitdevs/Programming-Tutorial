@@ -1,0 +1,5 @@
+# Content, data, and pages require owner review.
+# Single-account model: identity separation is by process (plan → "Enforcement"); CI checks are machine-enforced.
+src/content/** @brandongohwh
+data/** @brandongohwh
+src/pages/** @brandongohwh
