@@ -12,7 +12,7 @@ $ARGUMENTS
 1. **Read state**: `data/pipeline/tasks.json` + recent `data/pipeline/activity.jsonl`. If `$ARGUMENTS` contains a directive, apply it (e.g. prioritize a task id, pause the pipeline, re-assign).
 2. **Pick next task**: first `backlog` task in file order (T-001 upward) that has no blocking dependency; mark it `assigned`, record the assignee role, update `updatedAt`, append an activity line. Commit state to the current branch.
 3. **Spawn work**: launch the assigned role via the Task tool with its `.kilo/agent/<role>.md` config. The worker opens a PR on branch `agent/<role>/<scope>` — it never merges.
-4. **Monitor CI without blocking**: schedule a recurring cron check (`*/5 * * * *`, `gh pr checks <n>`) that acts only on terminal-state transitions (pass → post result + auto-merge per AGENTS.md, fail → failing check + log excerpt) and stays silent otherwise. Never poll manually while waiting.
+4. **Monitor CI without blocking** (on-demand, no persistent cron): when the PR is opened/pushed, schedule a one-shot `schedule_wakeup` (~3–5 min out) to check the gate; re-arm only while the PR is still pending — pass → post result + auto-merge per AGENTS.md and stop, fail → post failing check + log excerpt and stop. Never poll manually while waiting.
 5. **Publish gate** — by task type:
    | type | required gates |
    |---|---|
