@@ -23,10 +23,12 @@
   --token-text: var(--gray-12);
   --token-text-muted: var(--gray-11);
   --token-border: var(--gray-5);
-  --token-accent: var(--blue-11);
+  /* Steps 12 (darkest) so text on the tokens' own /15 tints keeps >= 4.5:1 —
+     step 11 fails AA there (~3.8:1), caught by the Phase 3 axe gate. */
+  --token-accent: var(--blue-12);
   --token-on-accent: #ffffff;
   --token-accent-soft: var(--blue-3);
-  --token-success: var(--green-11);
+  --token-success: var(--green-12);
   --token-warning: var(--yellow-12);
   --token-danger: var(--red-11);
 }

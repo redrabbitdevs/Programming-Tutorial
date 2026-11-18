@@ -14,6 +14,8 @@
     "validate": "node scripts/validate.mjs",
     "samples:extract": "node scripts/extract-samples.mjs",
     "test": "playwright test",
+    "test:unit": "vitest run tests/unit",
+    "samples:run": "node scripts/run-samples.mjs",
     "dashboard": "node scripts/dashboard.mjs",
     "postbuild": "pagefind --site dist"
   },
@@ -24,8 +26,11 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
+    "@axe-core/playwright": "^4.14.0",
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.65.1",
     "@tailwindcss/vite": "^4.3.5",
+    "@types/node": "^26.6.6",
     "eslint": "^10.15.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^3.2.1",
@@ -36,6 +41,7 @@
     "prettier-plugin-astro": "^1.1.2",
     "tailwindcss": "^4.3.5",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.72.2"
+    "typescript-eslint": "^8.72.2",
+    "vitest": "^5.1.0"
   }
 }
