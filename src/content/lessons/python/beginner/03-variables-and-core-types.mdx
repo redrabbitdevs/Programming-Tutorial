@@ -1,0 +1,118 @@
+---
+lang: python
+tier: beginner
+title: "Variables & Core Types"
+description: "Store and transform data with variables and Python's core types — int, float, str, and bool — using type() and the built-in conversion functions."
+order: 3
+prerequisites: [hello-world-and-syntax]
+estimatedMinutes: 10
+status: published
+sampleIds: [py-004-core-types, py-005-type-conversion]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Variables & Core Types
+
+You will store values in variables, work with Python's four core types — `int`, `float`, `str`, and `bool` — and convert between them on demand.
+
+## Variables and assignment
+
+A **variable** is a name bound to a value. The `=` sign performs **assignment**: it does not compare, it stores. You never declare a variable's type — the moment you assign a value, the name exists:
+
+```python
+score = 10
+score = score + 5
+print(score)  # 15
+```
+
+The second line rebinds `score` to a new value; the old one is gone. Names are **case-sensitive** (`score` and `Score` are different variables), may contain letters, digits, and underscores, but cannot start with a digit or be a reserved **keyword** like `if` or `for`. The convention for readable code: all-lowercase names with words joined by underscores, such as `total_price`.
+
+## The core types
+
+Every value in Python has a **type**, which determines what you can do with it. The four you will use constantly:
+
+- **`int`** — whole numbers, any size: `42`, `-7`, `0`.
+- **`float`** — decimal numbers stored in binary approximation: `19.99`, `-0.5`.
+- **`str`** — text wrapped in quotes: `"Ada"`, `'python'`.
+- **`bool`** — the two logical values `True` and `False`, spelled with a capital first letter. They are not strings; they are their own type, used to represent yes/no questions.
+
+The built-in function `type` reports a value's type:
+
+```python sample=py-004-core-types
+age = 25
+price = 19.99
+name = "Ada"
+is_active = True
+
+print(type(age))
+print(type(price))
+print(type(name))
+print(type(is_active))
+```
+
+```text
+<class 'int'>
+<class 'float'>
+<class 'str'>
+<class 'bool'>
+```
+
+Notice the types belong to the *values*, not the names. Python is **dynamically typed**: you can rebind a name to a value of a different type at any time, and `type` will report whatever the name currently holds.
+
+## Arithmetic on numbers
+
+The usual operators work as expected: `+`, `-`, `*`. The interesting part is division: `/` always produces a `float` (true division), while `//` floors to the nearest whole number, `%` gives the remainder, and `**` raises to a power:
+
+```python
+print(7 / 2)   # 3.5 — true division, result is a float
+print(7 // 2)  # 3 — floor division, result is an int
+print(7 % 2)   # 1 — remainder
+print(2 ** 10) # 1024 — exponentiation
+```
+
+One gotcha: `float` results are binary approximations, so `0.1 + 0.2` prints as `0.30000000000000004`. You will meet this again when money and decimals matter; for now, trust that it is the storage format speaking, not a bug in your code.
+
+## Converting between types
+
+The same names used to inspect types also **construct** values of that type — `int()`, `float()`, and `str()` convert existing values:
+
+```python sample=py-005-type-conversion
+radius = "7"
+area = float(radius) * 3.14
+print(area)
+
+count = int("42") + 8
+print(count)
+
+total = str(99) + " bottles"
+print(total)
+```
+
+```text
+21.98
+50
+99 bottles
+```
+
+The first line converts the string `"7"` into the number `7.0` so multiplication works — you cannot multiply two strings. The last line does the reverse: converting `99` to `"99"` so it can be joined with other text, because `+` on a number and a string is an error.
+
+<Callout type="warning">`int("3.7")` raises a `ValueError`: the text must be a whole number, exactly. Convert through `float` first when you need to round a decimal string down to an int.</Callout>
+
+## None
+
+One final value: `None` is Python's "no value here" marker — what other languages call null. You will meet it most often as the default result of functions that do not return anything; for now, just recognize it when you see it.
+
+## Common mistakes
+
+- **Unquoted numbers in strings**: `print(99 + " bottles")` is a type error — convert first with `str(99)`.
+- **`int("3.7")`**: raises `ValueError`; decimal text needs `float` (or clean-up) before it can become an int.
+- **Expecting `=` to compare**: `x = 5` assigns; equality testing uses `==`, which you will use in the control-flow lesson.
+
+## Summary
+
+- Assignment (`name = value`) binds a name to a value; names follow lowercase-with-underscores convention and cannot be keywords.
+- The core types are `int`, `float`, `str`, and `bool`; types belong to values, and Python is dynamically typed.
+- `/` divides as floats, `//` floors, `%` gives remainders, `**` exponentiates.
+- `type()` reports a value's type; `int()`, `float()`, and `str()` convert between them.
+- `None` marks the absence of a value.
