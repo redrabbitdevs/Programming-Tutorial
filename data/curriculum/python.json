@@ -1,0 +1,230 @@
+{
+  "lang": "python",
+  "title": "Python Track",
+  "lessons": [
+    {
+      "order": 1,
+      "tier": "beginner",
+      "slug": "python-setup",
+      "title": "Setting Up Python: Install, venv & pip",
+      "prerequisites": [],
+      "status": "planned"
+    },
+    {
+      "order": 2,
+      "tier": "beginner",
+      "slug": "hello-world-and-syntax",
+      "title": "Hello, World & Basic Syntax",
+      "prerequisites": ["python-setup"],
+      "status": "planned"
+    },
+    {
+      "order": 3,
+      "tier": "beginner",
+      "slug": "variables-and-core-types",
+      "title": "Variables & Core Types",
+      "prerequisites": ["hello-world-and-syntax"],
+      "status": "planned"
+    },
+    {
+      "order": 4,
+      "tier": "beginner",
+      "slug": "strings",
+      "title": "Strings & Formatting",
+      "prerequisites": ["variables-and-core-types"],
+      "status": "planned"
+    },
+    {
+      "order": 5,
+      "tier": "beginner",
+      "slug": "control-flow",
+      "title": "Control Flow: Conditionals & Comparisons",
+      "prerequisites": ["variables-and-core-types"],
+      "status": "planned"
+    },
+    {
+      "order": 6,
+      "tier": "beginner",
+      "slug": "loops",
+      "title": "Loops: for, while & range",
+      "prerequisites": ["control-flow"],
+      "status": "planned"
+    },
+    {
+      "order": 7,
+      "tier": "beginner",
+      "slug": "functions",
+      "title": "Functions: Parameters, Returns & Scope",
+      "prerequisites": ["loops"],
+      "status": "planned"
+    },
+    {
+      "order": 8,
+      "tier": "beginner",
+      "slug": "lists-and-tuples",
+      "title": "Lists & Tuples",
+      "prerequisites": ["loops", "functions"],
+      "status": "planned"
+    },
+    {
+      "order": 9,
+      "tier": "beginner",
+      "slug": "dictionaries-and-sets",
+      "title": "Dictionaries & Sets",
+      "prerequisites": ["lists-and-tuples"],
+      "status": "planned"
+    },
+    {
+      "order": 10,
+      "tier": "beginner",
+      "slug": "basic-io",
+      "title": "Simple I/O: input() & print()",
+      "prerequisites": ["strings", "lists-and-tuples"],
+      "status": "planned"
+    },
+    {
+      "order": 11,
+      "tier": "intermediate",
+      "slug": "error-handling",
+      "title": "Error Handling: Exceptions & try/except",
+      "prerequisites": ["functions"],
+      "status": "planned"
+    },
+    {
+      "order": 12,
+      "tier": "intermediate",
+      "slug": "classes-and-oop",
+      "title": "Classes & Objects: Your First OOP",
+      "prerequisites": ["functions", "dictionaries-and-sets"],
+      "status": "planned"
+    },
+    {
+      "order": 13,
+      "tier": "intermediate",
+      "slug": "oop-advanced",
+      "title": "Inheritance, Dunder Methods & dataclasses",
+      "prerequisites": ["classes-and-oop"],
+      "status": "planned"
+    },
+    {
+      "order": 14,
+      "tier": "intermediate",
+      "slug": "functional-idioms",
+      "title": "Functional Idioms: lambda, map/filter & functools",
+      "prerequisites": ["functions", "lists-and-tuples"],
+      "status": "planned"
+    },
+    {
+      "order": 15,
+      "tier": "intermediate",
+      "slug": "data-structures-and-complexity",
+      "title": "Data Structures & Big-O Complexity",
+      "prerequisites": ["dictionaries-and-sets"],
+      "status": "planned"
+    },
+    {
+      "order": 16,
+      "tier": "intermediate",
+      "slug": "core-algorithms",
+      "title": "Core Algorithms: Search, Sort & Common Patterns",
+      "prerequisites": ["data-structures-and-complexity", "functions"],
+      "status": "planned"
+    },
+    {
+      "order": 17,
+      "tier": "intermediate",
+      "slug": "file-io",
+      "title": "Files, Paths & Serialization (JSON/CSV)",
+      "prerequisites": ["basic-io", "error-handling"],
+      "status": "planned"
+    },
+    {
+      "order": 18,
+      "tier": "intermediate",
+      "slug": "modules-and-packages",
+      "title": "Modules, Packages & Project Layout",
+      "prerequisites": ["functions"],
+      "status": "planned"
+    },
+    {
+      "order": 19,
+      "tier": "intermediate",
+      "slug": "testing-basics",
+      "title": "Testing Basics with pytest",
+      "prerequisites": ["error-handling", "modules-and-packages"],
+      "status": "planned"
+    },
+    {
+      "order": 20,
+      "tier": "intermediate",
+      "slug": "type-hints",
+      "title": "Type Hints & Static Analysis",
+      "prerequisites": ["functions", "classes-and-oop"],
+      "status": "planned"
+    },
+    {
+      "order": 21,
+      "tier": "advanced",
+      "slug": "iterators-and-generators",
+      "title": "Iterators & Generators",
+      "prerequisites": ["functions", "loops"],
+      "status": "planned"
+    },
+    {
+      "order": 22,
+      "tier": "advanced",
+      "slug": "context-managers",
+      "title": "Context Managers & the with Statement",
+      "prerequisites": ["classes-and-oop", "error-handling"],
+      "status": "planned"
+    },
+    {
+      "order": 23,
+      "tier": "advanced",
+      "slug": "decorators",
+      "title": "Decorators & Metaprogramming",
+      "prerequisites": ["functional-idioms", "functions"],
+      "status": "planned"
+    },
+    {
+      "order": 24,
+      "tier": "advanced",
+      "slug": "memory-and-performance",
+      "title": "Memory, Garbage Collection & Performance",
+      "prerequisites": ["data-structures-and-complexity", "iterators-and-generators"],
+      "status": "planned"
+    },
+    {
+      "order": 25,
+      "tier": "advanced",
+      "slug": "concurrency-threads",
+      "title": "Threads, the GIL & Multiprocessing",
+      "prerequisites": ["functions", "file-io"],
+      "status": "planned"
+    },
+    {
+      "order": 26,
+      "tier": "advanced",
+      "slug": "asyncio",
+      "title": "Async I/O with asyncio",
+      "prerequisites": ["concurrency-threads", "functions"],
+      "status": "planned"
+    },
+    {
+      "order": 27,
+      "tier": "advanced",
+      "slug": "architecture-patterns",
+      "title": "Architecture Patterns in Python",
+      "prerequisites": ["oop-advanced", "decorators", "modules-and-packages"],
+      "status": "planned"
+    },
+    {
+      "order": 28,
+      "tier": "advanced",
+      "slug": "capstone-project",
+      "title": "Capstone: Building a Complete CLI Application",
+      "prerequisites": ["testing-basics", "architecture-patterns"],
+      "status": "planned"
+    }
+  ]
+}
