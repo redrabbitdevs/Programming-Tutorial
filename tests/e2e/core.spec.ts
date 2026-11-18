@@ -33,8 +33,10 @@ test.describe('core pages', () => {
       route.fulfill({ status: 429, contentType: 'application/json', body: '{"message":"rate limit"}' })
     )
     await page.goto('dashboard/')
-    // Task board from committed data/pipeline/tasks.json
-    await expect(page.getByText('Author data/curriculum/python.json (~28 lessons, 3 tiers incl. capstone)')).toBeVisible()
+    // Task board from committed data/pipeline/tasks.json — scoped to the board
+    // region because the title may also appear in the open-PRs snapshot.
+    const board = page.getByRole('region', { name: 'Task board' })
+    await expect(board.getByText('Author data/curriculum/python.json (~28 lessons, 3 tiers incl. capstone)')).toBeVisible()
     // The task id renders on the board and/or in the activity feed depending on
     // pipeline state, so resolve to the first match rather than strict mode.
     await expect(page.getByText('T-001', { exact: true }).first()).toBeVisible()
@@ -45,8 +47,14 @@ test.describe('core pages', () => {
       .split('\n').filter((l) => l.trim())
     const latestNote = JSON.parse(activityLines[activityLines.length - 1]).note as string
     await expect(page.getByText(latestNote)).toBeVisible()
-    // Committed PR snapshot stays in place and the fallback note is shown
-    await expect(page.locator('#pr-empty')).toBeVisible()
+    // Open-PRs snapshot mirrors the page rule (pr set and not yet published);
+    // the committed snapshot stays on fetch failure and the fallback note is shown.
+    const tasks = JSON.parse(readFileSync(join(here, '../../data/pipeline/tasks.json'), 'utf8')).tasks as { pr: number | null; status: string }[]
+    if (tasks.some((t) => t.pr != null && t.status !== 'published')) {
+      await expect(page.locator('#pr-empty')).toHaveCount(0)
+    } else {
+      await expect(page.locator('#pr-empty')).toBeVisible()
+    }
     await expect(page.locator('#pr-fallback-note')).toBeVisible()
     expect(failedRequests.filter((u) => u.includes('api.github.com'))).toEqual([])
   })
