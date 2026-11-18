@@ -1,0 +1,95 @@
+---
+lang: python
+tier: beginner
+title: "Hello, World & Basic Syntax"
+description: "Write and run your first Python program, then learn the core syntax rules: statements, strings, comments, and how print() works."
+order: 2
+prerequisites: [python-setup]
+estimatedMinutes: 7
+status: published
+sampleIds: [py-002-hello, py-003-print-options]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Hello, World & Basic Syntax
+
+You will write a complete Python program, run it from the command line, and learn the small set of syntax rules that every Python file follows.
+
+## Your first program
+
+Open your project folder (the one with the `.venv` from the previous lesson), make sure the venv is active, and create a file called `hello.py` containing exactly this:
+
+```python sample=py-002-hello
+print("Hello, World!")
+```
+
+Run it:
+
+```bash
+python hello.py
+```
+
+```text
+Hello, World!
+```
+
+That is a complete program. `print` is a built-in **function** — a named block of code that does one job — and calling it with parentheses sends the text inside the quotes to your terminal. The quoted text is a **string**, Python's type for sequences of characters. (You will get the full treatment of strings in a later lesson; for now, "wrap text in quotes" is all you need.)
+
+## How print() works
+
+`print` accepts any number of arguments separated by commas, and joins them with a single space:
+
+```python sample=py-003-print-options
+print("Hello", "World")
+print("apples", "bananas", "cherries", sep=" + ")
+print("No newline here", end="")
+print("!")
+```
+
+```text
+Hello World
+apples + bananas + cherries
+No newline here!
+```
+
+Two keyword options control the joining: `sep` sets the separator between arguments (a space by default), and `end` sets what comes after the output (a newline by default). Setting `end=""` keeps the cursor on the same line, so the final `print("!")` lands right after it.
+
+## Comments
+
+A **comment** is text that Python ignores entirely. It starts with a `#` and runs to the end of the line:
+
+```python
+# This whole line is a comment.
+name = "Ada"  # comments can also sit at the end of a line
+print(name)
+```
+
+Comments explain *why* code does something. They cost nothing to run, so use them generously while you are learning.
+
+## Statements and lines
+
+A **statement** is one unit of work — an assignment, a function call, a comment. By convention, Python writes one statement per line, and the interpreter executes statements top to bottom in the order they appear.
+
+One rule separates Python from most other languages: **indentation**. The spaces at the start of a line are not decoration; they tell Python which lines belong together as a group. You will meet indented groups properly when control flow arrives, but know now that an inconsistent indent raises an `IndentationError` and stops the program:
+
+```python
+print("first line")
+    print("this line is indented with no reason — IndentationError")
+```
+
+<Callout type="warning">In Python 3, `print` is a function and **requires parentheses**. The Python 2 spelling `print "hello"` is a syntax error in every modern version.</Callout>
+
+## Common mistakes
+
+- **Missing quotes**: `print(Hello)` looks like printing text but is actually asking Python for a variable named `Hello`, which does not exist — you get a `NameError`.
+- **Unclosed quote**: `print("hello` never ends its string, so Python reads to the end of the file looking for the closing quote and raises a `SyntaxError`.
+- **Random indentation**: mixing aligned and indented lines at the same level triggers an `IndentationError`; keep your code left-aligned unless a rule tells you to indent.
+
+## Summary
+
+- A program is a `.py` file run with `python <file>`; `print(...)` writes text to the terminal.
+- Strings are quoted text; `print` joins multiple arguments with a space, and `sep`/`end` change that behavior.
+- `#` starts a comment that Python ignores until the end of the line.
+- One statement per line, executed top to bottom; indentation is meaningful, not cosmetic.
+- The three beginner errors to recognize: `NameError`, `SyntaxError`, and `IndentationError`.
