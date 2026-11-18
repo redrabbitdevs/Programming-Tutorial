@@ -82,4 +82,12 @@ jobs:
       - name: Install lychee (pinned 0.24.2)
         run: CARGO_TARGET_DIR="${{ runner.temp }}/lychee-target" cargo install lychee --version 0.24.2 --locked --root "${{ runner.temp }}/lychee-bin"
       - name: Check links in dist/
-        run: ${{ runner.temp }}/lychee-bin/bin/lychee --config lychee.toml --no-progress dist/
+        # Root-relative links carry the site base (/Programming-Tutorial/) but
+        # Astro outputs dist/ without it: --root-dir resolves them under dist/,
+        # then --remap strips the base prefix. GITHUB_WORKSPACE must stay free of
+        # regex metacharacters for the pattern to hold.
+        run: >-
+          ${{ runner.temp }}/lychee-bin/bin/lychee --config lychee.toml --no-progress
+          --root-dir "$GITHUB_WORKSPACE/dist"
+          --remap "^file://$GITHUB_WORKSPACE/dist/Programming-Tutorial(.*)\$ file://$GITHUB_WORKSPACE/dist/\$1"
+          dist/
