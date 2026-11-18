@@ -32,7 +32,7 @@
       "slug": "strings",
       "title": "Strings & Formatting",
       "prerequisites": ["variables-and-core-types"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 5,
@@ -40,7 +40,7 @@
       "slug": "control-flow",
       "title": "Control Flow: Conditionals & Comparisons",
       "prerequisites": ["variables-and-core-types"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 6,
@@ -48,7 +48,7 @@
       "slug": "loops",
       "title": "Loops: for, while & range",
       "prerequisites": ["control-flow"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 7,
