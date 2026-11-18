@@ -1,3 +1,4 @@
 {"ts":"2026-11-16T07:24:02Z","taskId":null,"from":null,"to":null,"kind":"merge","note":"PR #1 merged (Phase 0 — repo scaffold, CI gate, branch protection)."}
 {"ts":"2026-11-16T09:53:50Z","taskId":null,"from":null,"to":null,"kind":"merge","note":"PR #2 merged (Phase 1 — design system: tokens, shiki theme, layout shell, widgets, /docs/design-system)."}
 {"ts":"2026-11-16T10:15:57Z","taskId":null,"from":null,"to":"backlog","kind":"handoff","note":"Phase 2 (pipeline infrastructure) in progress on agent/site-ops/pipeline-infra; backlog seeded with T-001..T-014 covering Phases 4–6."}
+{"ts":"2026-11-18T13:15:07Z","taskId":"T-001","from":"backlog","to":"assigned","kind":"assign","note":"[Orchestrator] T-001 assigned to curriculum-architect; branch agent/curriculum-architect/python-curriculum."}

@@ -7,12 +7,13 @@
       "agent": "curriculum-architect",
       "type": "lesson",
       "lang": "python",
-      "branch": null,
+      "branch": "agent/curriculum-architect/python-curriculum",
       "pr": null,
-      "status": "backlog",
-      "updatedAt": "2026-11-16T10:15:57Z",
+      "status": "assigned",
+      "updatedAt": "2026-11-18T13:15:07Z",
       "history": [
-        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-18T13:15:07Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to curriculum-architect; branch agent/curriculum-architect/python-curriculum" }
       ]
     },
     {
