@@ -22,4 +22,72 @@ jobs:
       - run: npm run build
       - run: npm run validate
 
-  # Phase 3 adds jobs here: sample execution matrix, Playwright+axe (changed pages + core set), lychee link check.
+  samples:
+    name: sample execution matrix
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run samples:extract
+      - run: node scripts/run-samples.mjs
+
+  e2e:
+    name: e2e (Playwright + axe)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # origin/main must be fetchable for changed-pages range resolution
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Compute changed pages
+        id: changed-pages
+        # Space-joined: tests/e2e/changed-pages.spec.ts splits CHANGED_PAGES on whitespace.
+        run: echo "paths=$(node scripts/changed-pages.mjs origin/main...HEAD | tr '\n' ' ')" >> "$GITHUB_OUTPUT"
+      - run: npx playwright test
+        env:
+          CHANGED_PAGES: ${{ steps.changed-pages.outputs.paths }}
+
+  links:
+    name: link check (lychee)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      # lychee publishes no prebuilt Linux binaries (0 GitHub releases/tags as of
+      # 2026-11), so install from crates.io pinned to the version whose config
+      # schema lychee.toml targets. Cache registry + target dir across runs.
+      - name: Cache lychee cargo install
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ${{ runner.temp }}/lychee-target
+          key: lychee-cargo-0.24.2
+      - name: Install lychee (pinned 0.24.2)
+        run: CARGO_TARGET_DIR="${{ runner.temp }}/lychee-target" cargo install lychee --version 0.24.2 --locked --root "${{ runner.temp }}/lychee-bin"
+      - name: Check links in dist/
+        # Root-relative links carry the site base (/Programming-Tutorial/) but
+        # Astro outputs dist/ without it: --root-dir resolves them under dist/,
+        # then --remap strips the base prefix. GITHUB_WORKSPACE must stay free of
+        # regex metacharacters for the pattern to hold.
+        run: >-
+          ${{ runner.temp }}/lychee-bin/bin/lychee --config lychee.toml --no-progress
+          --root-dir "$GITHUB_WORKSPACE/dist"
+          --remap "^file://$GITHUB_WORKSPACE/dist/Programming-Tutorial(.*)\$ file://$GITHUB_WORKSPACE/dist/\$1"
+          dist/

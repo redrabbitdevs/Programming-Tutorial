@@ -1,0 +1,18 @@
+# lychee link-check config — used by the CI `links` job against built HTML in dist/.
+# Keys must match the pinned lychee version's schema (v0.24.x, deny_unknown_fields).
+
+# Per-request timeout in seconds (connect through response finished)
+timeout = 15
+# Retries per failed request
+max_retries = 2
+# Concurrent network requests (default 128 is far above what a small static site needs)
+max_concurrency = 16
+
+# Internal links are checked as local files under dist/, so no loopback or
+# private-IP exclusions are needed (and would only mask real failures).
+exclude = [
+  # TODO(phase-5): remove once /languages/<slug>/ and /learn/<lang>/ routes exist —
+  # the design-system encyclopedia-table demo links to these future routes.
+  # Matches post-remap file URIs (base prefix already stripped by --remap).
+  ".*/(languages|learn)(/.*)?$"
+]
