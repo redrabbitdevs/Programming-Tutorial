@@ -1,4 +1,9 @@
 import { test, expect } from '@playwright/test'
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const here = dirname(fileURLToPath(import.meta.url))
 
 test.describe('core pages', () => {
   test('home renders', async ({ page }) => {
@@ -28,13 +33,28 @@ test.describe('core pages', () => {
       route.fulfill({ status: 429, contentType: 'application/json', body: '{"message":"rate limit"}' })
     )
     await page.goto('dashboard/')
-    // Task board from committed data/pipeline/tasks.json
-    await expect(page.getByText('Author data/curriculum/python.json (~28 lessons, 3 tiers incl. capstone)')).toBeVisible()
-    await expect(page.getByText('T-001', { exact: true })).toBeVisible()
-    // Activity feed from committed data/pipeline/activity.jsonl
-    await expect(page.getByText('PR #1 merged (Phase 0 — repo scaffold, CI gate, branch protection).')).toBeVisible()
-    // Committed PR snapshot stays in place and the fallback note is shown
-    await expect(page.locator('#pr-empty')).toBeVisible()
+    // Task board from committed data/pipeline/tasks.json — scoped to the board
+    // region because the title may also appear in the open-PRs snapshot.
+    const board = page.getByRole('region', { name: 'Task board' })
+    await expect(board.getByText('Author data/curriculum/python.json (~28 lessons, 3 tiers incl. capstone)')).toBeVisible()
+    // The task id renders on the board and/or in the activity feed depending on
+    // pipeline state, so resolve to the first match rather than strict mode.
+    await expect(page.getByText('T-001', { exact: true }).first()).toBeVisible()
+    // Activity feed from committed data/pipeline/activity.jsonl — assert the
+    // newest committed entry renders (the feed shows the 30 most recent, so
+    // older entries fall out as the pipeline progresses).
+    const activityLines = readFileSync(join(here, '../../data/pipeline/activity.jsonl'), 'utf8')
+      .split('\n').filter((l) => l.trim())
+    const latestNote = JSON.parse(activityLines[activityLines.length - 1]).note as string
+    await expect(page.getByText(latestNote)).toBeVisible()
+    // Open-PRs snapshot mirrors the page rule (pr set and not yet published);
+    // the committed snapshot stays on fetch failure and the fallback note is shown.
+    const tasks = JSON.parse(readFileSync(join(here, '../../data/pipeline/tasks.json'), 'utf8')).tasks as { pr: number | null; status: string }[]
+    if (tasks.some((t) => t.pr != null && t.status !== 'published')) {
+      await expect(page.locator('#pr-empty')).toHaveCount(0)
+    } else {
+      await expect(page.locator('#pr-empty')).toBeVisible()
+    }
     await expect(page.locator('#pr-fallback-note')).toBeVisible()
     expect(failedRequests.filter((u) => u.includes('api.github.com'))).toEqual([])
   })

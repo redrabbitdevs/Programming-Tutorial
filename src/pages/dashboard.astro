@@ -95,7 +95,9 @@ for (const [path, mod] of Object.entries(curriculumModules)) {
   }
 }
 
-const snapshotPrs = pipelineTasks.filter((t) => t.pr != null);
+// Committed open-PR snapshot: a task with a PR still listed until it is published
+// (merged). Merged tasks drop out so the "Open pull requests" section stays truthful.
+const snapshotPrs = pipelineTasks.filter((t) => t.pr != null && t.status !== "published");
 ---
 
 <Base title="Pipeline dashboard" description="Live status of the content pipeline — task board, activity timeline, track progress, and open pull requests.">
