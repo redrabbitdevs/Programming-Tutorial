@@ -8,7 +8,7 @@
       "slug": "python-setup",
       "title": "Setting Up Python: Install, venv & pip",
       "prerequisites": [],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 2,
@@ -16,7 +16,7 @@
       "slug": "hello-world-and-syntax",
       "title": "Hello, World & Basic Syntax",
       "prerequisites": ["python-setup"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 3,
@@ -24,7 +24,7 @@
       "slug": "variables-and-core-types",
       "title": "Variables & Core Types",
       "prerequisites": ["hello-world-and-syntax"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 4,
@@ -32,7 +32,7 @@
       "slug": "strings",
       "title": "Strings & Formatting",
       "prerequisites": ["variables-and-core-types"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 5,
@@ -40,15 +40,15 @@
       "slug": "control-flow",
       "title": "Control Flow: Conditionals & Comparisons",
       "prerequisites": ["variables-and-core-types"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 6,
       "tier": "beginner",
       "slug": "loops",
       "title": "Loops: for, while & range",
-      "prerequisites": ["control-flow"],
-      "status": "planned"
+      "prerequisites": ["control-flow", "strings"],
+      "status": "published"
     },
     {
       "order": 7,

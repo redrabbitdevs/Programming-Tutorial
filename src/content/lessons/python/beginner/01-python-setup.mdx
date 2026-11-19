@@ -1,0 +1,119 @@
+---
+lang: python
+tier: beginner
+title: "Setting Up Python: Install, venv & pip"
+description: "Install Python on your operating system, verify the install, and create an isolated virtual environment with pip so every project starts clean."
+order: 1
+prerequisites: []
+estimatedMinutes: 8
+status: published
+sampleIds: [py-001-first-script]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Setting Up Python: Install, venv & pip
+
+You will finish this lesson with a working Python installation and an isolated **virtual environment** for your first project — the starting point every later lesson builds on.
+
+## Installing Python
+
+Python is a general-purpose programming language that runs through an **interpreter**: a program that reads your code line by line and executes it immediately, so you never compile before running.
+
+- **Windows and macOS**: download the official installer from <https://www.python.org/downloads/> and run it. On Windows, keep the **"Add python.exe to PATH"** checkbox enabled — **PATH** is the list of folders your terminal searches when you type a command.
+- **Linux**: most distributions ship Python already. If `python3 --version` in your terminal says command not found, install it with your package manager, for example `sudo apt install python3`.
+
+Verify the install by opening a terminal and running:
+
+```bash
+python --version
+```
+
+You should see something like `Python 3.14.2`. On many Linux and macOS systems the command is `python3` instead of `python`; both start the same interpreter, and this course uses whichever one your system provides.
+
+## The REPL
+
+The **REPL** (read–eval–print loop) is Python's interactive prompt. Start it by typing `python` in your terminal, then try an expression:
+
+```bash
+>>> 2 + 2
+4
+```
+
+The REPL evaluates each line as you type — useful for quick experiments. Press Ctrl+D (or type `quit()`) to leave it. Real programs live in files, which is what you will do next.
+
+## Virtual environments
+
+A **virtual environment** (venv) is a self-contained directory that holds its own set of installed packages, separate from your system Python and from every other project. Projects often need different versions of the same package; venvs keep those requirements from colliding.
+
+Create one for a new project:
+
+```bash
+mkdir my-first-project
+cd my-first-project
+python -m venv .venv
+```
+
+`.venv` is the conventional name — a hidden folder inside your project directory. Activate it before you run anything in that project:
+
+```bash
+# Linux or macOS
+source .venv/bin/activate
+
+# Windows PowerShell
+.venv\Scripts\Activate.ps1
+
+# Windows Command Prompt
+.venv\Scripts\activate.bat
+```
+
+While the venv is active, your prompt is prefixed with `(.venv)`, and every Python command you run uses it. Type `deactivate` to leave it.
+
+<Callout type="tip">Create one venv per project, and never share or commit the `.venv` folder itself — anyone can recreate it in seconds with `python -m venv .venv`.</Callout>
+
+## pip: installing packages
+
+**pip** is Python's package installer, and every venv ships with its own copy. To install a third-party package into the active venv, run `pip install <package-name>`, for example:
+
+```bash
+pip install requests
+```
+
+You do not need any third-party packages yet: everything in this course runs on the **standard library**, the collection of modules that ship with Python itself.
+
+## Your first project script
+
+With the venv active, create a file called `main.py` inside your project folder and put this in it:
+
+```python sample=py-001-first-script
+# main.py — your first project script
+print("Hello from my first project!")
+print("This code runs inside its own virtual environment.")
+```
+
+Then run the file:
+
+```bash
+python main.py
+```
+
+```text
+Hello from my first project!
+This code runs inside its own virtual environment.
+```
+
+That loop — edit a file, run it with `python`, read the output — is how you will work for the rest of this course.
+
+## Common mistakes
+
+- **`python` is not recognized** (Windows): the PATH checkbox was missed during installation. Re-run the installer and enable "Add python.exe to PATH".
+- **Packages land in the wrong place**: installing with pip while no venv is active installs into your system Python instead. Activate the venv first, then install.
+- **`python` fails but `python3` works**: normal on some Linux and macOS systems. Use `python3`, or activate a venv — inside one, `python` always exists.
+
+## Summary
+
+- Install Python from python.org (or your package manager) and verify it with `python --version`.
+- The REPL gives you an instant interactive prompt for quick tests; files are where real programs live.
+- A virtual environment isolates each project's packages: create one with `python -m venv .venv`.
+- Activate the venv before running scripts or installing packages; `deactivate` leaves it.
+- pip installs third-party packages into the active venv; the standard library needs no installation at all.

@@ -1,0 +1,96 @@
+---
+lang: python
+tier: beginner
+title: "Loops: for, while & range"
+description: "Repeat work automatically with for loops over sequences and range(), condition-driven while loops, and break/continue to steer the flow."
+order: 6
+prerequisites: [control-flow, strings]
+estimatedMinutes: 10
+status: published
+sampleIds: [py-010-for-range, py-011-while-break]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Loops: for, while & range
+
+You will repeat work automatically — iterate over sequences with `for`, count with `range()`, run until a condition fails with `while`, and steer the flow with `break` and `continue`.
+
+## The for loop
+
+A **for loop** repeats its indented block once per item in a sequence. A string is a sequence of characters, so this prints one letter per line:
+
+```python
+for letter in "code":
+    print(letter)
+```
+
+The variable on the left — `letter` here — is called the **loop variable**. It takes each item's value in turn for one pass through the block. You choose the name; it exists only to hold the current item.
+
+For numbers, you usually want `range()`, which produces a sequence of integers. `range(stop)` counts from 0 up to, but not including, `stop`; the fuller form is `range(start, stop, step)`:
+
+```python sample=py-010-for-range
+total = 0
+for n in range(1, 6):
+    total += n
+    print(f"{n} -> running total {total}")
+
+print("step:", list(range(0, 10, 3)))
+```
+
+```text
+1 -> running total 1
+2 -> running total 3
+3 -> running total 6
+4 -> running total 10
+5 -> running total 15
+step: [0, 3, 6, 9]
+```
+
+`range(1, 6)` yields 1 through 5 — the stop value is excluded, matching slices from the strings lesson. `total += n` is shorthand for `total = total + n`. The last line wraps a range in `list()` just to display it: a range produces its values one at a time as the loop asks for them, so it does not keep all the numbers in memory — but `list(range(0, 10, 3))` builds the whole list in memory so you can print it.
+
+## The while loop
+
+A **while loop** repeats its block as long as a condition stays true — the same boolean expressions from the control-flow lesson:
+
+```python sample=py-011-while-break
+count = 1
+while count <= 6:
+    if count == 3:
+        print("skipping 3")
+        count += 1
+        continue
+    if count == 5:
+        break
+    print(count)
+    count += 1
+print("stopped at", count)
+```
+
+```text
+1
+2
+skipping 3
+4
+stopped at 5
+```
+
+Two keywords steer the flow from inside. **`continue`** abandons the rest of the current pass and jumps straight to the next one — here, when `count == 3`, the `print(count)` line is skipped but the loop carries on (the extra `count += 1` before it keeps progress moving). **`break`** exits the loop entirely; everything after the block runs next, which is why "stopped at 5" prints even though the condition `count <= 6` still held.
+
+<Callout type="tip">Choosing between them: when you know how many items to process — a range of numbers, each character in a string — use `for`. When the work runs until something happens — a valid input, a goal reached, a queue empties — use `while`.</Callout>
+
+<Callout type="warning">A `while` loop whose condition never becomes false is an **infinite loop**: it spins forever and your program appears to hang. Every while loop needs progress — something inside the block that moves the condition toward false, or a `break` that can fire. If a loop hangs, most environments let you interrupt it (Ctrl+C in a terminal).</Callout>
+
+## Common mistakes
+
+- **Off-by-one ranges**: `range(1, 6)` stops at 5. To include 6, write `range(1, 7)`. The stop value is never produced.
+- **Forgetting to update the counter**: a `while` loop that never changes its condition variable runs forever. Update it on every pass — including passes that `continue`.
+- **Expecting `continue` to exit**: it skips to the *next* pass; only `break` leaves the loop.
+- **Using `break` outside a loop**: it is only legal inside one (or while), and raises a `SyntaxError` elsewhere.
+
+## Summary
+
+- `for` iterates over sequences — strings, and `range()` for counting; the loop variable holds each item in turn.
+- `range(start, stop, step)` yields integers from start up to, but not including, stop.
+- `while` repeats while a condition is true; it needs progress toward false or it loops forever.
+- `continue` skips to the next pass; `break` exits the loop immediately.

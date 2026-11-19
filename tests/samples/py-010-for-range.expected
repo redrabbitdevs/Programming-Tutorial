@@ -1,0 +1,6 @@
+1 -> running total 1
+2 -> running total 3
+3 -> running total 6
+4 -> running total 10
+5 -> running total 15
+step: [0, 3, 6, 9]

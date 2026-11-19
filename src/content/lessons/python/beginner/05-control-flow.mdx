@@ -1,0 +1,120 @@
+---
+lang: python
+tier: beginner
+title: "Control Flow: Conditionals & Comparisons"
+description: "Make decisions in your programs with if, elif, and else, test conditions with comparison operators, and combine them using and, or, and not."
+order: 5
+prerequisites: [variables-and-core-types]
+estimatedMinutes: 10
+status: published
+sampleIds: [py-008-conditionals, py-009-bool-logic]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Control Flow: Conditionals & Comparisons
+
+So far your programs run top to bottom, every line, every time. You will change that: test **conditions** with comparison operators and run different blocks of code depending on the result.
+
+## Comparison operators
+
+A condition is an expression that evaluates to a `bool` — `True` or `False`. The **comparison operators** produce these booleans from values:
+
+| Operator | Meaning |
+|---|---|
+| `==` | equal to |
+| `!=` | not equal to |
+| `<` | less than |
+| `>` | greater than |
+| `<=` | less than or equal to |
+| `>=` | greater than or equal to |
+
+```python
+age = 18
+print(age == 18)   # True
+print(age > 21)    # False
+print(age != 17)   # True
+```
+
+Watch the difference between `=` and `==`. A single `=` **assigns** a value to a name (you have used it since the variables lesson). The double `==` **compares** two values and returns a boolean. They look alike but do completely different things, and mixing them up is the most common beginner error in this area.
+
+## if, elif, else
+
+An **if statement** runs its indented block only when the condition is true:
+
+```python sample=py-008-conditionals
+temperature = 31
+
+if temperature > 30:
+    print("Heat advisory")
+elif temperature > 20:
+    print("Pleasant day")
+else:
+    print("Bring a jacket")
+```
+
+```text
+Heat advisory
+```
+
+Three parts, in order:
+
+- `if condition:` — the first test. The colon is required.
+- `elif condition:` — optional, repeatable. Checked only if every earlier test failed.
+- `else:` — optional. Runs only if nothing above matched.
+
+Python uses **indentation** to mark which lines belong to a branch — there are no braces. This is syntax, not style: the block must be indented consistently (four spaces is the universal convention), and dedenting back starts normal top-to-bottom execution again.
+
+Python checks the branches top to bottom and runs **at most one** of them. Here `31 > 30` is true, so the first branch prints and the rest are skipped entirely — even though `31 > 20` would also be true. Ordering matters: put the most specific test first.
+
+## Boolean logic
+
+Three operators combine conditions into more complex tests:
+
+- **`and`** — true only when *both* sides are true.
+- **`or`** — true when *at least one* side is true.
+- **`not`** — flips a boolean: `not True` is `False`.
+
+```python sample=py-009-bool-logic
+has_ticket = True
+age = 15
+
+if has_ticket and age >= 16:
+    print("Entry granted")
+elif has_ticket or age >= 21:
+    print("Supervised entry")
+else:
+    print("No entry")
+
+print(not (age >= 18))
+```
+
+```text
+Supervised entry
+True
+```
+
+Walk through it: `has_ticket and age >= 16` is `True and False`, so the first branch is skipped. `has_ticket or age >= 21` is `True or False` — one side suffices — so "Supervised entry" prints. The final line inverts `False` to `True`.
+
+One more test worth knowing: **membership**. The operator `in` asks whether a value appears inside a sequence; on strings it checks for a substring:
+
+```python
+word = "Python"
+print("Py" in word)    # True
+print("py" in word)    # False — case matters
+```
+
+<Callout type="tip">Order an `elif` chain from most specific to least specific, and end with `else` as a catch-all when the input could be anything else. That way every possible value lands somewhere you deliberately handled.</Callout>
+
+## Common mistakes
+
+- **Using `=` in a condition**: `if x = 5:` is a `SyntaxError`. Conditions use `==` (or another comparison operator).
+- **Missing colon**: `if x > 5` without the trailing `:` is a `SyntaxError`; so is forgetting it on `elif` and `else`.
+- **Inconsistent indentation**: mixing tabs and spaces, or indenting one line differently from its siblings, raises an `IndentationError`. The block is whatever is indented uniformly.
+- **Assuming every branch runs**: only the first true branch executes; code after the whole if/elif/else block always runs next.
+
+## Summary
+
+- Comparison operators (`==`, `!=`, `<`, `>`, `<=`, `>=`) turn values into booleans; `=` assigns, `==` compares.
+- `if` / `elif` / `else` test conditions top to bottom and run at most one branch; indentation defines the block.
+- `and`, `or`, and `not` combine conditions; `in` tests membership, including substrings of strings.

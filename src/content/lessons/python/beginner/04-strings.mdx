@@ -1,0 +1,113 @@
+---
+lang: python
+tier: beginner
+title: "Strings & Formatting"
+description: "Build and transform text with concatenation, indexing, and common string methods, then format values into readable strings with f-strings."
+order: 4
+prerequisites: [variables-and-core-types]
+estimatedMinutes: 10
+status: published
+sampleIds: [py-006-string-basics, py-007-f-strings]
+minLangVersion: "3.6"
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Strings & Formatting
+
+You will build and transform text with Python's `str` type — joining, indexing, and cleaning it — and format values into readable output using f-strings.
+
+## Building strings
+
+You can wrap text in single or double quotes; both produce the same `str`. To join two strings, use `+`, called **concatenation**. To repeat a string, use `*`:
+
+```python
+first = "Ada"
+last = "Lovelace"
+full = first + " " + last
+print(full)    # Ada Lovelace
+print("ha" * 3)  # hahaha
+```
+
+The space in the middle is a string of its own. Without it, `first + last` would produce `"AdaLovelace"` — concatenation joins exactly what you give it and adds nothing on its side.
+
+## Indexing and slicing
+
+A string is a **sequence**: an ordered collection of characters, each with a position number called an **index**. Indexes start at 0, so the first character is `full[0]` and the last is `full[-1]` — negative indexes count from the end:
+
+```python
+word = "Python"
+print(word[0])    # P
+print(word[-1])   # n
+print(word[0:3])  # Pyt
+print(word[2:])   # thon
+```
+
+A **slice** uses the form `start:stop` and returns the characters from `start` up to, but not including, `stop`. Leaving either side out means "from the beginning" or "to the end." Slices never raise an error if you ask for more than exists — they simply stop at the edge of the string.
+
+## Common string methods
+
+A **method** is a function you call on a value using dot syntax: `value.method()`. Strings come with a large standard set. The ones you will reach for constantly:
+
+- `len(value)` — the length, as a number (a built-in function, not a method).
+- `.strip()` — removes whitespace from both ends of the string.
+- `.upper()` / `.lower()` — returns the string in one case or the other.
+- `.replace(old, new)` — returns the string with every occurrence of `old` swapped for `new`.
+
+Methods return a **new** string; they never change the original. Strings are **immutable**: once created, their characters cannot be modified in place. If you need the result, store it:
+
+```python sample=py-006-string-basics
+raw = "   Hello, World!   "
+clean = raw.strip()
+print(clean)
+print(clean.upper())
+print(clean.lower())
+print(clean.replace("World", "Python"))
+print(len(clean))
+```
+
+```text
+Hello, World!
+HELLO, WORLD!
+hello, world!
+Hello, Python!
+13
+```
+
+## Formatting with f-strings
+
+The classic way to build messages — `+` and manual conversion — is clumsy: `"Score: " + str(score)` works but reads badly. The modern default is an **f-string**: a string literal prefixed with `f` that embeds expressions inside braces. Each `{expression}` is evaluated, converted to text, and inserted in place:
+
+```python sample=py-007-f-strings
+name = "Ada"
+score = 92
+print(f"{name} scored {score} points")
+print(f"{name.lower()} scored {score + 8} bonus points")
+print(f"Average: {(score + 85) / 2:.1f}")
+```
+
+```text
+Ada scored 92 points
+ada scored 100 bonus points
+Average: 88.5
+```
+
+Anything valid Python goes inside the braces — a name, a method call, an arithmetic expression. After the value you can add a **format specifier** after a colon that controls how it is rendered: `:.1f` means "fixed-point number with one decimal place." You will use f-strings from now on; they are the idiom for putting values into text.
+
+<Callout type="tip">Two older formatting styles exist — `"{} scored {}".format(name, score)` and `"Score: %d" % score`. They still appear in existing code, but for new code, reach for f-strings.</Callout>
+
+<Callout type="warning">Forgetting the `f` prefix is a silent bug: `"{name} scored {score}"` prints the literal text `{name} scored {score}` instead of your values. No error is raised — the output just looks wrong.</Callout>
+
+## Common mistakes
+
+- **Joining a number into a string**: `"Score: " + 92` raises a `TypeError`. Convert with `str(92)`, or better, use an f-string.
+- **Expecting methods to mutate**: `s.upper()` does not change `s`; it returns a new string. Reassign if you need the result.
+- **Off-by-one slices**: `word[0:3]` gives three characters, indexes 0, 1, and 2 — the stop index is excluded.
+- **Mixing quote styles carelessly**: inside a double-quoted string, use single quotes for apostrophes (`"it's"`), or escape them with a backslash.
+
+## Summary
+
+- Strings are immutable sequences of characters; join them with `+`, repeat them with `*`.
+- Indexes start at 0 (negative counts from the end); slices use `start:stop` with the stop excluded.
+- `len()`, `.strip()`, `.upper()`, `.lower()`, and `.replace()` are everyday tools; methods return new strings.
+- f-strings embed expressions in text — `f"{name} is {age}"` — and a format specifier like `:.1f` controls number rendering.
