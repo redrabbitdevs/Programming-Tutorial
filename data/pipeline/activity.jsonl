@@ -7,3 +7,5 @@
 {"ts":"2026-11-18T14:33:00Z","taskId":"T-002","from":"backlog","to":"assigned","kind":"assign","note":"[Orchestrator] T-002 assigned to lesson-writer; branch agent/lesson-writer/python-batch-1."}
 {"ts":"2026-11-19T11:21:00Z","taskId":"T-002","from":"assigned","to":"rejected","kind":"reject","note":"[Orchestrator] T-002 rejected by Editorial on PR #11: L6 loops must declare `strings` prerequisite (f-string in py-010, strings cross-ref); rework to lesson-writer on same branch."}
 {"ts":"2026-11-19T11:41:00Z","taskId":"T-002","from":"assigned","to":"approved","kind":"gate","note":"[Orchestrator] T-002 approved on PR #11 (785e1af): CI green + Code Validator PASS 11/11 + Editorial RE-APPROVED + QA & A11y APPROVED (scoped; lesson routes audit due at T-007)."}
+{"ts":"2026-11-19T11:50:00Z","taskId":"T-002","from":"approved","to":"published","kind":"publish","note":"[Orchestrator] T-002 published — PR #11 squash-merged to main (1de63a8)."}
+{"ts":"2026-11-19T11:50:00Z","taskId":"T-003","from":"backlog","to":"assigned","kind":"assign","note":"[Orchestrator] T-003 assigned to lesson-writer; branch agent/lesson-writer/python-batch-2."}
