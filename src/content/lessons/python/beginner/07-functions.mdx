@@ -1,0 +1,106 @@
+---
+lang: python
+tier: beginner
+title: "Functions: Parameters, Returns & Scope"
+description: "Package reusable logic into named functions with parameters and return values, and understand where each variable name lives."
+order: 7
+prerequisites: [loops]
+estimatedMinutes: 12
+status: published
+sampleIds: [py-012-def-return, py-013-default-args]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Functions: Parameters, Returns & Scope
+
+A **function** is a named block of code that runs only when you call it. You define a function once with `def`, then call it by name as many times as you need — passing in values through **parameters** and getting results back with `return`.
+
+## Defining and calling
+
+The `def` statement names the function, lists its parameters in parentheses, and ends with a colon; the indented block below is the function's body:
+
+```python
+def greet(name):
+    print(f"Hello, {name}!")
+
+greet("Ada")
+greet("Grace")
+```
+
+The call — `greet("Ada")` — jumps into the body, runs it with `name` holding `"Ada"`, then resumes after the call. The value in parentheses is the **argument**: the actual value you pass; the parameter is the name the function uses for it inside its body.
+
+This sample returns values instead of printing them:
+
+```python sample=py-012-def-return
+def add(a, b):
+    return a + b
+
+def describe():
+    print("a helper that only prints")
+
+print(add(2, 3))
+print(describe())
+```
+
+```text
+5
+a helper that only prints
+None
+```
+
+`return` hands a value back to the caller and **ends the function immediately** — any code after it in the same block never runs. `add(2, 3)` evaluates to `5`, so you can store or reuse the result: `total = add(2, 3)`. A function with no `return` statement (or a bare `return`) still returns something: the special value `None`, which is why `print(describe())` prints two lines — the function's own `print`, then `None`.
+
+## Default values and keyword arguments
+
+A parameter can carry a **default value**: `exponent=2` means the caller may omit it, in which case 2 is used. Defaults must be listed after required parameters:
+
+```python sample=py-013-default-args
+def power(base, exponent=2):
+    return base ** exponent
+
+print(power(3))
+print(power(2, 10))
+print(power(exponent=3, base=5))
+```
+
+```text
+9
+1024
+125
+```
+
+The first two calls pass arguments **positionally** — matched to parameters left to right. The third uses the **keyword form**, `name=value`, which works in any order and makes the call self-documenting. Use keyword arguments whenever a call's position alone would be confusing.
+
+## Scope: where names live
+
+**Scope** is the region of code where a name exists. A variable assigned inside a function body is **local** to that function — it appears when the function runs and disappears when it finishes, invisible to the rest of the program:
+
+```python
+count = 0
+
+def show():
+    count = 100
+    print("inside:", count)
+
+show()
+print("outside:", count)
+```
+
+This prints `inside: 100` and then `outside: 0` — the assignment inside `show` created a *local* `count` that shadowed (hid) the outer one without changing it. Reading an outside name from inside works fine; assigning to it does not reach out, it creates a local instead. That rule is exactly what keeps functions predictable: you can always tell which variables a function touches by reading its body.
+
+<Callout type="tip">Prefer `return` over printing inside a function. A function that returns data is reusable — the caller decides whether to print, store, or pass it on. Printing is a side effect; returning is the result.</Callout>
+
+## Common mistakes
+
+- **Forgetting `return`**: the function prints its answer but returns `None`, so `x = my_func()` stores `None`. Check what you actually need: show it, or hand it back.
+- **Names that look global but aren't**: assigning to a name anywhere in a function body makes it local for the *entire* body — reading it before that assignment raises an `UnboundLocalError`.
+- **Calling before defining**: Python runs top to bottom; calling a function above its `def` line fails with a `NameError` at runtime.
+- **Confusing parameters and arguments**: `def power(base, exponent=2)` declares parameters; `power(2, 10)` supplies arguments. Same value, two roles.
+
+## Summary
+
+- A function is defined with `def`, named, and run by calling it with parentheses; arguments fill its parameters in order or by name.
+- `return` sends a value back to the caller and ends the function; without one, the function returns `None`.
+- Default parameter values let callers omit an argument; keyword arguments (`name=value`) can be passed in any order.
+- Variables assigned inside a function are local to it; outside names are readable but never modified by assignment.
