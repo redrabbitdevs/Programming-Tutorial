@@ -4,7 +4,7 @@ tier: beginner
 title: "Loops: for, while & range"
 description: "Repeat work automatically with for loops over sequences and range(), condition-driven while loops, and break/continue to steer the flow."
 order: 6
-prerequisites: [control-flow]
+prerequisites: [control-flow, strings]
 estimatedMinutes: 10
 status: published
 sampleIds: [py-010-for-range, py-011-while-break]
@@ -47,7 +47,7 @@ print("step:", list(range(0, 10, 3)))
 step: [0, 3, 6, 9]
 ```
 
-`range(1, 6)` yields 1 through 5 — the stop value is excluded, matching slices from the strings lesson. `total += n` is shorthand for `total = total + n`. The last line wraps a range in `list()` just to display it; ranges are cheap and lazy, so you rarely need to materialize them.
+`range(1, 6)` yields 1 through 5 — the stop value is excluded, matching slices from the strings lesson. `total += n` is shorthand for `total = total + n`. The last line wraps a range in `list()` just to display it: a range produces its values one at a time as the loop asks for them, so it does not keep all the numbers in memory — but `list(range(0, 10, 3))` builds the whole list in memory so you can print it.
 
 ## The while loop
 
