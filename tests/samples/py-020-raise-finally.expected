@@ -1,0 +1,7 @@
+opening db-1
+closing db-1
+connected to db-1
+---
+opening broken
+closing broken
+caught: bad address
