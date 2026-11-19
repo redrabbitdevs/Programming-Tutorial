@@ -5,3 +5,4 @@
 {"ts":"2026-11-18T14:15:00Z","taskId":"T-001","from":"assigned","to":"approved","kind":"gate","note":"[Orchestrator] T-001 approved on PR #10: CI green (55da16a) + Code Validator PASS + Editorial APPROVED + QA & A11y APPROVED."}
 {"ts":"2026-11-18T14:33:00Z","taskId":"T-001","from":"approved","to":"published","kind":"publish","note":"[Orchestrator] T-001 published — PR #10 squash-merged to main (c1c3405)."}
 {"ts":"2026-11-18T14:33:00Z","taskId":"T-002","from":"backlog","to":"assigned","kind":"assign","note":"[Orchestrator] T-002 assigned to lesson-writer; branch agent/lesson-writer/python-batch-1."}
+{"ts":"2026-11-19T11:21:00Z","taskId":"T-002","from":"assigned","to":"rejected","kind":"reject","note":"[Orchestrator] T-002 rejected by Editorial on PR #11: L6 loops must declare `strings` prerequisite (f-string in py-010, strings cross-ref); rework to lesson-writer on same branch."}
