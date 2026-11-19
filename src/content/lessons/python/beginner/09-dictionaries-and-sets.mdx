@@ -1,0 +1,113 @@
+---
+lang: python
+tier: beginner
+title: "Dictionaries & Sets"
+description: "Look up values by meaningful keys with dictionaries, and work with collections of unique items using sets and their operations."
+order: 9
+prerequisites: [lists-and-tuples]
+estimatedMinutes: 12
+status: published
+sampleIds: [py-016-dict-basics, py-017-set-ops]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Dictionaries & Sets
+
+Lists find items by position, but real data is usually looked up by name — a username, a product code, a word in a glossary. A **dictionary** maps **keys** to **values** so you can jump straight to the entry you want; a **set** holds a collection of unique items with no order and no duplicates.
+
+## Dictionaries
+
+A dictionary is written with curly braces as `key: value` pairs:
+
+```python
+ages = {"ada": 36, "grace": 45}
+print(ages["ada"])          # 36
+ages["alan"] = 41           # add a new entry
+ages["ada"] = 37            # update an existing one
+```
+
+Keys must be **immutable** — strings, numbers, and tuples work; lists do not, because a key that could change would make lookups unreliable. Values can be anything: numbers, strings, other lists or dictionaries.
+
+This sample covers the everyday operations:
+
+```python sample=py-016-dict-basics
+inventory = {"apples": 4, "pears": 2}
+inventory["pears"] = 5
+inventory["plums"] = 1
+print(inventory)
+print("apples:", inventory["apples"])
+print("cherries:", inventory.get("cherries", 0))
+
+for fruit, count in inventory.items():
+    print(f"{fruit}: {count}")
+```
+
+```text
+{'apples': 4, 'pears': 5, 'plums': 1}
+apples: 4
+cherries: 0
+apples: 4
+pears: 5
+plums: 1
+```
+
+`inventory["pears"] = 5` updates the value; `inventory["plums"] = 1` adds a brand-new entry — assignment does both. Reading a key that is not there with brackets raises a `KeyError`; `.get(key, default)` instead returns your fallback (here `0`) when the key is missing. That makes `.get` the safe choice for "look it up if present" checks.
+
+## Iterating and membership
+
+Looping over a dictionary directly visits its **keys**; `.items()` yields `(key, value)` pairs that unpack just like tuples:
+
+```python
+for name in ages:
+    print(name)              # keys only
+
+for name, age in ages.items():
+    print(f"{name} is {age}")
+```
+
+Membership tests check keys, not values: `"ada" in ages` asks whether `ada` is a key. To see if a *value* exists, test `ages.values()` instead.
+
+## Sets
+
+A **set** is an unordered collection of unique items, written with curly braces but no value side: `{1, 2, 3}` or `set([1, 2, 2])` — the duplicate drops away automatically. Because there is no order, sets have no indexing and no slicing; they answer different questions: "is this present?" and "which items do these groups share?"
+
+Adding a value that already exists does nothing — that's how you use a set as a "have I seen this before?" tracker:
+
+```python sample=py-017-set-ops
+visited = {"home", "work"}
+visited.add("gym")
+visited.add("home")
+print(len(visited))
+
+team_a = {"ana", "ben", "cara"}
+team_b = {"ben", "dave"}
+print(sorted(team_a & team_b))
+print(sorted(team_a | team_b))
+print(sorted(team_a - team_b))
+```
+
+```text
+3
+['ben']
+['ana', 'ben', 'cara', 'dave']
+['ana', 'cara']
+```
+
+`visited.add("home")` the second time is a no-op, so `len(visited)` stays 3. The set operations read like math: `&` is **intersection** (items in both), `|` is **union** (items in either), `-` is **difference** (items in the left set not in the right). Each result is a new set, leaving the originals untouched.
+
+<Callout type="info">Why sorted? Sets have no order, so printing one directly gives an arbitrary sequence that can differ between runs. Wrapping in `sorted(...)` produces a list in a stable order — essential when you need predictable output or want to compare results.</Callout>
+
+## Common mistakes
+
+- **`{}` is not an empty set**: it's an empty dictionary. Write `set()` for an empty set.
+- **KeyError on a missing key**: use `.get(key, default)` when the absence is normal, or check `key in dict` first.
+- **Using a list as a key**: `my_dict[[1, 2]] = "x"` raises a `TypeError` — keys must be immutable; use a tuple instead.
+- **Expecting set order**: sets are unordered by design. Sort when you need a sequence.
+
+## Summary
+
+- A dictionary maps immutable keys to values; assignment adds or updates in one move, and `.get(key, default)` avoids `KeyError` for missing keys.
+- Iterating a dict yields keys; `.items()` yields unpackable `(key, value)` pairs; `in` tests keys.
+- A set holds unique items with no order; adding duplicates is a no-op, making sets ideal membership trackers.
+- Set operations — `&` intersection, `|` union, `-` difference — each return a new set.
