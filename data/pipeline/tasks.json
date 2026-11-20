@@ -44,12 +44,13 @@
       "type": "lesson",
       "lang": "python",
       "branch": "agent/lesson-writer/python-batch-2",
-      "pr": null,
-      "status": "assigned",
-      "updatedAt": "2026-11-19T11:50:00Z",
+      "pr": 12,
+      "status": "rejected",
+      "updatedAt": "2026-11-20T03:36:00Z",
       "history": [
         { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
-        { "ts": "2026-11-19T11:50:00Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-2" }
+        { "ts": "2026-11-19T11:50:00Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-2" },
+        { "ts": "2026-11-20T03:36:00Z", "from": "assigned", "to": "rejected", "note": "[Orchestrator] T-003 rejected by Editorial on PR #12: (1) 11-error-handling missing `lists-and-tuples` prerequisite (py-019 star-unpacks tuples); (2) 07-functions lists `loops` but only uses f-strings — should be `strings`. Code Validator PASS + QA APPROVED stand; rework to lesson-writer on same branch." }
       ]
     },
     {
