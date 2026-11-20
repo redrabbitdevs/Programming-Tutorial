@@ -55,7 +55,7 @@
       "tier": "beginner",
       "slug": "functions",
       "title": "Functions: Parameters, Returns & Scope",
-      "prerequisites": ["loops"],
+      "prerequisites": ["strings"],
       "status": "published"
     },
     {
@@ -87,7 +87,7 @@
       "tier": "intermediate",
       "slug": "error-handling",
       "title": "Error Handling: Exceptions & try/except",
-      "prerequisites": ["functions"],
+      "prerequisites": ["functions", "lists-and-tuples"],
       "status": "published"
     },
     {
