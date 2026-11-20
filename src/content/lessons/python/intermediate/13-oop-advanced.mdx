@@ -1,0 +1,147 @@
+---
+lang: python
+tier: intermediate
+title: "Inheritance, Dunder Methods & dataclasses"
+description: "Extend classes with inheritance and super(), customize object behavior through dunder methods, and cut boilerplate with the standard library's dataclasses."
+order: 13
+prerequisites: [classes-and-oop]
+estimatedMinutes: 15
+status: published
+sampleIds: [py-023-inheritance, py-024-dunder-methods, py-025-dataclass]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Inheritance, Dunder Methods & dataclasses
+
+A single class is useful; a family of related classes is where object-oriented design starts paying off. **Inheritance** lets one class reuse and extend another, **dunder methods** let your objects plug into Python's built-in functions and operators, and **dataclasses** generate the boilerplate you would otherwise write by hand.
+
+## Inheritance and super()
+
+Write `class Dog(Animal):` and every attribute and method of `Animal` becomes part of `Dog`. The new class is a **subclass** (child); the class in parentheses is its **superclass** (parent). When the subclass defines a method with the same name, it **overrides** the parent's version. From inside an override, `super()` calls the parent's implementation, so you can extend behavior instead of replacing it:
+
+```python sample=py-023-inheritance
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def describe(self):
+        return f"{self.name} the {type(self).__name__.lower()}"
+
+    def speak(self):
+        return "..."
+
+
+class Dog(Animal):
+    def speak(self):
+        return super().speak() + " woof"
+
+
+class Cat(Animal):
+    def speak(self):
+        return super().speak() + " meow"
+
+
+rex = Dog("Rex")
+whiskers = Cat("Whiskers")
+print(rex.describe())
+print(rex.speak())
+print(whiskers.describe())
+print(whiskers.speak())
+```
+
+```text
+Rex the dog
+... woof
+Whiskers the cat
+... meow
+```
+
+Neither `Dog` nor `Cat` defines `__init__` or `describe`, yet both instances have a name and can describe themselves — they inherited both from `Animal`. Each subclass overrides only `speak`, and each override builds on the parent's `"..."` instead of discarding it. `type(self).__name__` inside `describe` returns the *actual* class of the instance (`"Dog"`, not `"Animal"`), so one method adapts to every subclass automatically.
+
+## Dunder methods
+
+**Dunder methods** (short for "double underscore") are special methods Python looks up on your behalf: `__len__` makes `len(obj)` work, `__str__` controls what `print(obj)` displays, and `__repr__` provides an unambiguous developer-facing version. You define them exactly like ordinary methods; once defined, the corresponding built-in just works:
+
+```python sample=py-024-dunder-methods
+class Playlist:
+    def __init__(self, title):
+        self.title = title
+        self.tracks = []
+
+    def add(self, track):
+        self.tracks.append(track)
+
+    def __len__(self):
+        return len(self.tracks)
+
+    def __str__(self):
+        return f"Playlist '{self.title}' with {len(self)} tracks"
+
+    def __repr__(self):
+        return f"Playlist(title={self.title!r}, tracks={self.tracks!r})"
+
+
+summer = Playlist("Summer")
+summer.add("Heat Wave")
+summer.add("Ocean Drive")
+print(summer)
+print(len(summer))
+print(repr(summer))
+```
+
+```text
+Playlist 'Summer' with 2 tracks
+2
+Playlist(title='Summer', tracks=['Heat Wave', 'Ocean Drive'])
+```
+
+`print(summer)` never calls a method you named — Python resolves it to `summer.__str__()` because you defined one. Without `__str__`, printing an object gives the default `<Playlist object at 0x...>` address, which is why customizing these two methods is the difference between a class that's pleasant to use and one that's not. The convention: `__str__` is short and human-readable; `__repr__` is precise enough that you could almost paste it back into Python to recreate the object.
+
+## dataclasses
+
+A class whose only job is to hold a few fields still needs `__init__`, `__repr__`, and usually an equality check — pure boilerplate. The **dataclass** decorator from the standard library generates those methods for you. Each annotated field becomes a constructor parameter, and fields with default values can be omitted at construction:
+
+```python sample=py-025-dataclass
+from dataclasses import dataclass
+
+
+@dataclass
+class Book:
+    title: str
+    author: str
+    pages: int = 0
+
+
+dune = Book("Dune", "Frank Herbert", 412)
+notes = Book("Field Notes", "Ada")
+print(dune)
+print(notes)
+print(dune == Book("Dune", "Frank Herbert", 412))
+print(dune.title, dune.pages)
+```
+
+```text
+Book(title='Dune', author='Frank Herbert', pages=412)
+Book(title='Field Notes', author='Ada', pages=0)
+True
+Dune 412
+```
+
+The `from dataclasses import dataclass` line pulls the decorator out of Python's built-in **standard library** — a collection of ready-made modules that ships with every installation. The `str` and `int` after each colon are **type annotations**: they name the kind of value each field holds, recorded for readers and tooling rather than enforced at runtime. Notice what you did *not* write: no `__init__`, yet `Book("Field Notes", "Ada")` works because `pages` defaults to 0; no `__repr__`, yet printing gives the readable form; no equality method, yet `dune == Book(...)` compares field by field and returns `True`.
+
+<Callout type="tip">Reach for a dataclass when an object is mostly data — records of people, products, or settings. Keep a hand-written class when behavior matters: methods with real logic, invariants to protect, or state that evolves over time.</Callout>
+
+## Common mistakes
+
+- **Overriding without calling `super()`**: the parent's behavior silently disappears. If the override should *extend* the parent, call it first; if it should fully replace it, be sure that's what you want.
+- **Forgetting `self` in dunder methods**: `def __len__():` inside a class breaks the pattern — every method, dunder or not, takes `self` as its first parameter.
+- **Confusing `__str__` and `__repr__`**: `print(obj)` uses `__str__`; debugging output and containers use `__repr__`. Defining only one leaves the other at the default address form.
+- **Default fields before required ones in a dataclass**: `pages: int = 0` followed by `author: str` raises a `TypeError` at class definition time, because positional calls could no longer be unambiguous.
+
+## Summary
+
+- A subclass inherits all attributes and methods from its superclass; an override replaces one method, and `super()` lets the override build on the parent's version.
+- Dunder methods hook objects into Python's built-ins: `__len__` powers `len()`, `__str__` controls printing, and `__repr__` gives the developer-facing form.
+- A dataclass generates `__init__`, `__repr__`, and field-by-field equality from annotated fields; default values make those parameters optional.
+- Use a dataclass for mostly-data records and a hand-written class when the object's behavior is the point.
