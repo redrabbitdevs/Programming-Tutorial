@@ -7,6 +7,7 @@ import Base from "../layouts/Base.astro";
 import TaskBoard from "../components/dashboard/TaskBoard.astro";
 import ActivityFeed from "../components/dashboard/ActivityFeed.astro";
 import ProgressMatrix from "../components/dashboard/ProgressMatrix.astro";
+import PublishedLessons from "../components/dashboard/PublishedLessons.astro";
 
 type PipelineTask = {
   id: string;
@@ -71,14 +72,30 @@ const boardTasks = pipelineTasks.map((t) => ({
 }));
 const activity = loadActivity();
 
-// Progress matrix from committed curriculum JSON (entry status published = done)
+// Progress matrix + published-lesson links from committed curriculum JSON
+// (entry status published = done). Lesson links follow the URL convention
+// /learn/<lang>/<tier>/<NN>-<slug>/ (docs/content-conventions.md) and go live
+// when the track hub routes ship.
 type Tier = "beginner" | "intermediate" | "advanced";
 const TIERS: Tier[] = ["beginner", "intermediate", "advanced"];
+interface LessonLink {
+  order: number;
+  slug: string;
+  title: string;
+}
 const rows: { lang: string; tiers: Partial<Record<Tier, { done: number; total: number }>> }[] = [];
+const lessonGroups: {
+  lang: string;
+  done: number;
+  total: number;
+  tiers: { tier: Tier; lessons: LessonLink[] }[];
+}[] = [];
 for (const [path, mod] of Object.entries(curriculumModules)) {
   const lang = path.split("/").pop()!.replace(/\.json$/, "");
   try {
-    const raw = (mod as { default?: { lessons?: { tier?: string; status?: string }[] } }).default;
+    const raw = (mod as {
+      default?: { lessons?: { order?: number; slug?: string; title?: string; tier?: string; status?: string }[] };
+    }).default;
     if (!Array.isArray(raw?.lessons)) continue;
     const tiers: Partial<Record<Tier, { done: number; total: number }>> = {};
     for (const tier of TIERS) {
@@ -90,6 +107,19 @@ for (const [path, mod] of Object.entries(curriculumModules)) {
       };
     }
     rows.push({ lang, tiers });
+    // Published lessons in curriculum order, grouped by tier (tiers with no
+    // published lesson are omitted).
+    const published = [...raw.lessons]
+      .filter((l) => l.status === "published" && typeof l.order === "number" && typeof l.slug === "string")
+      // order is optional in the inline type; the filter above guarantees a number
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    const byTier: Partial<Record<Tier, LessonLink[]>> = {};
+    for (const l of published) {
+      if (!l.tier || !TIERS.includes(l.tier as Tier)) continue;
+      (byTier[l.tier as Tier] ??= []).push({ order: l.order!, slug: l.slug!, title: String(l.title ?? l.slug!) });
+    }
+    const groups = TIERS.filter((t) => byTier[t]?.length).map((t) => ({ tier: t, lessons: byTier[t]! }));
+    if (groups.length) lessonGroups.push({ lang, done: published.length, total: raw.lessons.length, tiers: groups });
   } catch {
     // invalid curriculum JSON is reported by validate.mjs; skip here
   }
@@ -136,6 +166,14 @@ const snapshotPrs = pipelineTasks.filter((t) => t.pr != null && t.status !== "pu
       <div class="mt-3">
         <TaskBoard tasks={boardTasks} />
       </div>
+    </section>
+
+    <section class="pt-fade-up mt-10" aria-labelledby="lessons-h">
+      <h2 id="lessons-h" class="text-xl font-semibold">Published lessons</h2>
+      <div class="mt-3">
+        <PublishedLessons languages={lessonGroups} />
+      </div>
+      <p class="mt-2 text-xs text-muted">Lesson pages go live with each track hub; links are pre-wired to the lesson URL convention.</p>
     </section>
 
     <section class="pt-fade-up mt-10 grid gap-10 lg:grid-cols-2" aria-label="Progress and activity">
