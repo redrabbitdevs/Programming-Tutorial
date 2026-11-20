@@ -111,7 +111,8 @@ for (const [path, mod] of Object.entries(curriculumModules)) {
     // published lesson are omitted).
     const published = [...raw.lessons]
       .filter((l) => l.status === "published" && typeof l.order === "number" && typeof l.slug === "string")
-      .sort((a, b) => a.order - b.order);
+      // order is optional in the inline type; the filter above guarantees a number
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
     const byTier: Partial<Record<Tier, LessonLink[]>> = {};
     for (const l of published) {
       if (!l.tier || !TIERS.includes(l.tier as Tier)) continue;
