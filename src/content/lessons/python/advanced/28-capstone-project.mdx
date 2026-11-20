@@ -1,0 +1,247 @@
+---
+lang: python
+tier: advanced
+title: "Capstone: Building a Complete CLI Application"
+description: "Assemble the track into one complete command-line task tracker — a data model, an argparse interface with subcommands, and pytest-style tests for each behavior."
+order: 28
+prerequisites: [testing-basics, architecture-patterns]
+estimatedMinutes: 16
+status: published
+sampleIds: [py-062-capstone-store, py-063-capstone-cli, py-064-capstone-tests]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Capstone: Building a Complete CLI Application
+
+This is where the track comes together. You will build **tasker**, a small command-line task tracker with three layers — a model that owns the data, an interface layer that parses commands, and tests that pin down each behavior. The architecture patterns from the previous lesson decide how the layers talk; the testing conventions from the pytest lesson decide how you prove it works.
+
+## Layer 1: the model
+
+The model is where all logic lives and nothing about the command line leaks in. A **dataclass** (from the OOP lessons) holds each task's fields, and a store class exposes the operations the CLI will need — `add`, `complete`, `list_all` — raising `KeyError` when an id does not exist so callers can report it:
+
+```python sample=py-062-capstone-store
+from dataclasses import dataclass
+
+
+@dataclass
+class Task:
+    id: int
+    title: str
+    done: bool = False
+
+
+class TaskStore:
+    """In-memory task list with the operations a CLI would expose."""
+
+    def __init__(self):
+        self.tasks = []
+        self._next_id = 1
+
+    def add(self, title):
+        task = Task(self._next_id, title)
+        self.tasks.append(task)
+        self._next_id += 1
+        return task
+
+    def complete(self, task_id):
+        for task in self.tasks:
+            if task.id == task_id:
+                task.done = True
+                return task
+        raise KeyError(f"no task with id {task_id}")
+
+    def list_all(self):
+        return list(self.tasks)
+
+
+store = TaskStore()
+t1 = store.add("write tests")
+t2 = store.add("ship release")
+print("added:", t1.id, t1.title, t1.done)
+print("added:", t2.id, t2.title, t2.done)
+
+store.complete(1)
+for task in store.list_all():
+    mark = "x" if task.done else " "
+    print(f"[{mark}] {task.id}. {task.title}")
+```
+
+```text
+added: 1 write tests False
+added: 2 ship release False
+[x] 1. write tests
+[ ] 2. ship release
+```
+
+Two deliberate choices here. `add` assigns ids internally — callers never invent them, so there is no way to create two tasks with the same id. And `complete` raises rather than returning a failure flag: one error path, handled in exactly one place later. In a real project this file is its own module — say, `tasker/store.py` — importable by anything that needs task logic.
+
+## Layer 2: the CLI interface
+
+**argparse**, the standard library's command-line parser, turns the words typed after a program name into structured values. Subcommands (`add`, `done`, `list`) are built with **subparsers** — each gets its own arguments and help text. Two separation choices keep this layer thin: `build_parser()` is a plain function that returns the parser (so it can be inspected or reused), and `handle(args, store)` takes the store as a parameter instead of creating one — dependency injection from the architecture lesson, which is what lets tests drive the CLI with a throwaway store:
+
+```python sample=py-063-capstone-cli
+import argparse
+
+
+class TaskStore:
+    def __init__(self):
+        self.tasks = []
+        self._next_id = 1
+
+    def add(self, title):
+        self.tasks.append([self._next_id, title, False])
+        self._next_id += 1
+        return f"added task {self._next_id - 1}: {title}"
+
+    def complete(self, task_id):
+        for task in self.tasks:
+            if task[0] == task_id:
+                task[2] = True
+                return f"completed task {task_id}"
+        raise KeyError(f"no task with id {task_id}")
+
+    def list_all(self):
+        lines = []
+        for task in self.tasks:
+            mark = "x" if task[2] else " "
+            lines.append(f"[{mark}] {task[0]}. {task[1]}")
+        return "\n".join(lines)
+
+
+def build_parser():
+    parser = argparse.ArgumentParser(prog="tasker")
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    add_p = sub.add_parser("add", help="add a task")
+    add_p.add_argument("title")
+
+    done_p = sub.add_parser("done", help="mark a task complete")
+    done_p.add_argument("id", type=int)
+
+    sub.add_parser("list", help="list all tasks")
+    return parser
+
+
+def handle(args, store):
+    if args.command == "add":
+        return store.add(args.title)
+    if args.command == "done":
+        try:
+            return store.complete(args.id)
+        except KeyError as err:
+            return f"error: {err.args[0]}"
+    return store.list_all()
+
+
+store = TaskStore()
+parser = build_parser()
+
+for argv in (["add", "write tests"], ["add", "ship release"],
+             ["done", "1"], ["done", "9"], ["list"]):
+    print(handle(parser.parse_args(argv), store))
+```
+
+```text
+added task 1: write tests
+added task 2: ship release
+completed task 1
+error: no task with id 9
+[x] 1. write tests
+[ ] 2. ship release
+```
+
+The loop at the bottom plays the role of a user, feeding five command lines through `parse_args` — in a real program that call reads `sys.argv`, the list of words after the program name, and runs once per invocation. Notice the `done 9` line: the `KeyError` from the model is caught at the boundary and turned into a one-line error instead of a traceback. That is the whole CLI philosophy in one place — logic raises, the interface reports.
+
+## Layer 3: the tests
+
+The testing lesson's conventions apply directly: functions named `test_*`, one behavior per test, asserts with messages, and expectations for exceptions written as explicit try/except blocks (pytest would use `pytest.raises` here — same idea). Each test builds a fresh store, so no test depends on another's leftovers:
+
+```python sample=py-064-capstone-tests
+class TaskStore:
+    def __init__(self):
+        self.tasks = []
+        self._next_id = 1
+
+    def add(self, title):
+        self.tasks.append([self._next_id, title, False])
+        self._next_id += 1
+        return self.tasks[-1]
+
+    def complete(self, task_id):
+        for task in self.tasks:
+            if task[0] == task_id:
+                task[2] = True
+                return task
+        raise KeyError(f"no task with id {task_id}")
+
+
+def test_add_assigns_increasing_ids():
+    store = TaskStore()
+    first = store.add("a")
+    second = store.add("b")
+    assert first[0] == 1, "first task should get id 1"
+    assert second[0] == 2, "second task should get id 2"
+
+
+def test_complete_marks_task_done():
+    store = TaskStore()
+    task = store.add("a")
+    store.complete(task[0])
+    assert task[2] is True, "task should be marked done"
+
+
+def test_complete_unknown_id_raises():
+    store = TaskStore()
+    try:
+        store.complete(99)
+    except KeyError:
+        pass
+    else:
+        raise AssertionError("expected KeyError for unknown id")
+
+
+tests = [test_add_assigns_increasing_ids, test_complete_marks_task_done,
+         test_complete_unknown_id_raises]
+
+passed = 0
+failed = 0
+for test in tests:
+    try:
+        test()
+    except AssertionError as err:
+        failed += 1
+        print(f"FAIL {test.__name__}: {err}")
+    else:
+        passed += 1
+        print(f"PASS {test.__name__}")
+
+print(f"{passed} passed, {failed} failed")
+```
+
+```text
+PASS test_add_assigns_increasing_ids
+PASS test_complete_marks_task_done
+PASS test_complete_unknown_id_raises
+3 passed, 0 failed
+```
+
+In the real project these live in `tests/test_store.py` and run under pytest — discovery finds them by name, and a failing assert reports the message you attached. The sample runs them with a miniature loop so you can see exactly what the runner does: call each test, catch `AssertionError`, report one line per test.
+
+## How it fits together
+
+Three files, three jobs: `store.py` (model plus logic), `cli.py` (parser plus dispatch, importing the store), `tests/test_store.py`. Dependencies point one way — cli imports store, never the reverse — and the only seam between them is the constructor parameter that carries a store into `handle`. Extending tasker follows the patterns you now have: a new command is a new subparser plus one branch in `handle` (or a registry entry if commands keep multiplying), and every new behavior arrives with a test named after it.
+
+## Common mistakes
+
+- **Logic in the CLI layer**: if `handle` contains task rules, they cannot be tested without parsing arguments — push everything but argument parsing into the store.
+- **Forgetting `type=int` on the id argument**: argparse hands over strings by default, so `"1" == 1` is never true and every lookup silently misses.
+- **Bare excepts at the boundary**: catching everything hides real bugs behind "error:" — catch the specific exception the model promises (`KeyError`).
+- **Tests that share state**: a store created once at module level and mutated by tests means run order decides pass or fail; build a fresh one per test.
+
+## Summary
+
+- A CLI application layers cleanly: a model that owns data and raises on bad input, an interface that parses arguments and reports errors, and tests pinning each behavior.
+- argparse subcommands map one-to-one onto store operations; `type=int` converts at the boundary so the model never sees string ids.
+- Injecting the store into `handle` is what makes the CLI testable — the same dependency-injection move from the architecture lesson.
+- pytest conventions (test_* names, one behavior per test, messaged asserts, fresh state per test) turn each expectation into a re-runnable check.
