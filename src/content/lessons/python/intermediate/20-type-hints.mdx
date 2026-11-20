@@ -1,0 +1,111 @@
+---
+lang: python
+tier: intermediate
+title: "Type Hints & Static Analysis"
+description: "Annotate function parameters and return values with type hints, describe containers and optional values with generic types, and let static analyzers catch mismatches before you run."
+order: 20
+prerequisites: [functions]
+estimatedMinutes: 12
+status: published
+sampleIds: [py-039-hint-metadata, py-040-builtin-generics]
+minLangVersion: "3.10"
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Type Hints & Static Analysis
+
+Python never stops you from passing a string where a number belongs — it runs the code and finds out at runtime, often several lines later. A **type hint** is an annotation that records what type a parameter or return value should have. The interpreter treats hints as documentation and ignores them; their power comes from **static analysis** — tools such as mypy and pyright read your source, follow the hints, and report mismatches before you ever run the code.
+
+## Annotating functions
+
+A hint goes after each parameter, and the expected return type goes after an arrow: `def greet(name: str) -> str:`. This sample shows what the interpreter actually does with them — nothing, at runtime:
+
+```python sample=py-039-hint-metadata
+def greet(name: str) -> str:
+    return f"Hello, {name}!"
+
+
+# Hints are metadata: Python does not enforce them at runtime.
+print(greet("Ada"))
+print(greet(42))
+
+# The annotations live on the function object as a dictionary.
+print(greet.__annotations__)
+```
+
+```text
+Hello, Ada!
+Hello, 42!
+{'name': <class 'str'>, 'return': <class 'str'>}
+```
+
+`greet(42)` does not raise — the f-string happily formats any value — yet the function still carries its hints. Every annotated function stores them in a dictionary on the function object, **`__annotations__`**, keyed by parameter name with `"return"` for the return hint. That is the whole runtime story: hints are data attached to your functions, readable by tools and invisible to the interpreter's execution.
+
+## Describing containers and choices
+
+Plain `list` says nothing about what goes inside; the generic form does. `list[int]` means "a list of ints", `dict[str, int]` a dictionary mapping strings to ints, and `tuple[str, int]` a fixed pair. When a value may be one of several types, join them with `|` — read as "or": `int | float`.
+
+```python sample=py-040-builtin-generics
+def describe(grades: dict[str, int]) -> list[str]:
+    lines = []
+    for name in grades:
+        lines.append(f"{name}: {grades[name]}")
+    return lines
+
+
+def normalize(value: int | float) -> float:
+    return value / 100
+
+
+grades = {"Ada": 95, "Alan": 87}
+print(describe(grades))
+print(normalize(42))
+```
+
+```text
+['Ada: 95', 'Alan: 87']
+0.42
+```
+
+`describe`'s signature now documents its contract completely: hand it a string-keyed dictionary of integer grades, and you get back a list of formatted lines. `normalize` accepts either an int or a float and always returns a float — the union type makes the "either" explicit instead of leaving readers to guess.
+
+A value that may be *absent* gets `None` in the union: `int | None` reads as "an int, or nothing". That is the standard way to write "this lookup might fail":
+
+```python
+def find(values: list[int], target: int) -> int | None:
+    for value in values:
+        if value == target:
+            return value
+    return None
+```
+
+Callers see from the signature that they must handle the `None` case — usually with a check or an early return — instead of discovering it as a crash.
+
+## Static analysis
+
+The payoff arrives when a **static analyzer** reads these hints. Tools such as mypy and pyright parse your code, track what type each name should hold according to the annotations, and flag every call that contradicts them:
+
+```text
+$ mypy script.py
+script.py:9: error: Argument 1 to "greet" has incompatible type "int"; expected "str"
+Found 1 error in 1 file (checked 1 source file)
+```
+
+No code ran; the mismatch is reported from the source alone, before a user ever hits it. The workflow is to annotate your function boundaries — parameters and returns — then run the analyzer as part of your normal checks, so a broken hint fails your work the same way a failing test does.
+
+<Callout type="warning">Hints never enforce anything at runtime: `greet(42)` runs fine even though the signature says `str`. If you stop running the analyzer, the hints are just comments. The protection is the tool, not the annotation.</Callout>
+
+## Common mistakes
+
+- **Expecting runtime enforcement**: passing a wrong type does not raise because of the hint; it fails (or silently misbehaves) for whatever reason the code itself dictates. Run mypy or pyright to get the check.
+- **Annotating every local variable**: annotate function boundaries — parameters and returns — where the contract lives. Local types are usually obvious from their assignment, and annotating them adds noise without new information.
+- **Bare container types**: `list` instead of `list[int]` throws away the useful half of the annotation. If you know what goes inside, say so.
+- **Forgetting the return hint**: a function whose signature only annotates parameters leaves its most important contract — what callers receive — undocumented.
+
+## Summary
+
+- A type hint (`name: str`, `-> int`) records the expected type as metadata; Python stores it in the function's `__annotations__` dictionary and never enforces it at runtime.
+- Generic forms describe containers — `list[int]`, `dict[str, int]` — and `|` unions express "either", including `int | None` for values that may be absent.
+- Static analyzers like mypy and pyright read the hints and report type mismatches from source alone, before any code runs.
+- Annotate function boundaries, keep locals unannotated, and run the analyzer with your tests so broken contracts fail early.

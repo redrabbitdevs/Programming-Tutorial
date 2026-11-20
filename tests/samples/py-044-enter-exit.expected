@@ -1,0 +1,8 @@
+begin step A
+doing work in A
+end step A (clean)
+---
+begin step B
+doing work in B
+end step B (after ValueError)
+caught: boom

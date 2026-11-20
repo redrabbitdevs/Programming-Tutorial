@@ -1,0 +1,7 @@
+with suppress(ValueError):
+42
+17
+---
+without it:
+42
+loop aborted: invalid literal for int() with base 10: 'seven'

@@ -1,0 +1,5 @@
+enter outer
+enter inner
+inside both: outer inner
+exit inner
+exit outer

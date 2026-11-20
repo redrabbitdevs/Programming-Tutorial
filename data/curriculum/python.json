@@ -152,23 +152,23 @@
       "slug": "testing-basics",
       "title": "Testing Basics with pytest",
       "prerequisites": ["error-handling", "modules-and-packages"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 20,
       "tier": "intermediate",
       "slug": "type-hints",
       "title": "Type Hints & Static Analysis",
-      "prerequisites": ["functions", "classes-and-oop"],
-      "status": "planned"
+      "prerequisites": ["functions"],
+      "status": "published"
     },
     {
       "order": 21,
       "tier": "advanced",
       "slug": "iterators-and-generators",
       "title": "Iterators & Generators",
-      "prerequisites": ["functions", "loops"],
-      "status": "planned"
+      "prerequisites": ["functions", "loops", "classes-and-oop", "error-handling"],
+      "status": "published"
     },
     {
       "order": 22,
@@ -176,7 +176,7 @@
       "slug": "context-managers",
       "title": "Context Managers & the with Statement",
       "prerequisites": ["classes-and-oop", "error-handling"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 23,
@@ -184,7 +184,7 @@
       "slug": "decorators",
       "title": "Decorators & Metaprogramming",
       "prerequisites": ["functional-idioms", "functions"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 24,

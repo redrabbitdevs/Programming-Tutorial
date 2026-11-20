@@ -1,0 +1,3 @@
+Hello, Ada!
+Hello, 42!
+{'name': <class 'str'>, 'return': <class 'str'>}
