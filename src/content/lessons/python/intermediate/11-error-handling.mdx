@@ -1,0 +1,116 @@
+---
+lang: python
+tier: intermediate
+title: "Error Handling: Exceptions & try/except"
+description: "Catch expected failures with try/except, use else and finally for cleanup, and raise your own exceptions with clear messages."
+order: 11
+prerequisites: [functions, lists-and-tuples]
+estimatedMinutes: 12
+status: published
+sampleIds: [py-019-try-except, py-020-raise-finally]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Error Handling: Exceptions & try/except
+
+Every function you write can fail in ways you did not plan for: a number that should be there is text, a divisor turns out to be zero, a connection drops. When something goes wrong, Python raises an **exception** — it abandons the current code and hands you an error object describing what happened. Unhandled, an exception crashes the program with a traceback; handled, it becomes a normal branch you can react to.
+
+## The try/except structure
+
+Wrap the risky code in a `try` block and attach one or more `except` clauses, each naming the exception type it handles:
+
+```python
+try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("cannot divide by zero")
+```
+
+Only the matching clause runs. If no exception occurs, every `except` is skipped and execution continues after the block. This sample applies that to a function from an earlier lesson — one that divides, called with three different inputs, two of which are bad:
+
+```python sample=py-019-try-except
+def divide(a, b):
+    return a / b
+
+for pair in [(10, 2), (8, 0), ("x", 4)]:
+    try:
+        result = divide(*pair)
+    except ZeroDivisionError:
+        print(f"{pair}: cannot divide by zero")
+    except TypeError:
+        print(f"{pair}: both values must be numbers")
+    else:
+        print(f"{pair}: {result}")
+```
+
+```text
+(10, 2): 5.0
+(8, 0): cannot divide by zero
+('x', 4): both values must be numbers
+```
+
+The loop calls `divide(*pair)`, unpacking each tuple into the function's two parameters — the same unpacking from the lists lesson, aimed at a call. Each pass is independent: the first succeeds and reports through the **`else`** clause (which runs only when no exception was raised), the second hits division by zero, the third passes a string where a number belongs and Python raises `TypeError`. The program never crashes; each failure gets its own message and the loop moves on.
+
+## Catching and inspecting
+
+Add `as name` to an except clause to bind the exception object:
+
+```python
+try:
+    int("thirty")
+except ValueError as err:
+    print(type(err).__name__, "-", err)
+```
+
+This prints `ValueError - invalid literal for int() with base 10: 'thirty'`. The **`type`** is the exception class; the message explains the specifics. Printing both is a useful debugging habit before you decide how to respond.
+
+## finally and cleanup
+
+A **`finally`** clause runs whether or not an exception occurred — after the matching `except`, or after the `else`, or on the way out of a failed `try`. It exists for cleanup that must happen no matter what: closing files, releasing connections, restoring state.
+
+```python sample=py-020-raise-finally
+def connect(name):
+    print(f"opening {name}")
+    try:
+        if name == "broken":
+            raise ConnectionError("bad address")
+        return f"connected to {name}"
+    finally:
+        print(f"closing {name}")
+
+print(connect("db-1"))
+print("---")
+try:
+    print(connect("broken"))
+except ConnectionError as err:
+    print("caught:", err)
+```
+
+```text
+opening db-1
+closing db-1
+connected to db-1
+---
+opening broken
+closing broken
+caught: bad address
+```
+
+`raise` creates an exception on purpose — here, `connect` detects a bad address and raises `ConnectionError` with its own message instead of letting something vaguer fail later. Watch the order in the second call: "opening broken" prints, the raise fires, `finally` still runs ("closing broken"), and only then does the exception travel up to the outer `except`, which binds it as `err` and reports the message you supplied. The success path shows the same discipline: even a clean return goes through `finally` first.
+
+<Callout type="warning">Never write a bare `except:` with an empty body — it swallows every error, including typos and bugs in your own code, and leaves you no clue anything went wrong. Catch specific types, and if you must catch broadly (`except Exception`), at least log the exception before handling it.</Callout>
+
+## Common mistakes
+
+- **Wrong clause order**: `except Exception` placed *before* `except ZeroDivisionError` catches everything, so the specific clause never runs. List specific types first.
+- **Using a variable that may not exist**: if `result = ...` is inside the `try` and the line fails, referencing `result` in the `except` block raises its own error. The sample above keeps `result` references in `else`, where it is guaranteed to exist.
+- **Catching then ignoring**: an except clause that does nothing (or just prints) hides a real problem. Decide per case: recover, report, or re-raise.
+- **Raising the wrong type**: use the exception class that matches the situation — `ValueError` for bad argument values, `KeyError`/`IndexError` for missing entries, and built-in connection/file errors for I/O failures.
+
+## Summary
+
+- An exception is an error object Python raises when something goes wrong; unhandled, it crashes the program with a traceback.
+- `try` marks the risky code; each `except Type` handles one kind of failure, and `else` runs only when nothing failed.
+- `finally` always runs — success or failure — making it the place for cleanup like closing resources.
+- `raise ExceptionType("message")` signals a problem deliberately; `as err` in an except clause binds the exception so you can inspect its type and message.

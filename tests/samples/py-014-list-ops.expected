@@ -1,0 +1,6 @@
+[72, 85, 91, 64]
+first: 72 last: 64
+middle: [85, 91]
+sorted: [72, 85, 91]
+count: 3
+has 91? True

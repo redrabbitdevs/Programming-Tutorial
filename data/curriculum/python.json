@@ -55,8 +55,8 @@
       "tier": "beginner",
       "slug": "functions",
       "title": "Functions: Parameters, Returns & Scope",
-      "prerequisites": ["loops"],
-      "status": "planned"
+      "prerequisites": ["strings"],
+      "status": "published"
     },
     {
       "order": 8,
@@ -64,7 +64,7 @@
       "slug": "lists-and-tuples",
       "title": "Lists & Tuples",
       "prerequisites": ["loops", "functions"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 9,
@@ -72,7 +72,7 @@
       "slug": "dictionaries-and-sets",
       "title": "Dictionaries & Sets",
       "prerequisites": ["lists-and-tuples"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 10,
@@ -80,15 +80,15 @@
       "slug": "basic-io",
       "title": "Simple I/O: input() & print()",
       "prerequisites": ["strings", "lists-and-tuples"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 11,
       "tier": "intermediate",
       "slug": "error-handling",
       "title": "Error Handling: Exceptions & try/except",
-      "prerequisites": ["functions"],
-      "status": "planned"
+      "prerequisites": ["functions", "lists-and-tuples"],
+      "status": "published"
     },
     {
       "order": 12,
@@ -96,7 +96,7 @@
       "slug": "classes-and-oop",
       "title": "Classes & Objects: Your First OOP",
       "prerequisites": ["functions", "dictionaries-and-sets"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 13,

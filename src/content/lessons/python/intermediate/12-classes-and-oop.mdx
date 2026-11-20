@@ -1,0 +1,113 @@
+---
+lang: python
+tier: intermediate
+title: "Classes & Objects: Your First OOP"
+description: "Bundle data and behavior into classes, create independent instances with __init__ and self, and model state that changes over time."
+order: 12
+prerequisites: [functions, dictionaries-and-sets]
+estimatedMinutes: 15
+status: published
+sampleIds: [py-021-class-basics, py-022-instance-state]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Classes & Objects: Your First OOP
+
+So far your data has lived in loose variables and your logic in standalone functions. A **class** ties the two together: it is a blueprint that bundles related data (the object's state) with the functions that operate on it. An **instance** — also called an **object** — is one concrete thing built from that blueprint, and a **method** is a function defined inside the class that acts on one of its instances.
+
+## Defining a class
+
+The `class` statement names the blueprint; by convention class names are written in `PascalCase`. Inside it, each method takes `self` as its first parameter — the specific instance the method is being called on:
+
+```python sample=py-021-class-basics
+class Dog:
+    def __init__(self, name, breed):
+        self.name = name
+        self.breed = breed
+
+    def describe(self):
+        return f"{self.name} the {self.breed}"
+
+rex = Dog("Rex", "husky")
+print(rex.name)
+print(rex.describe())
+```
+
+```text
+Rex
+Rex the husky
+```
+
+Reading the flow: `Dog("Rex", "husky")` creates an instance and immediately runs its **constructor**, the method named `__init__`. The constructor's job is to set up the instance — here, storing two pieces of data as **instance attributes**: `self.name = name` binds the passed-in argument to the object itself. After that, `rex.name` reads the attribute directly, and `rex.describe()` calls the method, which uses `self` to find *that* dog's name and breed.
+
+## self, and why methods look different from functions
+
+Compare a plain function with a method:
+
+```python
+def describe_dog(name, breed):
+    return f"{name} the {breed}"
+
+# versus, inside the class:
+def describe(self):
+    return f"{self.name} the {self.breed}"
+```
+
+The method does not take `name` and `breed` as parameters — it reaches for them through `self`, because they already live on the instance. When you write `rex.describe()`, Python fills in `self` automatically with `rex`; you never pass it yourself. That is the whole trick: `self` is how a method knows *which* object it is working on, so the same method works correctly on every instance of the class.
+
+## Independent state
+
+Each instance keeps its own attributes — changing one object never touches another. This sample builds two independent counters and lets their state diverge:
+
+```python sample=py-022-instance-state
+class Counter:
+    def __init__(self):
+        self.value = 0
+
+    def increment(self, step=1):
+        self.value += step
+        return self.value
+
+first = Counter()
+second = Counter()
+first.increment()
+first.increment(4)
+second.increment(10)
+print("first:", first.value)
+print("second:", second.value)
+```
+
+```text
+first: 5
+second: 10
+```
+
+Both counters start at 0, but `first` accumulated 1 + 4 = 5 while `second` took a single step of 10. Notice that `increment` *mutates* the instance — it changes `self.value` in place and also returns the new value so callers can chain or capture it. Methods like this are how an object's state evolves over time, which is exactly what data modeling is about: not just storing values, but describing how they change.
+
+## Reading and writing attributes
+
+You can read and assign instance attributes from outside the class too:
+
+```python
+rex.name = "Max"      # rewrite the attribute
+print(rex.name)       # Max
+```
+
+The underscore-prefixed `__init__` name marks a special method Python calls on its own; your everyday methods get plain names. Under the hood, an instance's attributes behave like a small per-object key-value store — the same idea as the dictionaries from earlier, attached to each object automatically.
+
+<Callout type="info">Everything in Python is an object: strings, lists, and numbers all have methods (`.upper()`, `.append()`, `.__add__()`). A class is simply a way for *you* to define new kinds of objects with their own data and behavior.</Callout>
+
+## Common mistakes
+
+- **Forgetting `self`**: defining `def describe():` inside a class, or calling `rex.describe(rex)`, both break the pattern. The method needs `self` as its first parameter; the call supplies it implicitly.
+- **Calling a method on the class instead of an instance**: `Dog.describe()` fails because no instance was given for `self`. Create an object first: `rex = Dog(...)`, then `rex.describe()`.
+- **Expecting shared state by default**: each instance has its own attributes. Two `Counter()` objects do not share a value unless you deliberately wire them to.
+- **Confusing the constructor with a normal method**: `__init__` runs automatically at creation and should return nothing; it is setup, not an action you trigger later.
+
+## Summary
+
+- A class is a blueprint bundling data and behavior; an instance is one concrete object built from it; methods are the class's functions acting on an instance.
+- `__init__` is the constructor — Python runs it at creation to set up the instance's attributes.
+- `self` names the current instance inside a method; Python passes it automatically when you call `instance.method()`.
+- Each instance holds independent state, and methods mutate that state over time — the core of modeling real-world objects.

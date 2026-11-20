@@ -26,14 +26,15 @@
       "lang": "python",
       "branch": "agent/lesson-writer/python-batch-1",
       "pr": 11,
-      "status": "approved",
-      "updatedAt": "2026-11-19T11:41:00Z",
+      "status": "published",
+      "updatedAt": "2026-11-19T11:50:00Z",
       "history": [
         { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
         { "ts": "2026-11-18T14:33:00Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-1" },
         { "ts": "2026-11-19T11:21:00Z", "from": "assigned", "to": "rejected", "note": "[Orchestrator] Editorial CHANGES REQUESTED on PR #11: L6 loops missing `strings` prerequisite (f-string in py-010, strings cross-ref); rework routed to lesson-writer on same branch" },
         { "ts": "2026-11-19T11:21:00Z", "from": "rejected", "to": "assigned", "note": "[Orchestrator] Rework dispatched to lesson-writer (same branch agent/lesson-writer/python-batch-1)" },
-        { "ts": "2026-11-19T11:41:00Z", "from": "assigned", "to": "approved", "note": "[Orchestrator] PR #11 gate complete on 785e1af: CI green; Code Validator PASS 11/11; Editorial RE-APPROVED (rework verified); QA & A11y APPROVED scoped (lesson routes audit due at T-007)" }
+        { "ts": "2026-11-19T11:41:00Z", "from": "assigned", "to": "approved", "note": "[Orchestrator] PR #11 gate complete on 785e1af: CI green; Code Validator PASS 11/11; Editorial RE-APPROVED (rework verified); QA & A11y APPROVED scoped (lesson routes audit due at T-007)" },
+        { "ts": "2026-11-19T11:50:00Z", "from": "approved", "to": "published", "note": "[Orchestrator] PR #11 squash-merged to main (1de63a8)" }
       ]
     },
     {
@@ -42,12 +43,15 @@
       "agent": "lesson-writer",
       "type": "lesson",
       "lang": "python",
-      "branch": null,
-      "pr": null,
-      "status": "backlog",
-      "updatedAt": "2026-11-16T10:15:57Z",
+      "branch": "agent/lesson-writer/python-batch-2",
+      "pr": 12,
+      "status": "approved",
+      "updatedAt": "2026-11-20T04:16:30Z",
       "history": [
-        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-19T11:50:00Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-2" },
+        { "ts": "2026-11-20T03:36:00Z", "from": "assigned", "to": "rejected", "note": "[Orchestrator] T-003 rejected by Editorial on PR #12: (1) 11-error-handling missing `lists-and-tuples` prerequisite (py-019 star-unpacks tuples); (2) 07-functions lists `loops` but only uses f-strings — should be `strings`. Code Validator PASS + QA APPROVED stand; rework to lesson-writer on same branch." },
+        { "ts": "2026-11-20T04:16:30Z", "from": "rejected", "to": "approved", "note": "[Orchestrator] T-003 approved on PR #12 (bd8df32): CI green + Code Validator PASS 11/11 standing (rework metadata-only) + Editorial RE-APPROVED + QA & A11y APPROVED standing (scoped; lesson routes audit due at T-007)." }
       ]
     },
     {

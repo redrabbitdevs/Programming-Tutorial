@@ -1,0 +1,84 @@
+---
+lang: python
+tier: beginner
+title: "Simple I/O: input() & print()"
+description: "Read text typed by the user with input(), convert it to numbers, and control exactly what print() writes with sep and end."
+order: 10
+prerequisites: [strings, lists-and-tuples]
+estimatedMinutes: 8
+status: published
+sampleIds: [py-018-print-options]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Simple I/O: input() & print()
+
+**I/O** means input and output: reading data into your program and writing results out. Python gives you two built-ins for the basics — `input()` to read a line of text typed by the user, and `print()` to write values to the screen.
+
+## Reading with input()
+
+`input()` shows an optional prompt, pauses until the user presses Enter, and returns everything they typed **as a string**:
+
+```python
+name = input("What is your name? ")
+print(f"Hi {name}!")
+```
+
+Because the result is always a string, convert it before doing math — `int()` for whole numbers, `float()` for decimals:
+
+```python
+age = int(input("How old are you? "))
+print(f"Next year you'll be {age + 1}.")
+```
+
+Run that and type `30`, and the program prints `Next year you'll be 31.`. The conversion is what makes the arithmetic work; without it, `"30" + 1` would not add at all — it would fail, since strings and numbers do not mix with `+`.
+
+<Callout type="warning">`int(input(...))` raises a `ValueError` if the user types something that is not a whole number, like `thirty`. That crash is normal program behavior for bad input — error handling (a later lesson) shows how to catch it and ask again instead.</Callout>
+
+## Writing with print()
+
+You have been using `print()` since the first lesson; now look at its knobs. It accepts any number of values, converts each to text, and joins them with a single space by default. Two keyword arguments change that: **`sep`** sets the text between values, and **`end`** sets what comes after the last one (a newline by default):
+
+```python sample=py-018-print-options
+print("a", "b", "c")
+print("a", "b", "c", sep=" | ")
+print("first part", end="")
+print(" second part")
+print(1 + 2, [1, 2], {"k": 3})
+```
+
+```text
+a b c
+a | b | c
+first part second part
+3 [1, 2] {'k': 3}
+```
+
+The third and fourth calls join into one line because `end=""` suppresses the newline after "first part". The last line shows that `print` accepts any value — numbers, lists, even dictionaries — and displays each using its standard text form.
+
+## Putting it together
+
+A small program reads three scores into a list (from the lists lesson) and reports the total:
+
+```python
+scores = []
+for _ in range(3):
+    scores.append(int(input("Score: ")))
+print("Total:", sum(scores))
+```
+
+The loop variable `_` is a convention for "I don't need this value". `sum()` adds up any list of numbers — no manual total-carrying needed.
+
+## Common mistakes
+
+- **Forgetting the conversion**: `input()` returns text, so `"3" + 4` is not 7 — it's an error. Wrap numeric prompts in `int()` or `float()`.
+- **Expecting input to strip extra spaces**: leading and trailing spaces the user types are kept; only the final newline is removed.
+- **Confusing sep and end**: `sep` goes *between* values, `end` goes *after* the last one.
+
+## Summary
+
+- `input(prompt)` pauses for a line of typed text and returns it as a string; convert with `int()` or `float()` before arithmetic.
+- Non-numeric input into `int(...)` raises a `ValueError` — handle bad input deliberately, not by accident.
+- `print(*values, sep=" ", end="\n")` converts every argument to text, joins them with `sep`, and finishes with `end`.
+- Build interactive programs by looping over `input()`, storing results in lists, and summarizing with built-ins like `sum()`.
