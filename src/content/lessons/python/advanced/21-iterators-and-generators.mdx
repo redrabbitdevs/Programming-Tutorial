@@ -1,0 +1,162 @@
+---
+lang: python
+tier: advanced
+title: "Iterators & Generators"
+description: "Understand the iterator protocol behind every for loop, write on-demand value producers with yield, and process sequences too large — or infinite — to hold in memory."
+order: 21
+prerequisites: [functions, loops]
+estimatedMinutes: 15
+status: published
+sampleIds: [py-041-iterator-protocol, py-042-yield-resume, py-043-infinite-sequence]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Iterators & Generators
+
+A list of a million values stores a million values — all at once, before you look at any of them. An **iterator** takes the opposite approach: it produces one value at a time, only when asked, and needs no memory for the rest. The `yield` keyword lets you write that on-demand production as an ordinary function, which makes "generators" the workhorse for processing data streams that are too large, or infinite, to materialize.
+
+## The iterator protocol
+
+Every `for` loop in Python runs on the same two-step protocol. An **iterable** is anything a loop can walk over — a list, a string, a dictionary; an **iterator** is the object that actually hands out the values. When you write `for x in items:`, Python first calls the built-in function **`iter()`** on `items` to obtain an iterator, then repeatedly calls the built-in function **`next()`** on it, binding each returned value to `x`. The walk ends when `next()` raises **StopIteration** — the exception that means "nothing is left".
+
+An object joins this protocol by defining two special methods: `__iter__`, which returns the iterator (often itself), and `__next__`, which returns the next value or raises StopIteration. This sample implements a countdown as an iterator using a **class** — a blueprint bundling data with the methods that act on it, from the OOP lessons — so you can see both the manual `next()` calls and the loop form:
+
+```python sample=py-041-iterator-protocol
+class Countdown:
+    """An iterator that counts down from start to 1."""
+
+    def __init__(self, start):
+        self.start = start
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.start <= 0:
+            raise StopIteration
+        value = self.start
+        self.start -= 1
+        return value
+
+
+it = iter(Countdown(3))
+print(next(it))
+print(next(it))
+print(next(it))
+try:
+    next(it)
+except StopIteration:
+    print("exhausted")
+
+for n in Countdown(3):
+    print(n)
+```
+
+```text
+3
+2
+1
+exhausted
+3
+2
+1
+```
+
+Read the first half as the loop's hidden mechanics made visible: `iter()` obtains the iterator, each `next()` pulls one value, and the fourth call raises StopIteration because the countdown reached zero. The second half shows that `for n in Countdown(3)` does exactly this work for you — same values, no bookkeeping.
+
+## Generators: yield
+
+Writing `__next__` by hand is rarely necessary, because Python has a shortcut: any function containing a **`yield`** expression is a **generator function**, and calling it does not run the body at all — it returns a **generator**, an iterator whose values are computed by running the body up to each `yield`. Each call to `next()` resumes the body exactly where it left off, with every local variable intact, until the next `yield`; when the body finishes, StopIteration is raised automatically. This sample makes the pause-and-resume behavior visible:
+
+```python sample=py-042-yield-resume
+def count_up(limit):
+    print("generator starts")
+    n = 0
+    while n < limit:
+        n += 1
+        print(f"computing {n}")
+        yield n
+
+
+gen = count_up(3)
+print("created, not started")
+
+for value in gen:
+    print("received", value)
+```
+
+```text
+created, not started
+generator starts
+computing 1
+received 1
+computing 2
+received 2
+computing 3
+received 3
+```
+
+The key line is "created, not started": `count_up(3)` returned a generator without executing a single line of the body. The first `next()` — from the for loop — runs the body until the first `yield`; each following call resumes right after that `yield`, with `n` still holding its old value. A generator is therefore a function whose execution is spread across its consumer's calls, one value per resumption.
+
+## One-line generators and infinite sequences
+
+The same idea has a one-line form, the **generator expression**: `(n * n for n in range(5))` builds no list — it produces each square on demand. Feed it anywhere a loop or an aggregator is expected:
+
+```python
+total = 0
+for square in (n * n for n in range(5)):
+    total += square
+print(total)   # 55
+```
+
+Because a generator computes values only as they are pulled, it can describe a sequence with no end at all:
+
+```python sample=py-043-infinite-sequence
+def count_from(start=1):
+    n = start
+    while True:
+        yield n
+        n += 1
+
+
+gen = count_from()
+for _ in range(5):
+    print(next(gen))
+
+# The generator is still alive, only as far along as we pulled it.
+print("next value will be", next(gen))
+print(type(gen).__name__)
+```
+
+```text
+1
+2
+3
+4
+5
+next value will be 6
+generator
+```
+
+`count_from` never terminates — and never needs to. The loop variable here is `_`, the conventional name for a value you do not use. After pulling five values, the generator is still alive at `n = 5`, ready to produce 6 on request; `type(gen).__name__` confirms it is a generator object (the same `type(...).__name__` trick from the error-handling lesson). An infinite list would be nonsense; an infinite generator is a perfectly ordinary tool, consumed for as long as you need.
+
+<Callout type="info">This is why every Python loop works on everything: `for` does not know about lists at all. It calls `iter()` once and `next()` until StopIteration — so any object that implements the protocol, from a built-in list to your own generator, can be looped over with identical syntax.</Callout>
+
+## Why laziness matters
+
+A list holds every value in memory for as long as it exists; a generator holds only the current one. Transforming ten million records — filter, map, aggregate — with lists means building ten-million-item intermediate lists at each stage. With generators, each stage produces its output item by item and the previous stage is discarded, so memory stays flat no matter how large the input. That is the standard reason real data pipelines in Python are written as chains of generator functions.
+
+## Common mistakes
+
+- **Reusing an exhausted generator**: a generator is single-use — once it reaches the end, further `next()` calls raise StopIteration and loops over it produce nothing. Create a fresh one by calling the function again.
+- **Materializing when you meant to be lazy**: wrapping a generator in `list(gen)` builds the entire sequence in memory, undoing the point. Only materialize when you genuinely need random access or multiple passes.
+- **Expecting the body to run at call time**: `count_up(3)` does nothing until the first `next()`. Side effects inside a generator body are deferred, not immediate.
+- **Confusing iterable with iterator**: a list is an iterable that hands out a fresh iterator from each loop; the iterator itself is what `iter()` returns and `next()` consumes. Mixing the two up makes "why did my second loop do nothing?" questions.
+
+## Summary
+
+- The for loop calls `iter()` on an iterable, then `next()` on the resulting iterator until it raises StopIteration — the iterator protocol every sequence implements.
+- A function containing `yield` is a generator function: calling it returns a generator that runs the body up to each `yield`, resuming in place on every `next()`.
+- Generator expressions give the same laziness in one line, and generators can describe infinite sequences because values are computed only when pulled.
+- Generators hold one value at a time instead of a whole list, which keeps memory flat across large or streaming data pipelines.

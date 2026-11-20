@@ -168,7 +168,7 @@
       "slug": "iterators-and-generators",
       "title": "Iterators & Generators",
       "prerequisites": ["functions", "loops"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 22,
