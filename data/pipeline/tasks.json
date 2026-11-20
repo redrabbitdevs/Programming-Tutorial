@@ -106,12 +106,13 @@
       "agent": "design-engineer",
       "type": "design",
       "lang": "python",
-      "branch": null,
+      "branch": "agent/design-engineer/learn-routes",
       "pr": null,
-      "status": "backlog",
-      "updatedAt": "2026-11-16T10:15:57Z",
+      "status": "assigned",
+      "updatedAt": "2026-11-20T10:09:53Z",
       "history": [
-        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-20T10:09:53Z", "from": "backlog", "to": "assigned", "note": "Assigned to design-engineer; pulled forward at user request 2026-11-20 (published lessons unreachable on site — dashboard links 404); scope extended: lesson route rendering + track hub" }
       ]
     },
     {
