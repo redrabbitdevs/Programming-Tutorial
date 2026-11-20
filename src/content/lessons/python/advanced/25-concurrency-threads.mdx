@@ -1,0 +1,149 @@
+---
+lang: python
+tier: advanced
+title: "Threads, the GIL & Multiprocessing"
+description: "Run work in parallel with threads, understand what the GIL allows and forbids, coordinate shared state with queues and locks, and scale CPU-bound work across cores with processes."
+order: 25
+prerequisites: [functions, file-io]
+estimatedMinutes: 15
+status: published
+sampleIds: [py-053-thread-basics, py-054-queue-producer-consumer, py-055-pool-map]
+minLangVersion: "3.14"
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Threads, the GIL & Multiprocessing
+
+A program that waits on disk or a network is mostly idle — and a single line of execution wastes every core it does not use. **Threads** let one process run several lines of work at once; the **GIL** (Global Interpreter Lock) decides which of them may actually execute Python code; and when threads are not enough, **multiprocessing** gives each core its own interpreter.
+
+## Threads: several lines of work in one process
+
+A **thread** is a line of execution inside a process, and all threads in a process share the same memory — a list one thread appends to is immediately visible to the others. The `threading` module starts one by handing it a function and arguments, exactly the parameter passing from the functions lesson:
+
+```python sample=py-053-thread-basics
+import threading
+
+
+def sum_of(kind):
+    """Sum 0..9 keeping only even or odd numbers."""
+    total = 0
+    for n in range(10):
+        if (n % 2 == 0) == (kind == "even"):
+            total += n
+    return total
+
+
+results = {}
+
+
+def worker(key, kind):
+    results[key] = sum_of(kind)
+
+
+threads = [
+    threading.Thread(target=worker, args=("even", "even")),
+    threading.Thread(target=worker, args=("odd", "odd")),
+]
+for t in threads:
+    t.start()
+for t in threads:
+    t.join()
+
+print("even sum:", results["even"])
+print("odd sum:", results["odd"])
+```
+
+```text
+even sum: 20
+odd sum: 25
+```
+
+`Thread(target=worker, args=(...))` builds the thread without running it; `start()` begins execution on a separate line; `join()` blocks until that line finishes. The two workers ran concurrently while the main line was free to do other work, and both wrote into the shared `results` dictionary — each under its own key, so they never collided.
+
+## The GIL: one thread at a time
+
+CPython wraps its core in a lock — the **Global Interpreter Lock** — which guarantees that only one thread executes Python bytecode at any moment. Other threads do run their C-level I/O calls (a file read, a socket wait) while releasing it, but pure Python computation cannot overlap. The practical rule:
+
+- **I/O-bound work scales with threads**: reading files or waiting on responses is mostly waiting, and threads make that waiting overlap.
+- **CPU-bound work does not**: two threads crunching numbers take turns holding the GIL, so total time stays about the same while you pay for switching between them.
+
+Since Python 3.14, a free-threaded build of CPython — compiled without the GIL per PEP 703 — is officially supported and can parallelize CPU-bound code across cores. The default build still ships with the GIL enabled; the rule above describes what you run unless you explicitly install the other one.
+
+## Coordinating shared state: queues and locks
+
+Shared memory is a convenience and a hazard: two threads writing the same key at once can corrupt it. Two standard tools keep this safe. A **lock** allows only one thread inside a `with lock:` block at a time — the same with-statement guarantee of cleanup you used for files, applied to mutual exclusion. And **`queue.Queue`** is a thread-safe first-in-first-out buffer whose `put` and `get` methods handle all locking internally, so a producer and consumer can pass items without either touching shared variables directly:
+
+```python sample=py-054-queue-producer-consumer
+import queue
+import threading
+
+
+def producer(values):
+    for value in values:
+        items_queue.put(value)
+
+
+items_queue = queue.Queue()
+
+t = threading.Thread(target=producer, args=([10, 20, 30],))
+t.start()
+
+received = [items_queue.get() for _ in range(3)]
+t.join()
+
+print("consumed:", received)
+```
+
+```text
+consumed: [10, 20, 30]
+```
+
+The producer thread pushes three values; the main line pulls them back in exactly the order they were put — a queue never reorders. When `get` is called and the queue is empty, it simply waits until something arrives, which is what lets the two lines of work pace themselves against each other instead of racing.
+
+## Multiprocessing: one interpreter per core
+
+Threads share memory but not the GIL; **processes** solve it the other way — each process gets its own interpreter and its own memory, so CPU-bound work genuinely runs in parallel across cores. The cost: nothing is shared by default, so every value that crosses the boundary must be serialized into bytes (pickled) and rebuilt on the other side.
+
+The `multiprocessing` module's **Pool** manages a set of worker processes for you; `pool.map` sends one input at a time to the workers, runs your function in parallel, and returns results in the same order as the inputs:
+
+```python sample=py-055-pool-map
+import multiprocessing as mp
+
+
+def slow_square(n):
+    """A CPU-bound unit of work (kept small for this demo)."""
+    return n * n
+
+
+if __name__ == "__main__":
+    with mp.Pool(2) as pool:
+        squares = pool.map(slow_square, [1, 2, 3, 4])
+    print("squares:", squares)
+```
+
+```text
+squares: [1, 4, 9, 16]
+```
+
+Two requirements make this work. The worker function must be defined at the top level of its module — a nested function or lambda cannot be pickled, so it cannot cross to a worker. And the pool code belongs under an `if __name__ == "__main__":` guard: on platforms where workers start fresh rather than copying the parent's state, an unguarded script would re-execute itself in every child process.
+
+## Picking the tool
+
+- Many simultaneous waits (files, sockets) → threads — or asyncio, the next lesson.
+- CPU-bound crunching → multiprocessing, or a free-threaded build.
+- Either way: hand results across boundaries with queues or return values, and keep shared mutable state as small as you can.
+
+## Common mistakes
+
+- **Threading CPU-bound Python code**: the GIL serializes it, so you pay for context switches without gaining speed — reach for processes instead.
+- **Mutating shared state without coordination**: two threads writing the same dictionary key or list position can interleave badly; use a lock around the critical section or pass data through a queue.
+- **Forgetting `join()`**: the main line races ahead of its workers and reads results that do not exist yet — the program can finish before the work does.
+- **Defining pool workers inside `main()`**: nested functions cannot be pickled, so `pool.map` fails with an error that surfaces only when a worker tries to start.
+
+## Summary
+
+- A thread is a second line of execution in the same process sharing all memory; `start()` runs it, `join()` waits for it.
+- The GIL lets only one thread execute Python bytecode at a time: threads overlap I/O waits but not CPU-bound computation (the 3.14 free-threaded build removes the lock).
+- Coordinate shared state with locks around critical sections or with thread-safe queues that hand items between lines of work.
+- Processes give each core its own interpreter for real parallelism; workers must be top-level, picklable functions under the `__main__` guard.
