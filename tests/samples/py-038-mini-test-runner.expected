@@ -1,0 +1,5 @@
+PASS test_within_range_is_unchanged
+PASS test_below_range_clamps_to_low
+PASS test_above_range_clamps_to_high
+FAIL test_low_equals_high: clamping into [7, 7] must return 7
+3 passed, 1 failed

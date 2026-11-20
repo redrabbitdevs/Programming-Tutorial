@@ -152,7 +152,7 @@
       "slug": "testing-basics",
       "title": "Testing Basics with pytest",
       "prerequisites": ["error-handling", "modules-and-packages"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 20,

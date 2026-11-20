@@ -1,0 +1,164 @@
+---
+lang: python
+tier: intermediate
+title: "Testing Basics with pytest"
+description: "Write tests built on assert statements, follow pytest's discovery conventions, read its failure reports, and test functions that raise exceptions."
+order: 19
+prerequisites: [error-handling, modules-and-packages]
+estimatedMinutes: 12
+status: published
+sampleIds: [py-037-assert-failures, py-038-mini-test-runner]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Testing Basics with pytest
+
+Code that works today silently breaks the next time someone edits it. A **test** is an executable check on one piece of behavior: run it now, re-run it after every change, and let it fail loudly when something you depend on stops being true. This lesson builds those checks from `assert`, then shows how **pytest**, Python's standard test runner, discovers, runs, and reports them.
+
+## Assertions: the core of a test
+
+The **`assert`** statement evaluates a condition and raises an **AssertionError** when it is false — the exception type reserved for test failures. When the condition holds, nothing happens and execution moves on:
+
+```python sample=py-037-assert-failures
+def clamp(value, low, high):
+    if value < low:
+        return low
+    if value > high:
+        return high
+    return value
+
+
+# Passing assertions run silently.
+assert clamp(5, 0, 10) == 5
+assert clamp(-3, 0, 10) == 0
+assert clamp(42, 0, 10) == 10
+print("passing asserts: OK")
+
+# A failing assertion raises AssertionError and stops the block.
+try:
+    print("before failing assert")
+    assert clamp(15, 0, 10) == 99
+    print("after failing assert - never reached")
+except AssertionError as err:
+    print("caught:", type(err).__name__)
+```
+
+```text
+passing asserts: OK
+before failing assert
+caught: AssertionError
+```
+
+The three passing asserts are silent; the failing one raises `AssertionError` immediately, so "after failing assert" never prints. An assert is just an exception under the hood, so everything from the error-handling lesson applies — a test harness catches `AssertionError` to record the failure instead of crashing. The payoff is that each expectation costs one line: `assert clamp(15, 0, 10) == 99` reads as a claim about behavior, not as machinery.
+
+## How pytest runs your tests
+
+pytest finds tests by naming convention and reports each one individually: it scans files named `test_*.py` for functions whose names start with `test_`, calls each of them, and prints a PASS or FAIL line per test followed by a summary. To see those mechanics without installing anything, this sample implements a miniature runner over the same conventions — discovery by name, one call per test, a report at the end:
+
+```python sample=py-038-mini-test-runner
+def clamp(value, low, high):
+    if value < low:
+        return low
+    if value > high:
+        return high
+    return value
+
+
+# Test functions follow the naming convention pytest uses for discovery.
+def test_within_range_is_unchanged():
+    assert clamp(5, 0, 10) == 5
+
+
+def test_below_range_clamps_to_low():
+    assert clamp(-3, 0, 10) == 0
+
+
+def test_above_range_clamps_to_high():
+    assert clamp(42, 0, 10) == 10
+
+
+def test_low_equals_high():
+    assert clamp(7, 7, 7) == 8, "clamping into [7, 7] must return 7"
+
+
+# A tiny runner that mimics pytest: find test_* names, call each, report.
+# Snapshot the module's names first so our own assignments don't disturb the scan.
+tests = []
+for name in list(globals()):
+    if name[:5] == "test_":
+        tests.append(globals()[name])
+
+passed = 0
+failed = 0
+for test in tests:
+    try:
+        test()
+    except AssertionError as err:
+        failed += 1
+        print(f"FAIL {test.__name__}: {err}")
+    else:
+        passed += 1
+        print(f"PASS {test.__name__}")
+
+print(f"{passed} passed, {failed} failed")
+```
+
+```text
+PASS test_within_range_is_unchanged
+PASS test_below_range_clamps_to_low
+PASS test_above_range_clamps_to_high
+FAIL test_low_equals_high: clamping into [7, 7] must return 7
+3 passed, 1 failed
+```
+
+The runner uses the built-in function **`globals()`**, which returns a dictionary of every name defined at module level; it snapshots that list before scanning so its own assignments don't disturb the scan. Each `test_*` function runs on its own: one deliberate failure produces a FAIL line carrying our custom message — the second argument to `assert` — while the other three still pass. pytest's real report is richer (it rewrites failing asserts to show the values involved), but the shape is identical: name, outcome, evidence.
+
+A real test file for this module follows the same pattern with none of the runner code — just the function under test imported from its own module, as in the modules lesson:
+
+```python
+# test_clamp.py
+from clamp import clamp
+
+
+def test_within_range_is_unchanged():
+    assert clamp(5, 0, 10) == 5
+
+
+def test_below_range_clamps_to_low():
+    assert clamp(-3, 0, 10) == 0
+```
+
+Running `pytest` from the project directory discovers `test_clamp.py`, runs both tests, and prints a summary line. Keep tests in their own files next to the code they exercise; the naming convention is what pytest uses to find them.
+
+## Testing code that raises
+
+Many functions signal problems with `raise` — the deliberate exceptions from the error-handling lesson. A test for such behavior expects the exception rather than avoiding it:
+
+```python
+def test_divide_by_zero_raises():
+    with pytest.raises(ZeroDivisionError):
+        divide(1, 0)
+```
+
+**`pytest.raises`** is a context manager — an object that sets up and tears down around a `with` block, which you will build yourself in the context managers lesson — and the test passes only if the block raises the named exception. If `divide(1, 0)` returned normally, pytest would fail the test with "DID NOT RAISE".
+
+## Writing useful tests
+
+Name each test after the behavior it pins down: `test_below_range_clamps_to_low` reads as a specification line. Give each test one behavior — if you need the word "and" to describe what it checks, split it. Keep tests independent: no shared variables or ordering between them, so any single test can run first and still pass. And attach a message to every non-trivial assert; the failure report shows it verbatim, which turns a bare FAIL into an explanation.
+
+<Callout type="tip">Run `pytest -x` to stop at the first failure — useful while debugging one broken area. Run plain `pytest` for the full report before committing, so you see every failure at once.</Callout>
+
+## Common mistakes
+
+- **Asserts in production code**: `assert` is a test tool, not input validation — and Python removes asserts entirely when run with `-O`. Use `raise ValueError(...)` for real error handling.
+- **Bare excepts around the code under test**: a broad `except:` swallows the `AssertionError` your test relies on, so failures vanish silently. Catch specific types only.
+- **Tests that depend on order or shared state**: if test B only passes after test A ran, you have one test split in two — and it breaks the moment run order changes.
+- **Ignoring naming conventions**: a function named `check_clamp` in `clamp_tests.py` is invisible to pytest's default discovery; it exists, but never runs.
+
+## Summary
+
+- An `assert` statement raises `AssertionError` when its condition is false; passing asserts are silent, so a test is just expectations written as code.
+- pytest discovers files named `test_*.py` and functions starting with `test_`, runs each independently, and reports PASS or FAIL per test with a summary.
+- Attach a message to non-trivial asserts — it appears in the failure report — and expect exceptions with `pytest.raises` instead of avoiding them.
+- Keep tests named after behavior, one behavior per test, independent of each other, and out of production code paths.
