@@ -159,7 +159,7 @@
       "tier": "intermediate",
       "slug": "type-hints",
       "title": "Type Hints & Static Analysis",
-      "prerequisites": ["functions", "classes-and-oop"],
+      "prerequisites": ["functions"],
       "status": "published"
     },
     {
@@ -167,7 +167,7 @@
       "tier": "advanced",
       "slug": "iterators-and-generators",
       "title": "Iterators & Generators",
-      "prerequisites": ["functions", "loops"],
+      "prerequisites": ["functions", "loops", "classes-and-oop", "error-handling"],
       "status": "published"
     },
     {
