@@ -1,0 +1,177 @@
+---
+lang: python
+tier: advanced
+title: "Context Managers & the with Statement"
+description: "Tie setup and cleanup together with the with statement, implement your own context managers with __enter__ and __exit__, and control how exceptions pass through."
+order: 22
+prerequisites: [classes-and-oop, error-handling]
+estimatedMinutes: 14
+status: published
+sampleIds: [py-044-enter-exit, py-045-nested-with, py-046-suppress]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Context Managers & the with Statement
+
+A lot of Python resources come in setup/teardown pairs: open a file and close it, acquire a lock and release it, start a transaction and finish it. You can force the pairing with `try`/`finally`, but the code sprawls — and with two resources at once it nests into something hard to read. The **`with`** statement binds cleanup to a block of code instead, and a **context manager** is the object that makes each such pair reusable: one class describing "how to enter" and "how to leave", used anywhere with one keyword.
+
+## Manual cleanup, and why it hurts
+
+The error-handling lesson's `finally` clause guarantees cleanup runs, which is exactly what we want — but only inside a function, wrapped in ceremony:
+
+```python
+connection = connect("db-1")
+try:
+    rows = connection.query("SELECT 1")
+    process(rows)
+finally:
+    connection.close()
+```
+
+One resource is tolerable. Two resources mean nested try/finally blocks; three mean a pyramid. Worse, every call site repeats the same enter/exit pair, so changing the cleanup means editing every one of them.
+
+## The with statement
+
+A **context manager** is an object that defines two special methods: **`__enter__`**, which runs when entering the block and whose return value is bound to the `as` target, and **`__exit__`**, which runs when leaving the block — always, whether it left normally or by exception. The with statement wires them up:
+
+```python
+with open("data.txt") as file:
+    text = file.read()
+# file is closed here, even if read() raised
+```
+
+You already met this form in the file I/O lesson; now you can see what it does under the hood and build your own. This sample implements a context manager that announces entry and exit, used once cleanly and once around a deliberate failure:
+
+```python sample=py-044-enter-exit
+class Banner:
+    def __init__(self, label):
+        self.label = label
+
+    def __enter__(self):
+        print(f"begin {self.label}")
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        if exc_type is None:
+            print(f"end {self.label} (clean)")
+        else:
+            print(f"end {self.label} (after {exc_type.__name__})")
+        return False
+
+
+with Banner("step A"):
+    print("doing work in A")
+
+print("---")
+
+try:
+    with Banner("step B"):
+        print("doing work in B")
+        raise ValueError("boom")
+except ValueError as err:
+    print("caught:", err)
+```
+
+```text
+begin step A
+doing work in A
+end step A (clean)
+---
+begin step B
+doing work in B
+end step B (after ValueError)
+caught: boom
+```
+
+Watch the second block: `raise ValueError` interrupts the with body, but `__exit__` still runs — it receives the exception's type as `exc_type` (and `None` for all three parameters when no exception occurred, as in step A) — and only then does the exception continue up to the outer `except`. That ordering is the whole value of the statement: cleanup cannot be skipped by a failure.
+
+## Controlling exceptions from __exit__
+
+`__exit__` has one more power: what it returns decides the exception's fate. Returning a true value suppresses the exception entirely — execution resumes after the with block as if nothing happened. Returning `False` or `None` lets it propagate, which is what almost every context manager does. Suppression is occasionally deliberate (ignoring "file not found" when probing for an optional file), but a careless `return True` swallows real bugs along with the expected ones — treat it like catching broadly: only when you mean it.
+
+<Callout type="warning">`with` guarantees cleanup, not success. An exception raised inside the block still propagates after `__exit__` finishes (unless `__exit__` explicitly suppresses it). If your code assumes the block completed, check for that — `with` will not do it for you.</Callout>
+
+## Nesting: order in, order out
+
+Multiple resources enter in the order written and exit in reverse — the last one entered is the first cleaned up. The comma form keeps nesting flat:
+
+```python sample=py-045-nested-with
+class Step:
+    def __init__(self, label):
+        self.label = label
+
+    def __enter__(self):
+        print(f"enter {self.label}")
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        print(f"exit {self.label}")
+        return False
+
+
+with Step("outer") as outer, Step("inner") as inner:
+    print("inside both:", outer.label, inner.label)
+```
+
+```text
+enter outer
+enter inner
+inside both: outer inner
+exit inner
+exit outer
+```
+
+Enter order is left to right; exit order is the mirror image. The LIFO (last in, first out) teardown matters when resources depend on each other — a cursor must close before its connection, an inner lock before the outer one it was held under.
+
+## Ready-made managers: contextlib
+
+The standard library's **contextlib** module ships ready-made context managers for common jobs. One of the most useful is `suppress`, which enters and exits around a block and swallows only the exception types you name — the same selective-ignoring idea as `except`, packaged for reuse:
+
+```python sample=py-046-suppress
+from contextlib import suppress
+
+
+def to_int(text):
+    return int(text)
+
+
+print("with suppress(ValueError):")
+for text in ["42", "seven", "17"]:
+    with suppress(ValueError):
+        print(to_int(text))
+
+print("---")
+print("without it:")
+try:
+    for text in ["42", "seven", "17"]:
+        print(to_int(text))
+except ValueError as err:
+    print("loop aborted:", err)
+```
+
+```text
+with suppress(ValueError):
+42
+17
+---
+without it:
+42
+loop aborted: invalid literal for int() with base 10: 'seven'
+```
+
+In the first loop, "seven" raises `ValueError` inside the with block; `suppress` swallows exactly that type and the loop moves on to "17". Without it, the same failure escapes the inner block and aborts the whole loop at the outer `except`. contextlib also provides a decorator — you will meet decorators in the next lesson — that turns a generator function into a context manager, so for simple cases you can write the enter/yield/exit logic as one readable function body.
+
+## Common mistakes
+
+- **Assuming with catches exceptions**: it does not. The block's exception still propagates after cleanup; `with` replaced try/finally for *cleanup*, not for *handling*.
+- **Returning True from __exit__ by accident**: a leftover `return True` turns every failure in the block into silence. Return `False` (or nothing) unless suppression is the explicit design.
+- **Cleaning up in __enter__ or skipping __exit__ on success**: `__exit__` runs on both paths — normal exit and exception. Put all teardown there, or it will not run when things go wrong.
+- **Reopening what a manager already manages**: if the standard library gives you `with open(...)`, writing your own try/finally around `open()` and `close()` repeats work the manager already does correctly.
+
+## Summary
+
+- A context manager defines `__enter__` (bound to the `as` target) and `__exit__`; the with statement calls them so cleanup runs on every path, exception included.
+- `__exit__` receives the exception's type, value, and traceback — all `None` on a clean exit — and its return value decides whether an exception is suppressed or propagates.
+- Nested managers enter left to right and exit in reverse (LIFO), and the comma form keeps multiple resources on one line.
+- contextlib supplies ready-made managers like `suppress(ExceptionType)` for selective, reusable exception handling around a block.

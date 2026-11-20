@@ -176,7 +176,7 @@
       "slug": "context-managers",
       "title": "Context Managers & the with Statement",
       "prerequisites": ["classes-and-oop", "error-handling"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 23,
