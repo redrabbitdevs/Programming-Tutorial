@@ -1,0 +1,137 @@
+---
+lang: python
+tier: advanced
+title: "Decorators & Metaprogramming"
+description: "Add behavior to functions without editing their bodies using decorators, keep wrappers generic with *args and **kwargs, and build parameterized decorators that configure themselves."
+order: 23
+prerequisites: [functional-idioms, functions]
+estimatedMinutes: 15
+status: published
+sampleIds: [py-047-basic-decorator, py-048-functools-wraps, py-049-decorator-factory]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Decorators & Metaprogramming
+
+Suppose every function in your project should log its name before running, or retry on failure, or time itself. Editing each body to add that behavior is slow and easy to get wrong; wiring it up after the fact means touching every call site instead. A **decorator** solves both: it is a function that takes a function and returns a new function with extra behavior around it, so you attach cross-cutting behavior to existing code without modifying it. This is Python's central form of **metaprogramming** — writing code that operates on other code as data.
+
+## A decorator is just a function call
+
+The functional idioms lesson established that functions are values: you can store them in variables, pass them as arguments, and return them from other functions. A decorator leans on exactly that. The `@name` line above a function definition is shorthand for reassigning the name to the result of calling `name` with the function — so `@announce` above `def say_goodbye():` means `say_goodbye = announce(say_goodbye)`, applied once at definition time:
+
+```python sample=py-047-basic-decorator
+def announce(func):
+    def wrapper():
+        print("about to call", func.__name__)
+        return func()
+    return wrapper
+
+
+# Explicit form: a decorator is just a function applied at definition time.
+def say_hello():
+    return "hello"
+
+
+announced = announce(say_hello)
+print(announced())
+
+# The @ line is shorthand for: say_goodbye = announce(say_goodbye)
+@announce
+def say_goodbye():
+    return "goodbye"
+
+
+print(say_goodbye())
+```
+
+```text
+about to call say_hello
+hello
+about to call say_goodbye
+goodbye
+```
+
+Both calls print the announcement first because both names now point at `wrapper`, not at the original function. Notice what `wrapper` does with `func`: it reads it from the enclosing scope even after `announce` has returned. A function that keeps using variables from the scope where it was defined is called a **closure** — that captured environment is how the wrapper remembers which function it wraps. Every decorator in Python is this shape: outer function receives the target, inner function (the wrapper) runs on each call, and the outer returns the inner.
+
+## Wrappers that accept anything
+
+The `wrapper` above only works for zero-argument functions — calling `say_goodbye(1)` would fail because `wrapper()` takes nothing. Real wrappers must forward whatever arguments the decorated function receives, which needs two parameter forms: **`*args`** collects any extra positional arguments into a tuple, and **`**kwargs`** collects any keyword arguments into a dictionary. Spreading them back out with `func(*args, **kwargs)` passes the call through untouched:
+
+```python sample=py-048-functools-wraps
+from functools import wraps
+
+
+def tracked(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        print("calling", func.__name__)
+        return func(*args, **kwargs)
+    return wrapper
+
+
+@tracked
+def add(a, b):
+    """Add two numbers."""
+    return a + b
+
+
+print(add(2, 3))
+print("name:", add.__name__)
+print("doc:", add.__doc__)
+```
+
+```text
+calling add
+5
+name: add
+doc: Add two numbers.
+```
+
+Two details earn their place here. The string as the first line of `add`'s body is a **docstring** — documentation stored on the function in its `__doc__` attribute, alongside the name in `__name__`. And because `wrapper` replaced `add`, both attributes would now report "wrapper" and nothing — except for `@wraps(func)`. The **`wraps`** helper from the functools module (which you met for `partial` and `reduce`) copies the wrapped function's name, docstring, and other metadata onto the wrapper, so introspection, debugging output, and error messages still point at `add`. Make it a habit: every hand-written wrapper gets `@wraps`.
+
+## Decorator factories: decorators with settings
+
+What if the behavior needs configuration — retry *three* times, log to *this* file? Then the decorator itself must take arguments. The trick is one more layer of nesting: the outermost function receives the settings and returns an actual decorator, which then does the usual wrapping:
+
+```python sample=py-049-decorator-factory
+def repeat(times):
+    def decorate(func):
+        def wrapper(*args, **kwargs):
+            for _ in range(times):
+                func(*args, **kwargs)
+        return wrapper
+    return decorate
+
+
+@repeat(3)
+def ping():
+    print("ping")
+
+
+ping()
+```
+
+```text
+ping
+ping
+ping
+```
+
+Read `@repeat(3)` as two steps: first `repeat(3)` runs, returning the `decorate` function with `times` frozen at 3; then `decorate(ping)` runs, returning the wrapper. The three layers each have one job — settings, decoration, and the per-call behavior — and this pattern scales to real-world decorators like rate limiters (`@rate_limit(calls=10, period=60)`) or permission checks.
+
+<Callout type="tip">When you read code with an unfamiliar decorator, mentally expand the `@` line into the assignment it hides: `f = some_decorator(f)`. Every decorator, no matter how exotic it looks, is that one function call at definition time.</Callout>
+
+## Common mistakes
+
+- **Forgetting to return the call**: a wrapper that runs `func(*args, **kwargs)` but omits `return` hands back `None`, so every decorated call silently loses its result.
+- **Wrappers without *args / **kwargs**: a zero-parameter wrapper breaks the moment the decorated function takes arguments — and only at the call site, far from the decorator that caused it.
+- **Skipping @wraps**: without it, `__name__`, `__doc__`, and error tracebacks all point at "wrapper", which makes debugging and documentation tools useless.
+- **Applying a factory bare**: writing `@repeat` instead of `@repeat(3)` passes the function itself as the `times` argument; you get back `decorate` instead of a wrapped function, and the failure surfaces confusingly later.
+
+## Summary
+
+- A decorator is a function that takes a function and returns a wrapper around it; `@name` above a definition is shorthand for reassigning the name to the decorated result.
+- Closures are what make wrappers work: the inner function keeps using `func` from the scope where it was defined, even after the decorator returns.
+- Forward calls with `*args, **kwargs` so wrappers accept any signature, and apply `@wraps(func)` so name and docstring survive the replacement.
+- Parameterized decorators add one nesting layer — settings function returns decorator returns wrapper — which is how configurable behavior like retry counts gets attached.

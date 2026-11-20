@@ -184,7 +184,7 @@
       "slug": "decorators",
       "title": "Decorators & Metaprogramming",
       "prerequisites": ["functional-idioms", "functions"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 24,
