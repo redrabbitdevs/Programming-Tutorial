@@ -1,0 +1,178 @@
+---
+lang: python
+tier: advanced
+title: "Architecture Patterns in Python"
+description: "Wire components together with dependency injection, extend behavior by name with a registry, and declare interfaces structurally with Protocol or nominally with an ABC."
+order: 27
+prerequisites: [oop-advanced, decorators, modules-and-packages]
+estimatedMinutes: 14
+status: published
+sampleIds: [py-059-dependency-injection, py-060-registry, py-061-protocol-and-abc]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Architecture Patterns in Python
+
+A class is a unit; a system is many units deciding how to talk to each other. Three patterns do most of the structural work in real Python codebases: **dependency injection**, which passes collaborators in instead of building them inside; the **registry pattern**, which maps names to behavior so new cases are added without editing old ones; and two complementary ways of declaring an interface — structurally with `Protocol`, nominally with an abstract base class.
+
+## Dependency injection
+
+A class that constructs its own collaborators is welded to them: you cannot test it without the real printer, the real database, the real network. **Dependency injection** flips the direction — the constructor receives what it needs, and the caller decides which concrete class to hand over:
+
+```python sample=py-059-dependency-injection
+class InvoicePrinter:
+    def render(self, total):
+        print(f"printed: {total}")
+
+
+class RecordingPrinter:
+    """A test double that records output instead of printing."""
+
+    def __init__(self):
+        self.lines = []
+
+    def render(self, total):
+        self.lines.append(total)
+
+
+class InvoiceService:
+    def __init__(self, printer):
+        self.printer = printer
+
+    def charge(self, amounts):
+        total = sum(amounts)
+        self.printer.render(total)
+        return total
+
+
+service = InvoiceService(InvoicePrinter())
+print("charged:", service.charge([10, 5]))
+
+recorder = RecordingPrinter()
+test_service = InvoiceService(recorder)
+print("charged:", test_service.charge([2, 3]))
+print("recorded:", recorder.lines)
+```
+
+```text
+printed: 15
+charged: 15
+charged: 5
+recorded: [5]
+```
+
+`InvoiceService` never names `InvoicePrinter`; it only calls `render` on whatever object it was given. In production you pass the real printer; in a test you pass a **test double** — here, `RecordingPrinter`, which captures output instead of printing it — and assert on what got recorded. The service's logic is identical in both cases, which is exactly the property tests want: behavior under your control, dependencies under yours too.
+
+## The registry pattern
+
+A dispatcher written as an if/elif chain grows one branch per new case, and every change touches the same function. The **registry pattern** breaks that: a dictionary maps names to handler functions, and each handler *registers itself* at definition time using the decorator factories from the decorators lesson:
+
+```python sample=py-060-registry
+handlers = {}
+
+
+def command(name):
+    def register(func):
+        handlers[name] = func
+        return func
+
+    return register
+
+
+@command("status")
+def status():
+    return "all systems go"
+
+
+@command("reset")
+def reset():
+    return "counter cleared"
+
+
+def dispatch(action):
+    if action not in handlers:
+        raise KeyError(f"unknown command: {action}")
+    return handlers[action]()
+
+
+print(dispatch("status"))
+print(dispatch("reset"))
+```
+
+```text
+all systems go
+counter cleared
+```
+
+`@command("status")` is a parameterized decorator — `command` returns the actual decorator, which stores `status` in the shared `handlers` dictionary under its name and hands it back unchanged. Adding a new command means writing one function with one decorator line; `dispatch` never changes. The same shape powers plugin systems, CLI subcommands, and template filters: the dispatcher stays constant while behavior is extended from the outside.
+
+## Interfaces: Protocol vs ABC
+
+Both patterns above lean on a contract — "anything with a `render` method will do" — and Python offers two ways to make that contract explicit. A **Protocol** declares it structurally: an object satisfies the interface if it has the right methods, no declaration required. With `@runtime_checkable`, even `isinstance` works against it, checking for method presence:
+
+```python sample=py-061-protocol-and-abc
+from abc import ABC, abstractmethod
+from typing import Protocol, runtime_checkable
+
+
+@runtime_checkable
+class Closable(Protocol):
+    def close(self) -> None: ...
+
+
+class FileLike:
+    """Never declares Closable; just happens to have close()."""
+
+    def close(self) -> None:
+        print("closed file-like")
+
+
+class Buffer(ABC):
+    @abstractmethod
+    def flush(self) -> None:
+        raise NotImplementedError
+
+
+class SafeBuffer(Buffer):
+    def flush(self) -> None:
+        print("flushed buffer")
+
+
+print("FileLike is Closable:", isinstance(FileLike(), Closable))
+
+try:
+    Buffer()
+except TypeError as err:
+    print("abstract call:", err)
+
+SafeBuffer().flush()
+```
+
+```text
+FileLike is Closable: True
+abstract call: Can't instantiate abstract class Buffer without an implementation for abstract method 'flush'
+flushed buffer
+```
+
+`FileLike` never mentions `Closable`, yet it qualifies — this is **structural typing**, the formal name for the duck-typing idiom. The second half of the sample shows the other option: an **abstract base class** (ABC) from the `abc` module declares the contract nominally — you must subclass it, and marking a method with `@abstractmethod` makes instantiating any class that skips it a `TypeError`.
+
+The choice follows ownership. Use a Protocol for boundaries you do not control — your code accepts anything shaped right, third-party classes included. Use an ABC for a family you own: every member subclasses the base, so the contract is enforced at definition time and new members cannot quietly drop a required method.
+
+## How the pieces fit
+
+None of these replaces modules and packages — they compose on top of them. The registry's `handlers` dictionary lives in one module; injected dependencies flow through constructors across package boundaries; Protocols name the contracts that keep those boundaries honest. When you find yourself editing the same function to add every new case, reach for a registry; when a class reaches into modules it should not know about, push the collaborator into its constructor.
+
+## Common mistakes
+
+- **Constructing dependencies inside the class**: `self.db = Database()` in `__init__` makes every test pay for a real database — inject instead.
+- **Growing if/elif dispatchers**: each new case edits the same function; a registry moves the change to the new case's own module.
+- **Expecting `isinstance` with Protocol to check deeply**: `runtime_checkable` verifies only that methods exist, not what they do — it is a shape check, and static type checkers remain the real enforcement.
+- **ABCs for duck-typed boundaries**: forcing third-party or unrelated classes to subclass your base just to satisfy an interface is the cost of nominal typing; a Protocol fits without touching them.
+
+## Summary
+
+- Dependency injection passes collaborators through constructors, so production code and tests run the same logic with different dependencies.
+- A registry maps names to handler functions that decorate themselves in at definition time — dispatch stays fixed while behavior extends.
+- A `Protocol` declares an interface structurally (right shape qualifies); an ABC declares it nominally (must subclass, missing methods are a `TypeError`).
+- Patterns layer on modules and packages: registries live in one module, injected dependencies cross package boundaries, Protocols name the contracts along them.

@@ -1,0 +1,3 @@
+FileLike is Closable: True
+abstract call: Can't instantiate abstract class Buffer without an implementation for abstract method 'flush'
+flushed buffer
