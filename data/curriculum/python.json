@@ -104,7 +104,7 @@
       "slug": "oop-advanced",
       "title": "Inheritance, Dunder Methods & dataclasses",
       "prerequisites": ["classes-and-oop"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 14,
@@ -112,7 +112,7 @@
       "slug": "functional-idioms",
       "title": "Functional Idioms: lambda, map/filter & functools",
       "prerequisites": ["functions", "lists-and-tuples"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 15,
@@ -120,7 +120,7 @@
       "slug": "data-structures-and-complexity",
       "title": "Data Structures & Big-O Complexity",
       "prerequisites": ["dictionaries-and-sets"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 16,
@@ -128,7 +128,7 @@
       "slug": "core-algorithms",
       "title": "Core Algorithms: Search, Sort & Common Patterns",
       "prerequisites": ["data-structures-and-complexity", "functions"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 17,
@@ -136,7 +136,7 @@
       "slug": "file-io",
       "title": "Files, Paths & Serialization (JSON/CSV)",
       "prerequisites": ["basic-io", "error-handling"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 18,
@@ -144,7 +144,7 @@
       "slug": "modules-and-packages",
       "title": "Modules, Packages & Project Layout",
       "prerequisites": ["functions"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 19,
