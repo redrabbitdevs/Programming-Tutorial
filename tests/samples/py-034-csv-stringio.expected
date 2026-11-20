@@ -1,0 +1,6 @@
+name,score
+ada,91
+grace,87
+['name', 'score']
+['ada', '91']
+['grace', '87']

@@ -1,0 +1,11 @@
+{
+  "name": "Ada",
+  "skills": [
+    "math",
+    "code"
+  ],
+  "active": true
+}
+name: Ada
+first skill: math
+round trip ok: True
