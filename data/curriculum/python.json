@@ -160,7 +160,7 @@
       "slug": "type-hints",
       "title": "Type Hints & Static Analysis",
       "prerequisites": ["functions", "classes-and-oop"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 21,
