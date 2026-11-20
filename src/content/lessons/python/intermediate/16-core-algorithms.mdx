@@ -1,0 +1,114 @@
+---
+lang: python
+tier: intermediate
+title: "Core Algorithms: Search, Sort & Common Patterns"
+description: "Find values with linear and binary search, sort collections with key functions, and recognize the algorithmic patterns behind everyday problems."
+order: 16
+prerequisites: [data-structures-and-complexity, functions]
+estimatedMinutes: 15
+status: published
+sampleIds: [py-030-linear-search, py-031-binary-search, py-032-sort-key]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Core Algorithms: Search, Sort & Common Patterns
+
+Search and sort are the two workhorses of programming — most larger problems turn out to be one of these in a costume. You will write both by hand here so you can see what they do under the hood, then learn how to direct Python's built-in sorting instead of replacing it.
+
+## Linear search
+
+The simplest search checks each item in order until it finds the target or runs out of items. It works on any list, sorted or not, and costs O(n) — at most n comparisons:
+
+```python sample=py-030-linear-search
+def linear_search(values, target):
+    for i in range(len(values)):
+        if values[i] == target:
+            return i
+    return -1
+
+
+scores = [72, 85, 91, 64, 98]
+print(linear_search(scores, 91))
+print(linear_search(scores, 50))
+```
+
+```text
+2
+-1
+```
+
+The function returns the *index* of the first match — `91` sits at position 2 — or `-1` when nothing matches. Negative-one as a "not found" marker is a long-standing convention; it works because valid indices are never negative. Python's built-ins do exactly this search for you: `target in values` tests membership and `values.index(target)` returns the first matching index (raising an error instead of returning `-1`).
+
+## Binary search
+
+A sorted list lets you do far better. Compare the target with the *middle* item: if it is smaller, the target can only be in the left half; if larger, only in the right half. Discard the impossible half and repeat — each step halves the search space, which makes binary search O(log n). A list of a million items needs at most about 20 steps:
+
+```python sample=py-031-binary-search
+def binary_search(sorted_values, target):
+    low = 0
+    high = len(sorted_values) - 1
+    while low <= high:
+        mid = (low + high) // 2
+        print(f"checking index {mid}: {sorted_values[mid]}")
+        if sorted_values[mid] == target:
+            return mid
+        if sorted_values[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+    return -1
+
+
+values = [3, 8, 15, 27, 41, 56, 73, 89]
+print("found at:", binary_search(values, 56))
+```
+
+```text
+checking index 3: 27
+checking index 5: 56
+found at: 5
+```
+
+Follow the trace: `low` and `high` bound the region where the target could still live. Step one probes the middle of the whole list (index 3, value 27); since 27 < 56, everything up to and including index 3 is discarded (`low = mid + 1`). Step two probes the middle of what remains (index 5) and finds the target in two comparisons instead of six. The `while low <= high` condition ends the search when the region shrinks to nothing — the same not-found case returns `-1`.
+
+## Sorting with key functions
+
+Python's built-in sort is **Timsort**, a hybrid algorithm that runs in O(n log n) on typical data; you will almost never write a sorting algorithm yourself. What matters is directing it. The `key` parameter takes a function that extracts a comparison value from each item, and `reverse=True` sorts descending:
+
+```python sample=py-032-sort-key
+def age(person):
+    return person[1]
+
+
+people = [("ada", 36), ("grace", 45), ("alan", 41)]
+
+by_age = sorted(people, key=age)
+print("by age:", by_age)
+
+by_name_desc = sorted(people, reverse=True)
+print("name desc:", by_name_desc)
+```
+
+```text
+by age: [('ada', 36), ('alan', 41), ('grace', 45)]
+name desc: [('grace', 45), ('alan', 41), ('ada', 36)]
+```
+
+`key=age` tells the sort to compare tuples by their second element — each person's age — even though the items themselves are `(name, age)` pairs. The function is applied once per item to produce the comparison value; the items keep their original shape in the result. Without `key`, Python compares tuples element by element (first element first), which is why the second line orders by name. As with the lists lesson: `sorted(...)` returns a new list, while `people.sort()` rearranges in place and returns `None`.
+
+<Callout type="tip">The built-in `min()` and `max()` return the smallest and largest item of an iterable. If you sort only to grab the smallest or largest value, skip the sort: `min(people, key=age)` and `max(...)` find an extreme in O(n) where sorting costs O(n log n).</Callout>
+
+## Common mistakes
+
+- **Binary search on unsorted data**: it silently returns the wrong answer instead of erroring. The algorithm's only assumption — sorted input — must hold; sort first, or use linear search.
+- **Off-by-one bounds in hand-rolled binary search**: the loop runs `while low <= high`, and the updates are `low = mid + 1` / `high = mid - 1`. Using `mid` instead of `mid ± 1` re-probes the same index and can loop forever.
+- **Writing a key function that takes the whole list**: `key` receives *one item at a time*. The function must accept a single person (or record) and return its comparison value — not the collection.
+- **Sorting to find an extreme**: sorting is O(n log n); `min()`/`max()` answer "what is the smallest/largest?" in O(n). Save sorting for when you need the ordered sequence itself.
+
+## Summary
+
+- Linear search scans in order and costs O(n) on any list; returning an index or a `-1` sentinel reports where (or whether) the target was found.
+- Binary search halves a *sorted* range each step — O(log n) — using `low`/`high` bounds and probing the middle until the region empties.
+- Python's Timsort runs in O(n log n); `key=` extracts a per-item comparison value, `reverse=True` sorts descending, and `sorted()` vs `.sort()` decides new list or in place.
+- For a single extreme value, use `min()`/`max()` with the same `key` function instead of sorting.

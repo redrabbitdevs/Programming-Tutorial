@@ -1,0 +1,135 @@
+---
+lang: python
+tier: intermediate
+title: "Files, Paths & Serialization (JSON/CSV)"
+description: "Read and write text files safely with the with statement, build paths with pathlib, and convert data to and from JSON and CSV for storage and exchange."
+order: 17
+prerequisites: [basic-io, error-handling]
+estimatedMinutes: 15
+status: published
+sampleIds: [py-033-json-stringio, py-034-csv-stringio]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Files, Paths & Serialization (JSON/CSV)
+
+A program that only lives in memory forgets everything when it exits. Writing data to files makes it persistent, and **serialization** — converting structured data into a text format like JSON or CSV — is what lets other programs, other languages, and future-you read it back.
+
+## Reading and writing text files
+
+`open(path, mode)` returns a file object you can read from or write to; the mode is `"r"` for reading, `"w"` for writing, `"a"` for appending. The **with** statement is the standard way to use one: it runs a block with a resource that is guaranteed to be cleaned up when the block ends — even if an error occurs — and for files that means closing them automatically:
+
+```python
+with open("notes.txt", "w") as file:
+    file.write("first line\n")
+    file.write("second line\n")
+
+with open("notes.txt", "r") as file:
+    text = file.read()
+print(text)
+```
+
+`read()` returns the whole file as one string; `file.readlines()` gives a list of lines. The **pathlib** module builds path names safely across operating systems — `Path("data") / "report.txt"` joins segments with the right separator no matter the platform, and `mkdir(exist_ok=True)` creates missing directories without failing if they already exist:
+
+```python
+from pathlib import Path
+
+data_dir = Path("data")
+data_dir.mkdir(exist_ok=True)
+report = data_dir / "report.txt"
+```
+
+If a read fails because the file is absent, Python raises `FileNotFoundError` — the exception `open()` throws when the target file does not exist, so you will hit it whenever a path is misspelled or the file has not been created yet. It is your signal to check the path or handle the missing case.
+
+## JSON
+
+**JSON** (JavaScript Object Notation) stores data as text using shapes Python already knows: JSON objects map to dictionaries, arrays to lists, and strings, numbers, and booleans map across directly — with one spelling difference, since JSON writes `true`/`false`/`null` where Python writes `True`/`False`/`None`. The `json` module converts both directions. The `dumps`/`loads` pair works with *strings* (dump to string, load from string); the `dump`/`load` pair works directly with file objects:
+
+```python sample=py-033-json-stringio
+import json
+from io import StringIO
+
+profile = {"name": "Ada", "skills": ["math", "code"], "active": True}
+
+text = json.dumps(profile, indent=2)
+print(text)
+
+restored = json.loads(text)
+print("name:", restored["name"])
+print("first skill:", restored["skills"][0])
+
+buffer = StringIO()
+json.dump(profile, buffer, indent=2)
+buffer.seek(0)
+loaded = json.load(buffer)
+print("round trip ok:", loaded == profile)
+```
+
+```text
+{
+  "name": "Ada",
+  "skills": [
+    "math",
+    "code"
+  ],
+  "active": true
+}
+name: Ada
+first skill: math
+round trip ok: True
+```
+
+Watch `True` become `true` in the serialized text and come back as a real Python boolean after `loads`. `indent=2` adds line breaks and indentation for human-readable output; omit it for compact one-line JSON. This sample keeps everything in memory using **StringIO** from the `io` module — an object that behaves like a file but lives in a string — so nothing touches disk. With a real file, the same calls read and write directly: `json.dump(profile, open_file)` and `json.load(open_file)`. Note the `seek(0)` after writing: streams remember their position, which sits at the end after `dump`, and must be rewound before `load` can read from the start.
+
+## CSV
+
+**CSV** (comma-separated values) stores tabular data — rows of comma-separated fields, usually with a header row first. The `csv` module handles the awkward parts: fields containing commas or quotes get wrapped automatically. As with JSON, it works on file-like objects, so the same in-memory pattern applies:
+
+```python sample=py-034-csv-stringio
+import csv
+from io import StringIO
+
+rows = [
+    ["name", "score"],
+    ["ada", 91],
+    ["grace", 87],
+]
+
+buffer = StringIO()
+writer = csv.writer(buffer, lineterminator="\n")
+writer.writerows(rows)
+text = buffer.getvalue()
+print(text, end="")
+
+reader = csv.reader(StringIO(text))
+for row in reader:
+    print(row)
+```
+
+```text
+name,score
+ada,91
+grace,87
+['name', 'score']
+['ada', '91']
+['grace', '87']
+```
+
+`writerows` serializes each inner list as one line; `csv.reader` parses the text back into lists. Two things to notice: every value coming back is a *string* — the score `91` returns as `"91"`, so convert with `int(row[1])` when you need arithmetic — and `lineterminator="\n"` keeps line endings uniform across operating systems (the default uses `\r\n`).
+
+<Callout type="danger">Opening a file in `"w"` mode truncates it immediately — the old contents are gone before you write a single byte. If the path might already hold data you care about, check first or write to a new name and replace the original only after the write succeeds.</Callout>
+
+## Common mistakes
+
+- **Skipping `with`**: managing open and close by hand means forgetting the close, or leaving the file open when an error fires halfway through. The `with` block makes cleanup automatic.
+- **Mixing up dumps/loads with dump/load**: `dumps`/`loads` take and produce *strings*; `dump`/`load` take a *file object*. Passing a string where a file is expected (or vice versa) fails immediately.
+- **Expecting numbers out of CSV**: the reader returns strings for every field. Convert deliberately — `int(row[1])`, `float(row[2])` — at the point where you do arithmetic.
+- **Reading binary files as text**: opening an image or zip with default text mode raises a `UnicodeDecodeError`. Use modes `"rb"` and `"wb"` for byte-level formats.
+
+## Summary
+
+- `open(path, mode)` plus `with` reads and writes text files with guaranteed cleanup; `pathlib.Path` joins path segments safely on any platform.
+- JSON maps objects to dicts and arrays to lists; `dumps`/`loads` convert through strings, `dump`/`load` work directly on file objects, and Python booleans serialize as `true`/`false`.
+- CSV stores tabular rows; `csv.writer` and `csv.reader` handle quoting, and reader output is all strings until you convert it.
+- `"w"` mode truncates immediately — protect existing data with a check or a write-then-replace pattern.

@@ -1,0 +1,102 @@
+---
+lang: python
+tier: intermediate
+title: "Functional Idioms: lambda, map/filter & functools"
+description: "Write one-off functions with lambda, transform and select sequences with map and filter, and pre-bind arguments or fold values with functools."
+order: 14
+prerequisites: [functions, lists-and-tuples]
+estimatedMinutes: 12
+status: published
+sampleIds: [py-026-lambda-map-filter, py-027-functools]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Functional Idioms: lambda, map/filter & functools
+
+Not every piece of logic deserves a named function. A **lambda** expression creates a small anonymous function inline, **map** and **filter** push a transformation or a selection across an entire sequence, and the **functools** module adds tools for pre-binding arguments and folding a sequence into one value.
+
+## lambda expressions
+
+A **lambda** is a one-line anonymous function: `lambda n: n * 2` takes `n` and returns `n * 2`. No name, no body — just an expression after the colon:
+
+```python
+double = lambda n: n * 2
+print(double(4))   # 8
+```
+
+A lambda can take any number of parameters, but its body is a single expression whose value is returned. That constraint is the point: lambdas exist to be *passed* to other functions where a named `def` would add ceremony without adding clarity.
+
+## map and filter
+
+**map** applies a function to every item of a sequence; **filter** keeps only the items for which a function returns `True`. Both return **lazy iterators** — they produce values as you ask for them rather than building everything up front — so wrap the result in `list()` to see or reuse it:
+
+```python sample=py-026-lambda-map-filter
+def double(n):
+    return n * 2
+
+
+values = [1, 2, 3, 4]
+
+doubled = list(map(double, values))
+print("named function:", doubled)
+
+doubled_again = list(map(lambda n: n * 2, values))
+print("lambda:", doubled_again)
+
+evens = list(filter(lambda n: n % 2 == 0, [1, 2, 3, 4, 5, 6]))
+print("even numbers:", evens)
+```
+
+```text
+named function: [2, 4, 6, 8]
+lambda: [2, 4, 6, 8]
+even numbers: [2, 4, 6]
+```
+
+The first two lines do the same work with a named function and a lambda — `map` never cares which it receives. Pick the named form when the behavior is reused or worth naming; keep the lambda at the point of use. The `filter` line reads as English: keep the numbers for which "n mod 2 equals zero" holds. The `%` operator is the **modulo** — the remainder after division — so it is the standard test for evenness.
+
+## functools: partial and reduce
+
+Python's standard library includes a **functools** module of higher-order tools; you import the pieces you need like any other module. Two are worth knowing now. `partial` returns a new function with some arguments pre-filled, and `reduce` folds a sequence into a single value by repeatedly applying a function to a running total:
+
+```python sample=py-027-functools
+from functools import partial, reduce
+
+
+def power(base, exponent):
+    return base ** exponent
+
+
+square = partial(power, exponent=2)
+cube = partial(power, exponent=3)
+print(square(5))
+print(cube(4))
+
+total = reduce(lambda a, b: a + b, [10, 20, 30])
+print("sum:", total)
+```
+
+```text
+25
+64
+sum: 60
+```
+
+`partial(power, exponent=2)` binds the `exponent` argument in advance, so `square(5)` behaves like `power(5, 2)` while leaving `base` to be supplied at call time. `reduce` works left to right: it starts with `10 + 20 = 30`, then applies the same function to that total and the next item, `30 + 30 = 60`. For plain addition the built-in `sum([10, 20, 30])` is clearer — reach for `reduce` when your fold needs custom logic.
+
+<Callout type="tip">A lambda fits in one expression and lives at its call site — for example, `sorted(people, key=lambda p: p[1])`, where `key=` takes a function that returns the value used to order each item. The moment you need a second statement, a comment to explain it, or reuse in two places, promote it to a named `def`.</Callout>
+
+## Common mistakes
+
+- **Printing map/filter directly**: both return lazy iterators, so `print(map(double, values))` shows `<map object at 0x...>`. Wrap in `list()` to materialize the results.
+- **Oversized lambdas**: a body with an assignment, a loop, or a branch does not fit a lambda's single expression. Write a named function instead.
+- **Misreading filter**: it keeps *input items* for which the function is true — it never returns the function's output values. `filter(lambda n: n % 2 == 0, nums)` yields the even numbers themselves.
+- **reduce where sum suffices**: adding a list of numbers with `reduce(lambda a, b: a + b, ...)` obscures intent; use `sum(nums)` and reserve `reduce` for folds with real logic.
+
+## Summary
+
+- A lambda is a one-line anonymous function — an expression after `lambda params:` — used where a function is needed once and named behavior would be noise.
+- `map(func, seq)` applies `func` to every item; `filter(pred, seq)` keeps items for which `pred` is true; both return lazy iterators, so wrap in `list()`.
+- `functools.partial` pre-fills arguments to make specialized functions; `reduce` folds a sequence into one value with a running total.
+- Keep lambdas at the point of use and single-expression; promote anything bigger to a named function.

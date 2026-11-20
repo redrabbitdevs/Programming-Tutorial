@@ -1,0 +1,116 @@
+---
+lang: python
+tier: intermediate
+title: "Modules, Packages & Project Layout"
+description: "Organize code into modules and packages, import the standard library and your own files with import, and structure a project so its imports keep working."
+order: 18
+prerequisites: [functions]
+estimatedMinutes: 14
+status: published
+sampleIds: [py-035-import-styles, py-036-main-guard]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Modules, Packages & Project Layout
+
+A single file can only grow so large before it becomes hard to navigate. **Modules** and **packages** split code into files with clear responsibilities, the `import` statement pulls in what you need, and a conventional project layout keeps imports working as the codebase grows.
+
+## Modules and import
+
+A **module** is a `.py` file: every function, class, and top-level variable inside it can be used from elsewhere. Python offers two import styles for reaching into one:
+
+```python sample=py-035-import-styles
+import math
+from math import sqrt, pi
+
+print(math.sqrt(16))
+print(sqrt(25))
+print(pi * 2)
+```
+
+```text
+4.0
+5.0
+6.283185307179586
+```
+
+`import math` binds the whole module under its name, so you access its contents with a prefix: `math.sqrt`. `from math import sqrt, pi` pulls individual names straight into your file, where they are used bare. The prefixed form makes each call's origin obvious and avoids collisions if two modules define the same name; the from-form is shorter when you lean on a few names heavily. Both styles can coexist in one file — use whichever reads better at each import line.
+
+## The standard library
+
+Python ships with hundreds of ready-made modules — the **standard library** — covering math, file formats, networking, testing, and more, all installed with Python itself. The same `import` line works for any of them: `import json`, `import csv`, `import random`. Before writing your own utility for a common job, check whether the standard library already has one; that is the first place experienced Python developers look.
+
+## Your own modules
+
+A file you write becomes a module the moment another file imports it. When you run a script, Python automatically searches for imported names in the directory that script lives in:
+
+```python
+# greeter.py
+def greet(name):
+    return f"Hello, {name}!"
+```
+
+```python
+# main.py — same directory as greeter.py
+from greeter import greet
+
+print(greet("Ada"))   # Hello, Ada!
+```
+
+`main.py` defines nothing about greeting itself; it declares the dependency with one line and uses the result. That separation is the payoff: `greeter.py` can be reused, tested, and changed without touching anything that imports it.
+
+## Packages and project layout
+
+A **package** is a directory of modules, marked as a package by an `__init__.py` file (often empty). Submodules inside it are imported with dot notation: `from myproject.db import connect`. The conventional layout for a small project puts the importable package inside a project folder that also holds configuration and tests:
+
+```text
+myproject/
+  pyproject.toml
+  myproject/
+    __init__.py
+    cli.py
+    db.py
+    models.py
+  tests/
+    test_db.py
+```
+
+The outer `myproject/` is the *project* — where you run commands from. The inner `myproject/` with the same name is the *package* — what `import myproject.db` actually loads. Keeping those two distinct (and giving the package its own `__init__.py`) is what makes a project importable as a unit rather than a grab bag of loose files.
+
+## The __name__ guard
+
+Every module has a built-in variable **`__name__`** holding its own name: `"__main__"` when the file is run directly, and the real module name when it is imported. The standard pattern uses that difference to keep runnable code out of importable code:
+
+```python sample=py-036-main-guard
+def add(a, b):
+    return a + b
+
+
+if __name__ == "__main__":
+    print("running as a script:", add(2, 3))
+else:
+    print("imported as a module")
+```
+
+```text
+running as a script: 5
+```
+
+Run the file directly and `__name__` is `"__main__"`, so the demo line executes. Import the same file from another module and only `add` gets defined — nothing prints, nothing runs. That is why top-level calls belong inside the guard (or in a `main()` function it invokes): your file becomes safe to import as a library while still working as a script.
+
+<Callout type="info">A `ModuleNotFoundError` means Python searched its path of directories and did not find that module name. Check the spelling, confirm the file or package actually sits where you expect relative to the directory you are running from, and for your own packages make sure the directory carries its `__init__.py`.</Callout>
+
+## Common mistakes
+
+- **Shadowing standard library names**: naming your own file `json.py`, `random.py`, or `test.py` can shadow the built-in module of the same name, breaking imports in confusing ways. Pick distinctive file names.
+- **Circular imports**: module A imports B while B imports A leaves one side only half-defined when the other loads. Extract the shared piece into a third module both can import.
+- **Top-level side effects**: code that runs at import time — printing, opening files, hitting a network — fires whenever anyone imports the module. Keep executable behavior behind the `__name__` guard.
+- **Assuming any directory is a package**: Python 3 can sometimes import plain directories as namespace packages, but relying on that skips the conventional `__init__.py` and confuses tooling. Mark your packages deliberately.
+
+## Summary
+
+- A module is a `.py` file; `import m` binds the module under its name, while `from m import x` pulls individual names into your own namespace.
+- The standard library ships with Python and covers most common jobs — check it before writing utilities yourself.
+- A package is a directory of modules marked by `__init__.py`; the conventional layout nests that package inside a project folder alongside tests and configuration.
+- The `if __name__ == "__main__":` guard runs entry-point code only when the file is executed directly, keeping imports side-effect free.

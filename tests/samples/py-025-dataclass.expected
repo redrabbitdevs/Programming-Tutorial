@@ -1,0 +1,4 @@
+Book(title='Dune', author='Frank Herbert', pages=412)
+Book(title='Field Notes', author='Ada', pages=0)
+True
+Dune 412
