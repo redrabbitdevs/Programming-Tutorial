@@ -1,0 +1,137 @@
+---
+lang: python
+tier: advanced
+title: "Memory, Garbage Collection & Performance"
+description: "Explain when Python frees memory through reference counting and the garbage collector, cut per-object overhead with __slots__, and know which performance lever matters first."
+order: 24
+prerequisites: [data-structures-and-complexity, iterators-and-generators]
+estimatedMinutes: 15
+status: published
+sampleIds: [py-050-refcount, py-051-gc-cycles, py-052-slots]
+minLangVersion: "3.14"
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Memory, Garbage Collection & Performance
+
+Python frees most of your memory for you, but only if you know when. Two mechanisms decide when an object dies: **reference counting**, which frees an object the moment its last name disappears, and a background **garbage collector** that sweeps up the cycles reference counting can never reach. Understanding both explains much of Python's mysterious memory growth — and orders the performance levers from most to least important.
+
+## Reference counting: the default rule
+
+In CPython every object tracks how many names currently point at it, and when that count drops to zero the object is freed immediately — no waiting for a background pass. The built-in function **`sys.getrefcount()`** reports the count for one object:
+
+```python sample=py-050-refcount
+import sys
+
+data = [1, 2, 3]
+before = sys.getrefcount(data)
+
+alias = data
+after = sys.getrefcount(data)
+
+print("delta after aliasing:", after - before)
+
+del alias
+back = sys.getrefcount(data)
+print("delta after del:", back - before)
+```
+
+```text
+delta after aliasing: 1
+delta after del: 0
+```
+
+The deltas are the lesson: binding `alias = data` added exactly one reference, and `del alias` removed it. Two consequences follow. First, `del` frees memory only when it removes the *last* reference — a name you no longer use elsewhere still keeps the object alive. Second, absolute counts are not stable readings: the call itself holds a temporary reference to its argument, and CPython has quietly avoided some internal refcount bumps since 3.14, so values shift across versions. Compare deltas, and treat the number as a CPython implementation detail rather than a language guarantee.
+
+## Cycles: what counting cannot free
+
+Reference counting has one blind spot: two objects that point at each other. After their last external names are deleted, each still holds a reference to the other, so both counts sit at 1 forever. A **reference cycle** is unreachable memory that counting alone can never free. The garbage collector exists for exactly this case — it periodically scans container objects for groups that nothing outside can reach and frees them:
+
+```python sample=py-051-gc-cycles
+import gc
+
+
+class Node:
+    def __init__(self, label):
+        self.label = label
+        self.partner = None
+
+
+a = Node("a")
+b = Node("b")
+a.partner = b
+b.partner = a
+
+del a, b
+print("collected:", gc.collect())
+```
+
+```text
+collected: 2
+```
+
+`gc.collect()` forces one full sweep immediately and returns how many objects it reclaimed — the two Nodes here. In normal code you never call it; the collector runs on its own schedule. But knowing the mechanism matters when a long-running process slowly grows: if your data structures form cycles that outlive their usefulness, memory climbs until a sweep catches up.
+
+## Generations and thresholds
+
+Scanning every object on every sweep would be expensive, so the collector sorts tracked objects into **generations** by how many sweeps they have survived. New objects start in generation 0; surviving a sweep promotes them to an older generation, because long-lived objects are rarely garbage. The default thresholds — `(700, 10, 10)` from `gc.get_threshold()` — set the cadence: collect the young generation every 700 net allocations, and let each young collection decide whether to check the next generation up, and so on.
+
+<Callout type="info">You will almost never tune these numbers. But knowing that collection is triggered by *allocations* explains why a loop that creates and discards thousands of small objects can feel choppy: the pauses happen inside your loop, at predictable intervals.</Callout>
+
+## Shrinking object memory: __slots__
+
+A plain class instance keeps its attributes in a per-instance `__dict__` — a full dictionary for every single object. A million small instances means a million dictionaries, each with its own overhead. Declaring **`__slots__`** — a tuple of attribute names written on the class — replaces that dictionary with fixed-size slots: less memory per instance, faster attribute access, and an immediate error if code tries to add an undeclared attribute:
+
+```python sample=py-052-slots
+class PointPlain:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+class PointSlots:
+    __slots__ = ("x", "y")
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+plain = PointPlain(1, 2)
+slotted = PointSlots(1, 2)
+
+print("plain has __dict__:", hasattr(plain, "__dict__"))
+print("slotted has __dict__:", hasattr(slotted, "__dict__"))
+
+try:
+    slotted.z = 3
+except AttributeError as err:
+    print("adding attribute:", err)
+```
+
+```text
+plain has __dict__: True
+slotted has __dict__: False
+adding attribute: 'PointSlots' object has no attribute 'z' and no __dict__ for setting new attributes
+```
+
+Reach for slots when you will hold many instances of a fixed-shape class — points, rows, packets. Skip them when the shape is open-ended, and be careful with inheritance: a subclass that does not declare its own `__slots__` gets a `__dict__` back and erases the savings. And remember the bigger lever from the iterators lesson: if you do not need every value at once, a generator holds one value in memory instead of a million — usually the largest win before any object-level trick.
+
+## Where performance actually goes
+
+The data structures lesson set the order: fix growth first (an O(n²) loop is beyond the reach of micro-tuning), then structure (a set where you keep scanning a list), and only then constants — slots, local lookups, avoiding repeated work. Measure before guessing: the standard library's `cProfile` module counts how many times each function runs and how long each takes, so "where does my program spend its time?" gets an answer instead of a hunch.
+
+## Common mistakes
+
+- **Expecting `del` to free memory immediately**: it removes one reference; objects caught in a cycle wait for the next garbage collection sweep.
+- **Trusting absolute refcounts**: `sys.getrefcount()` includes the call's own argument, and CPython internals shift between versions — compare deltas, and treat the number as an implementation detail.
+- **Adding `__slots__` to an open-ended class**: dynamic attributes raise AttributeError, and a naive subclass silently brings the dictionary back — slots belong on classes whose fields are known at design time.
+- **Micro-optimizing before profiling**: shaving nanoseconds off a loop nested inside an O(n²) algorithm changes nothing; profile first, then optimize what actually costs.
+
+## Summary
+
+- CPython frees an object when its reference count reaches zero; each extra name is one more reference, and `del` removes exactly one.
+- Objects that only point at each other form a reference cycle counting can never free — the generational garbage collector sweeps those out, triggered by allocation thresholds.
+- `__slots__` replaces the per-instance attribute dictionary with fixed slots: less memory and faster access for classes with a known set of fields.
+- Performance work is ordered — growth (Big-O), then data structure, then constants — and verified with a profiler rather than guesswork.
