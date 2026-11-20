@@ -62,12 +62,13 @@
       "type": "lesson",
       "lang": "python",
       "branch": "agent/lesson-writer/python-batch-3",
-      "pr": null,
-      "status": "assigned",
-      "updatedAt": "2026-11-20T04:24:00Z",
+      "pr": 14,
+      "status": "rejected",
+      "updatedAt": "2026-11-20T06:15:00Z",
       "history": [
         { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
-        { "ts": "2026-11-20T04:24:00Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-3" }
+        { "ts": "2026-11-20T04:24:00Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-3" },
+        { "ts": "2026-11-20T06:15:00Z", "from": "assigned", "to": "rejected", "note": "[Orchestrator] T-004 rejected by Editorial on PR #14 (head e292ab3): 3 prerequisite-coherence findings — (1) 17-file-io falsely attributes FileNotFoundError to lesson 11 (introduce in-lesson); (2) 16-core-algorithms uses min()/max() never taught in lessons 01-12 (defining clause at first use); (3) 14-functional-idioms callout uses key= before it is taught in L16 (clause or example swap). Code Validator PASS + QA & A11y APPROVED stand; rework to lesson-writer on same branch." }
       ]
     },
     {
