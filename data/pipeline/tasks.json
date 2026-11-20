@@ -80,12 +80,13 @@
       "type": "lesson",
       "lang": "python",
       "branch": "agent/lesson-writer/python-batch-4",
-      "pr": null,
-      "status": "assigned",
-      "updatedAt": "2026-11-20T09:36:00Z",
+      "pr": 15,
+      "status": "rejected",
+      "updatedAt": "2026-11-20T17:40:00Z",
       "history": [
         { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
-        { "ts": "2026-11-20T09:36:00Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-4; orders 19-23 (testing-basics, type-hints, iterators-and-generators, context-managers, decorators); samples from py-037." }
+        { "ts": "2026-11-20T09:36:00Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-4; orders 19-23 (testing-basics, type-hints, iterators-and-generators, context-managers, decorators); samples from py-037." },
+        { "ts": "2026-11-20T17:40:00Z", "from": "assigned", "to": "rejected", "note": "[Orchestrator] T-005 rejected by Editorial on PR #15 (head 9aeadb7): 2 blocking prerequisite findings - (1) 20-type-hints declares unused prereq classes-and-oop (fix: [functions]); (2) 21-iterators-and-generators missing classes-and-oop (sample py-041 built on class syntax, prose attributes it to the OOP lessons). Plus 2 non-blocking nits: L21 undeclared error-handling usage; L20:18 static-analysis jargon. Code Validator PASS stands; rework to lesson-writer on same branch." }
       ]
     },
     {
