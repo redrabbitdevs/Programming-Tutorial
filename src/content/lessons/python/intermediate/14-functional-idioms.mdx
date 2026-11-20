@@ -85,7 +85,7 @@ sum: 60
 
 `partial(power, exponent=2)` binds the `exponent` argument in advance, so `square(5)` behaves like `power(5, 2)` while leaving `base` to be supplied at call time. `reduce` works left to right: it starts with `10 + 20 = 30`, then applies the same function to that total and the next item, `30 + 30 = 60`. For plain addition the built-in `sum([10, 20, 30])` is clearer — reach for `reduce` when your fold needs custom logic.
 
-<Callout type="tip">A lambda fits in one expression and lives at its call site: `sorted(people, key=lambda p: p[1])` reads naturally. The moment you need a second statement, a comment to explain it, or reuse in two places, promote it to a named `def`.</Callout>
+<Callout type="tip">A lambda fits in one expression and lives at its call site — for example, `sorted(people, key=lambda p: p[1])`, where `key=` takes a function that returns the value used to order each item. The moment you need a second statement, a comment to explain it, or reuse in two places, promote it to a named `def`.</Callout>
 
 ## Common mistakes
 

@@ -97,7 +97,7 @@ name desc: [('grace', 45), ('alan', 41), ('ada', 36)]
 
 `key=age` tells the sort to compare tuples by their second element — each person's age — even though the items themselves are `(name, age)` pairs. The function is applied once per item to produce the comparison value; the items keep their original shape in the result. Without `key`, Python compares tuples element by element (first element first), which is why the second line orders by name. As with the lists lesson: `sorted(...)` returns a new list, while `people.sort()` rearranges in place and returns `None`.
 
-<Callout type="tip">If you sort only to grab the smallest or largest value, skip the sort: `min(people, key=age)` and `max(...)` find an extreme in O(n) where sorting costs O(n log n).</Callout>
+<Callout type="tip">The built-in `min()` and `max()` return the smallest and largest item of an iterable. If you sort only to grab the smallest or largest value, skip the sort: `min(people, key=age)` and `max(...)` find an extreme in O(n) where sorting costs O(n log n).</Callout>
 
 ## Common mistakes
 
