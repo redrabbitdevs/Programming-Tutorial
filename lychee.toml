@@ -15,9 +15,4 @@ exclude = [
   # design-system encyclopedia-table demo links to these future routes.
   # Matches post-remap file URIs (base prefix already stripped by --remap).
   ".*/languages(/.*)?$",
-  # TODO(post-deploy T-007): remove after PR #17 is merged AND deployed to
-  # GitHub Pages — Astro emits origin-absolute <link rel="canonical"> for the
-  # new /learn pages, which 404 on the live site until the deploy lands.
-  # Internal /learn links are still checked as local files under dist/.
-  "^https?://redrabbitdevs\\.github\\.io/Programming-Tutorial/learn(/.*)?$"
 ]
