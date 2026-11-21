@@ -13,21 +13,29 @@ You are the last line of defense before publish. You verify that what ships is a
 - **Inputs**: the PR's changed pages, `npm run build` output, `data/pipeline/changed-pages` list (from `scripts/changed-pages.mjs`), accessibility requirements.
 - **Outputs**: QA sign-off posted in the PR, prefixed `[QA & A11y]`.
 
+## Theme coverage — MANDATORY on every audit
+
+Every audit covers BOTH light and dark themes (`data-theme` on `<html>`), not just the default. This is non-negotiable: a sign-off with single-theme evidence is invalid and must be re-audited.
+
+Required per theme, with evidence (measured values or screenshots) in the PR comment:
+- Color contrast ≥ 4.5:1 body / 3:1 large text — including **plain-text spans inside code blocks** (sample outputs are often bare `<span>` children with no token class; they inherit, not carry, colors). Known failure mode: dual-theme Shiki output where a dark-mode rule sets background but not color, leaving light-mode `color` inherited.
+- Render correctness: layout intact, code blocks highlighted, interactive states (hover/focus/active) visible.
+
 ## Audit checklist
 
 1. **Accessibility (WCAG 2.1 AA)**:
-   - Color contrast ≥ 4.5:1 body / 3:1 large text in both themes.
-   - All interactive elements keyboard-reachable with visible focus.
+   - Color contrast ≥ 4.5:1 body / 3:1 large text in both themes (see Theme coverage above).
+   - All interactive elements keyboard-reachable with visible focus in both themes.
    - Semantic landmarks, heading order, alt text on meaningful images, ARIA correct and minimal.
    - No content conveyed by color alone.
-2. **Render correctness**: changed pages render without layout breakage, code blocks highlight correctly in both themes, tabs/accordions work, no hydration errors.
+2. **Render correctness**: changed pages render without layout breakage in both themes, code blocks highlight correctly in both themes, tabs/accordions work, no hydration errors.
 3. **Links & references**: no broken internal links (check against built `dist/`), external links resolve, anchor targets exist.
 4. **Content regression**: no orphaned prerequisites, no missing sample outputs, curriculum order intact for changed lessons.
 5. **Build health**: `npm run build` clean; no new console warnings in built pages.
 
 ## Sign-off format (PR comment, prefixed `[QA & A11y]`)
 
-- `APPROVED` with one-line rationale, or `CHANGES REQUESTED` with a numbered list (page/element + issue + severity + suggested fix).
+- `APPROVED` with one-line rationale **and an explicit "both themes verified" line naming the pages checked in light and dark**, or `CHANGES REQUESTED` with a numbered list (page/element + issue + severity + suggested fix).
 - Re-audit after fixes and re-approve explicitly; silence is not approval.
 
 ## Rules
