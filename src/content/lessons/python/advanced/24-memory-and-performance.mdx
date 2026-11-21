@@ -46,10 +46,11 @@ The deltas are the lesson: binding `alias = data` added exactly one reference, a
 
 ## Cycles: what counting cannot free
 
-Reference counting has one blind spot: two objects that point at each other. After their last external names are deleted, each still holds a reference to the other, so both counts sit at 1 forever. A **reference cycle** is unreachable memory that counting alone can never free. The garbage collector exists for exactly this case — it periodically scans container objects for groups that nothing outside can reach and frees them:
+Reference counting has one blind spot: two objects that point at each other. After their last external names are deleted, each still holds a reference to the other, so both counts sit at 1 forever. A **reference cycle** is unreachable memory that counting alone can never free. The garbage collector exists for exactly this case — it periodically scans container objects for groups that nothing outside can reach and frees them. To watch the outcome, the sample keeps a **weak reference** to each Node — a `weakref.ref()` handle that observes an object without keeping it alive, so it reads `None` once the object is reclaimed:
 
 ```python sample=py-051-gc-cycles
 import gc
+import weakref
 
 
 class Node:
@@ -63,15 +64,20 @@ b = Node("b")
 a.partner = b
 b.partner = a
 
+ra = weakref.ref(a)
+rb = weakref.ref(b)
+
 del a, b
-print("collected:", gc.collect())
+gc.collect()
+
+print("cycle collected:", ra() is None and rb() is None)
 ```
 
 ```text
-collected: 2
+cycle collected: True
 ```
 
-`gc.collect()` forces one full sweep immediately and returns how many objects it reclaimed — the two Nodes here. In normal code you never call it; the collector runs on its own schedule. But knowing the mechanism matters when a long-running process slowly grows: if your data structures form cycles that outlive their usefulness, memory climbs until a sweep catches up.
+`gc.collect()` forces one full sweep immediately, and both weak references now read `None` — the cycle is gone. (The collector also returns a count of everything it reclaimed, but that total varies with interpreter state; checking your own objects through weak references is the reliable way to observe the result.) In normal code you never call it; the collector runs on its own schedule. But knowing the mechanism matters when a long-running process slowly grows: if your data structures form cycles that outlive their usefulness, memory climbs until a sweep catches up.
 
 ## Generations and thresholds
 
