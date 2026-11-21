@@ -1,0 +1,20 @@
+{
+  "name": "Go",
+  "aliases": [
+    "Golang"
+  ],
+  "paradigms": [
+    "procedural",
+    "imperative",
+    "concurrent"
+  ],
+  "year": 2009,
+  "era": "2000s",
+  "status": "active",
+  "tiobeRank": 10,
+  "helloWorld": {
+    "lang": "go",
+    "code": "package main\n\nimport \"fmt\"\n\nfunc main() {\n    fmt.Println(\"Hello, World!\")\n}\n"
+  },
+  "pageStatus": "planned"
+}

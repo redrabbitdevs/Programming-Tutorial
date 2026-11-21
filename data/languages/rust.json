@@ -1,0 +1,18 @@
+{
+  "name": "Rust",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "functional",
+    "concurrent"
+  ],
+  "year": 2010,
+  "era": "2010s",
+  "status": "active",
+  "tiobeRank": 11,
+  "helloWorld": {
+    "lang": "rust",
+    "code": "fn main() {\n    println!(\"Hello, World!\");\n}\n"
+  },
+  "pageStatus": "planned"
+}

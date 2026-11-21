@@ -1,0 +1,18 @@
+{
+  "name": "Julia",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "procedural",
+    "functional"
+  ],
+  "year": 2012,
+  "era": "2010s",
+  "status": "active",
+  "tiobeRank": 23,
+  "helloWorld": {
+    "lang": "julia",
+    "code": "print(\"Hello, World!\")\n"
+  },
+  "pageStatus": "planned"
+}

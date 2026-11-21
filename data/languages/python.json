@@ -1,9 +1,16 @@
 {
   "name": "Python",
-  "aliases": ["python3"],
-  "paradigms": ["object-oriented", "procedural", "imperative", "functional"],
+  "aliases": [
+    "python3"
+  ],
+  "paradigms": [
+    "object-oriented",
+    "procedural",
+    "imperative",
+    "functional"
+  ],
   "year": 1991,
-  "era": "modern",
+  "era": "1990s",
   "status": "active",
   "tiobeRank": 1,
   "trackSlug": "python",

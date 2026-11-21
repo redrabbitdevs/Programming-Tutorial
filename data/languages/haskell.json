@@ -1,0 +1,16 @@
+{
+  "name": "Haskell",
+  "aliases": [],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 1990,
+  "era": "1990s",
+  "status": "active",
+  "tiobeRank": 39,
+  "helloWorld": {
+    "lang": "haskell",
+    "code": "main :: IO ()\nmain = putStrLn \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

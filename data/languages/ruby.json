@@ -1,0 +1,17 @@
+{
+  "name": "Ruby",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "functional"
+  ],
+  "year": 1995,
+  "era": "1990s",
+  "status": "active",
+  "tiobeRank": 30,
+  "helloWorld": {
+    "lang": "ruby",
+    "code": "puts \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

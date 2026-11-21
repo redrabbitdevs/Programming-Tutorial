@@ -1,0 +1,16 @@
+{
+  "name": "SQL",
+  "aliases": [],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 1974,
+  "era": "1970s",
+  "status": "active",
+  "tiobeRank": 8,
+  "helloWorld": {
+    "lang": "sql",
+    "code": "SELECT 'Hello, World!' AS greeting;\n"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Dart",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 2011,
+  "era": "2010s",
+  "status": "active",
+  "tiobeRank": 20,
+  "helloWorld": {
+    "lang": "dart",
+    "code": "void main() {\n  print(\"Hello, World!\");\n}\n"
+  },
+  "pageStatus": "planned"
+}

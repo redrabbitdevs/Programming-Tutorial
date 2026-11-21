@@ -1,0 +1,19 @@
+{
+  "name": "Xojo",
+  "aliases": [
+    "REALbasic",
+    "Real Studio"
+  ],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 2000,
+  "era": "2000s",
+  "status": "active",
+  "tiobeRank": 44,
+  "helloWorld": {
+    "lang": "basic",
+    "code": "Sub Run()\n    MsgBox(\"Hello, World!\")\nEnd Sub\n"
+  },
+  "pageStatus": "planned"
+}
