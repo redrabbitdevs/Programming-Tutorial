@@ -21,4 +21,28 @@ const lessons = defineCollection({
   })
 });
 
-export const collections = { lessons };
+// Encyclopedia pages over src/content/languages/<slug>.mdx. The schema mirrors
+// the data/languages/<slug>.json record fields (docs/content-conventions.md)
+// plus `summary` prose; the record's `status` is renamed `languageStatus` on
+// pages to avoid colliding with the publish-lifecycle `status`.
+const languages = defineCollection({
+  loader: glob({ pattern: "**/*.mdx", base: "./src/content/languages" }),
+  schema: z.object({
+    name: z.string(),
+    aliases: z.array(z.string()),
+    paradigms: z.array(z.string()),
+    year: z.number().int().positive(),
+    era: z.string().optional(),
+    languageStatus: z.enum(["active", "legacy", "historical"]),
+    tiobeRank: z.number().int().positive().optional(),
+    trackSlug: z.string().optional(),
+    helloWorld: z.object({ lang: z.string(), code: z.string() }),
+    pageStatus: z.enum(["planned", "written", "published"]),
+    title: z.string(),
+    summary: z.string(),
+    // Content statuses per docs/content-conventions.md (validate.mjs STATUSES).
+    status: z.enum(["draft", "review", "published"])
+  })
+});
+
+export const collections = { lessons, languages };
