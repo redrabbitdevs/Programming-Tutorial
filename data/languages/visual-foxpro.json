@@ -1,0 +1,19 @@
+{
+  "name": "Visual FoxPro",
+  "aliases": [
+    "FoxPro"
+  ],
+  "paradigms": [
+    "object-oriented",
+    "procedural"
+  ],
+  "year": 1996,
+  "era": "1990s",
+  "status": "legacy",
+  "tiobeRank": 45,
+  "helloWorld": {
+    "lang": "foxpro",
+    "code": "? \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

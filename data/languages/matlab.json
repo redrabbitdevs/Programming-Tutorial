@@ -1,0 +1,17 @@
+{
+  "name": "MATLAB",
+  "aliases": [],
+  "paradigms": [
+    "imperative",
+    "procedural"
+  ],
+  "year": 1984,
+  "era": "1980s",
+  "status": "active",
+  "tiobeRank": 16,
+  "helloWorld": {
+    "lang": "matlab",
+    "code": "disp('Hello, World!')\n"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Objective-C",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 1984,
+  "era": "1980s",
+  "status": "active",
+  "tiobeRank": 29,
+  "helloWorld": {
+    "lang": "objective-c",
+    "code": "#import <Foundation/Foundation.h>\n\nint main(int argc, const char * argv[]) {\n    @autoreleasepool {\n        NSLog(@\"Hello, World!\");\n    }\n    return 0;\n}\n"
+  },
+  "pageStatus": "planned"
+}

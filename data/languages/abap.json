@@ -1,0 +1,19 @@
+{
+  "name": "ABAP",
+  "aliases": [
+    "Advanced Business Application Programming"
+  ],
+  "paradigms": [
+    "procedural",
+    "object-oriented"
+  ],
+  "year": 1983,
+  "era": "1980s",
+  "status": "active",
+  "tiobeRank": 25,
+  "helloWorld": {
+    "lang": "abap",
+    "code": "WRITE: 'Hello, World!'.\n"
+  },
+  "pageStatus": "planned"
+}

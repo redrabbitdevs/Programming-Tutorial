@@ -1,0 +1,19 @@
+{
+  "name": "Fortran",
+  "aliases": [
+    "FORTRAN"
+  ],
+  "paradigms": [
+    "procedural",
+    "imperative"
+  ],
+  "year": 1957,
+  "era": "1950s",
+  "status": "active",
+  "tiobeRank": 13,
+  "helloWorld": {
+    "lang": "fortran",
+    "code": "program hello\n  implicit none\n  print *, \"Hello, World!\"\nend program hello\n"
+  },
+  "pageStatus": "planned"
+}

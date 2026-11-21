@@ -1,0 +1,17 @@
+{
+  "name": "Solidity",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "procedural"
+  ],
+  "year": 2014,
+  "era": "2010s",
+  "status": "active",
+  "tiobeRank": 49,
+  "helloWorld": {
+    "lang": "solidity",
+    "code": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract Greeting {\n    function greet() public pure returns (string memory) {\n        return \"Hello, World!\";\n    }\n}\n"
+  },
+  "pageStatus": "planned"
+}

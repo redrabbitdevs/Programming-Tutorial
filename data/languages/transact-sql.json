@@ -1,0 +1,19 @@
+{
+  "name": "Transact-SQL",
+  "aliases": [
+    "T-SQL"
+  ],
+  "paradigms": [
+    "procedural",
+    "declarative"
+  ],
+  "year": 1989,
+  "era": "1980s",
+  "status": "active",
+  "tiobeRank": 47,
+  "helloWorld": {
+    "lang": "sql",
+    "code": "SELECT 'Hello, World!' AS greeting;\n"
+  },
+  "pageStatus": "planned"
+}

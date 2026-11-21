@@ -1,0 +1,16 @@
+{
+  "name": "PL/SQL",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1992,
+  "era": "1990s",
+  "status": "active",
+  "tiobeRank": 27,
+  "helloWorld": {
+    "lang": "sql",
+    "code": "BEGIN\n    DBMS_OUTPUT.PUT_LINE('Hello, World!');\nEND;\n/\n"
+  },
+  "pageStatus": "planned"
+}

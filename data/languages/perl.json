@@ -1,0 +1,17 @@
+{
+  "name": "Perl",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "imperative"
+  ],
+  "year": 1987,
+  "era": "1980s",
+  "status": "active",
+  "tiobeRank": 15,
+  "helloWorld": {
+    "lang": "perl",
+    "code": "print \"Hello, World!\\n\";\n"
+  },
+  "pageStatus": "planned"
+}
