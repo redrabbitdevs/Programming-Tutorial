@@ -163,12 +163,13 @@
       "agent": "design-engineer",
       "type": "design",
       "lang": null,
-      "branch": null,
+      "branch": "agent/design-engineer/languages-index",
       "pr": null,
-      "status": "backlog",
-      "updatedAt": "2026-11-16T10:15:57Z",
+      "status": "assigned",
+      "updatedAt": "2026-11-21T08:45:26Z",
       "history": [
-        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-21T08:45:26Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] T-010 assigned to design-engineer on branch agent/design-engineer/languages-index. Scope: /languages/ index (data-driven over all data/languages/*.json via existing EncyclopediaTable) + /languages/[slug].astro (published encyclopedia pages via existing Encyclopedia layout) + e2e/axe extension; lychee languages exclusion stays (demo slugs pending T-009/T-011). Gate per plan type=design row: CI + QA & A11y only." }
       ]
     },
     {
