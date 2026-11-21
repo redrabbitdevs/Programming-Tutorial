@@ -116,13 +116,14 @@
       "lang": "python",
       "branch": "agent/design-engineer/learn-routes-v4",
       "pr": 17,
-      "status": "approved",
-      "updatedAt": "2026-11-21T07:08:15Z",
+      "status": "published",
+      "updatedAt": "2026-11-21T07:28:51Z",
       "history": [
         { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
         { "ts": "2026-11-21T05:17:14Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] T-007 assigned to design-engineer on branch agent/design-engineer/learn-routes-v4 (4th attempt; 3 prior background sessions stalled after npm ci with zero commits - branches learn-routes, -v2, -v3 dead and ignored). Scope: /learn/<lang>/<tier>/NN-slug/ lesson routes + /learn/[lang]/index.astro track hub, data-driven from content collection (published only), reusing existing Lesson/Track layouts + components; static sample rendering from tests/samples/*.expected; lychee learn-exclusion removal; e2e+axe spec covering ALL 28 lesson routes (first a11y audit of these routes). Runs in foreground per user directive." },
         { "ts": "2026-11-21T06:49:23Z", "from": "assigned", "to": "rejected", "note": "[QA & A11y] CHANGES REQUESTED on PR #17 (head b35079d): skip link does not transfer focus - <main id=\"main\"> in src/layouts/Base.astro lacks tabindex=-1 (WCAG 2.4.1 Bypass Blocks, Level A; empirically verified in-audit). All other audit checks pass: Playwright 67/67, axe wcag2a/wcag2aa on all 32 pages, 64/64 sample outputs byte-equal to fixtures, zero link failures on learn routes + dashboard. Author applies the one-line fix on the same branch and re-pushes; QA re-audits sampled routes and posts explicit re-approval." },
-        { "ts": "2026-11-21T07:08:15Z", "from": "rejected", "to": "approved", "note": "[QA & A11y] APPROVED on re-audit of head ee88785 (PR comment 7059021550): skip-link focus transfer verified 10/10 across tiers and activation methods; Playwright 67/67 incl. axe wcag2a/wcag2aa on all 32 pages; no regressions. CI 4/4 green (run 44877656420). Gate complete per plan type=design row (CV/Editorial not required); orchestrator final review spot-checks passed (diff scope = assignment; lesson-01 explicit link verified; Base.astro tabindex fix verified)." }
+        { "ts": "2026-11-21T07:08:15Z", "from": "rejected", "to": "approved", "note": "[QA & A11y] APPROVED on re-audit of head ee88785 (PR comment 7059021550): skip-link focus transfer verified 10/10 across tiers and activation methods; Playwright 67/67 incl. axe wcag2a/wcag2aa on all 32 pages; no regressions. CI 4/4 green (run 44877656420). Gate complete per plan type=design row (CV/Editorial not required); orchestrator final review spot-checks passed (diff scope = assignment; lesson-01 explicit link verified; Base.astro tabindex fix verified)." },
+        { "ts": "2026-11-21T07:28:51Z", "from": "approved", "to": "published", "note": "[Orchestrator] PR #17 squash-merged to main a5bfaed: /learn lesson routes (28) + track hub live on merge; GitHub Pages deploy in progress. Post-deploy follow-up armed: verify live URLs, then site-ops PR removes the temporary lychee canonical-learn exclusion." }
       ]
     },
     {
@@ -133,10 +134,11 @@
       "lang": "python",
       "branch": null,
       "pr": null,
-      "status": "backlog",
-      "updatedAt": "2026-11-16T10:15:57Z",
+      "status": "assigned",
+      "updatedAt": "2026-11-21T07:28:51Z",
       "history": [
-        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-21T07:28:51Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] T-008 assigned to reference-curator on branch agent/reference-curator/python-encyclopedia. Scope: data/languages/python.json (canonical record) + src/content/languages/python.mdx (150-600 words, pageStatus published) + languages content collection in content.config.ts. No /languages routes in this PR (T-010 scope). Gate per plan encyclopedia row: CI schema+links+hello-worlds, CV attestation of hello-world snippet only, Editorial N/A, QA required." }
       ]
     },
     {
