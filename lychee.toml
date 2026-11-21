@@ -13,7 +13,11 @@ max_concurrency = 16
 exclude = [
   # TODO(phase-5): remove once /languages/<slug>/ routes exist (T-010) — the
   # design-system encyclopedia-table demo links to these future routes.
-  # /learn/* is no longer excluded: lesson + track-hub routes ship in T-007.
   # Matches post-remap file URIs (base prefix already stripped by --remap).
-  ".*/languages(/.*)?$"
+  ".*/languages(/.*)?$",
+  # TODO(post-deploy T-007): remove after PR #17 is merged AND deployed to
+  # GitHub Pages — Astro emits origin-absolute <link rel="canonical"> for the
+  # new /learn pages, which 404 on the live site until the deploy lands.
+  # Internal /learn links are still checked as local files under dist/.
+  "^https?://redrabbitdevs\\.github\\.io/Programming-Tutorial/learn(/.*)?$"
 ]
