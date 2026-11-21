@@ -1,0 +1,38 @@
+---
+// Encyclopedia language page — /languages/<slug>/ (plan structure line 37).
+// Data-driven from the languages content collection; renders ONLY entries with
+// pageStatus: published. Renders the MDX body through layouts/Encyclopedia.astro,
+// which supplies the back link, name + status badge, "Full track" CTA, and the
+// metadata dl (paradigms, year, era, TIOBE rank).
+import { getCollection, render } from "astro:content";
+import Encyclopedia from "../../layouts/Encyclopedia.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("languages", ({ data }) => data.pageStatus === "published");
+  return entries.map((entry) => ({
+    // Glob loader base is src/content/languages, so entry.id is the bare slug.
+    params: { slug: entry.id },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+
+// hasTrack mirrors the index-page derivation: a trackSlug means a
+// /learn/<trackSlug>/ track hub exists, so the layout shows the CTA.
+const { Content } = await render(entry);
+---
+
+<Encyclopedia
+  name={data.name}
+  slug={entry.id}
+  status={data.languageStatus}
+  paradigms={data.paradigms}
+  year={data.year}
+  era={data.era}
+  tiobeRank={data.tiobeRank}
+  hasTrack={Boolean(data.trackSlug)}
+>
+  <Content />
+</Encyclopedia>

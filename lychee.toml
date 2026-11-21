@@ -11,8 +11,10 @@ max_concurrency = 16
 # Internal links are checked as local files under dist/, so no loopback or
 # private-IP exclusions are needed (and would only mask real failures).
 exclude = [
-  # TODO(phase-5): remove once /languages/<slug>/ routes exist (T-010) — the
-  # design-system encyclopedia-table demo links to these future routes.
-  # Matches post-remap file URIs (base prefix already stripped by --remap).
+  # TODO(T-009/T-011): remove once every /languages/<slug>/ route resolves.
+  # T-010 shipped the routes: only the `python` demo slug on /docs/design-system/
+  # resolves; c/java/fortran/cobol/rust/scratch/abap still 404 until their
+  # records + pages land. Matches post-remap file URIs (base prefix already
+  # stripped by --remap).
   ".*/languages(/.*)?$",
 ]

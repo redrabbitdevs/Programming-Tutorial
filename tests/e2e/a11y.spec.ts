@@ -18,7 +18,11 @@ const PAGES = [
   ...loadCurricula().flatMap((curriculum) => [
     `learn/${curriculum.lang}/`,
     ...curriculum.lessons.filter((l) => l.status === 'published').map((l) => lessonUrl(curriculum.lang, l))
-  ])
+  ]),
+  // Encyclopedia (T-010): index + the one published language page. More slugs
+  // join here as T-009/T-011 land records + pages.
+  'languages/',
+  'languages/python/'
 ]
 
 for (const path of PAGES) {

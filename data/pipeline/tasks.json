@@ -134,13 +134,14 @@
       "lang": "python",
       "branch": "agent/reference-curator/python-encyclopedia",
       "pr": 18,
-      "status": "approved",
-      "updatedAt": "2026-11-21T08:34:26Z",
+      "status": "published",
+      "updatedAt": "2026-11-21T09:02:07Z",
       "history": [
         { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
         { "ts": "2026-11-21T07:28:51Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] T-008 assigned to reference-curator on branch agent/reference-curator/python-encyclopedia. Scope: data/languages/python.json (canonical record) + src/content/languages/python.mdx (150-600 words, pageStatus published) + languages content collection in content.config.ts. No /languages routes in this PR (T-010 scope). Gate per plan encyclopedia row: CI schema+links+hello-worlds, CV attestation of hello-world snippet only, Editorial N/A, QA required." },
         { "ts": "2026-11-21T08:09:18Z", "from": "assigned", "to": "rejected", "note": "[QA & A11y] CHANGES REQUESTED on PR #18 (head 74b80d7, comment 7059717464): internal link /learn/python lacks the site base prefix — will 404 on the deployed subpath when T-010 renders the page (Astro emits root-absolute markdown hrefs as-is); non-blocking nit: helloWorld.code trailing-newline delta between record and frontmatter. Rework routed to reference-curator on the same branch." },
-        { "ts": "2026-11-21T08:34:26Z", "from": "rejected", "to": "approved", "note": "[Orchestrator] T-008 approved on PR #18 (head cfcdfcb): CI 4/4 green (run 44883991247) + Code Validator re-attestation PASS hello-world (comment 7059806372; frontmatter↔record parity byte-equal) + QA & A11y APPROVED re-audit (comment 7059959201; base-prefixed link verified, dist page set identical to main). Gate per plan encyclopedia row: Editorial N/A." }
+        { "ts": "2026-11-21T08:34:26Z", "from": "rejected", "to": "approved", "note": "[Orchestrator] T-008 approved on PR #18 (head cfcdfcb): CI 4/4 green (run 44883991247) + Code Validator re-attestation PASS hello-world (comment 7059806372; frontmatter↔record parity byte-equal) + QA & A11y APPROVED re-audit (comment 7059959201; base-prefixed link verified, dist page set identical to main). Gate per plan encyclopedia row: Editorial N/A." },
+        { "ts": "2026-11-21T09:02:07Z", "from": "approved", "to": "published", "note": "[Orchestrator] PR #18 squash-merged to main (baf794d); T-008 published." }
       ]
     },
     {
@@ -163,12 +164,14 @@
       "agent": "design-engineer",
       "type": "design",
       "lang": null,
-      "branch": null,
-      "pr": null,
-      "status": "backlog",
-      "updatedAt": "2026-11-16T10:15:57Z",
+      "branch": "agent/design-engineer/languages-index",
+      "pr": 20,
+      "status": "approved",
+      "updatedAt": "2026-11-21T09:36:27Z",
       "history": [
-        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-21T08:45:26Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] T-010 assigned to design-engineer on branch agent/design-engineer/languages-index. Scope: /languages/ index (data-driven over all data/languages/*.json via existing EncyclopediaTable) + /languages/[slug].astro (published encyclopedia pages via existing Encyclopedia layout) + e2e/axe extension; lychee languages exclusion stays (demo slugs pending T-009/T-011). Gate per plan type=design row: CI + QA & A11y only." },
+        { "ts": "2026-11-21T09:36:27Z", "from": "assigned", "to": "approved", "note": "[Orchestrator] T-010 approved on PR #20 (head 2dc4ca6): CI 4/4 green + QA & A11y full audit APPROVED (comment 7060471894 — both routes light+dark, skip-link verified, data-driven proof, nav regression clean; 3 non-blocking findings). Gate per plan type=design row: CV/Editorial N/A." }
       ]
     },
     {
