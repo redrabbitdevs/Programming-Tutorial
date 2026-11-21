@@ -1,0 +1,95 @@
+---
+// Lesson route — /learn/<lang>/<tier>/<NN>-<slug>/ (docs/content-conventions.md).
+// Data-driven from the lessons content collection; renders ONLY status: published.
+// Reuses layouts/Lesson.astro + components/Toc, TierBadge, LessonNav, CodeBlock.
+// Sample outputs render statically from committed tests/samples/<id>.expected
+// fixtures at build time (Vite ?raw globs) — code is never executed at build.
+import { getCollection, render } from "astro:content";
+import Lesson from "../../../layouts/Lesson.astro";
+import CodeBlock from "../../../components/CodeBlock.astro";
+
+type Tier = "beginner" | "intermediate" | "advanced";
+
+interface NavEntry {
+  title: string;
+  href: string;
+  tier: Tier;
+}
+
+// Note: the duplicate body `# Title` h1 is stripped by the stripLessonH1 remark
+// plugin in astro.config.mjs (scoped to src/content/lessons) — see there.
+
+export async function getStaticPaths() {
+  const lessons = await getCollection("lessons", ({ data }) => data.status === "published");
+  return lessons.map((entry) => {
+    // entry id: "<lang>/<tier>/<NN>-<slug>" (glob loader base src/content/lessons)
+    const [lang, tier, fileSlug] = entry.id.split("/");
+    return {
+      params: { lang, slug: `${tier}/${fileSlug}` },
+      props: { entry }
+    };
+  });
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const base = import.meta.env.BASE_URL;
+
+const { Content, headings } = await render(entry);
+
+// Prev/next follow curriculum (order) across published lessons only — nav must
+// never point at a lesson that has no route.
+const published = (await getCollection("lessons", ({ data }) => data.status === "published")).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const idx = published.findIndex((l) => l.id === entry.id);
+// Entry ids are exactly "<lang>/<tier>/<NN>-<slug>", which is the lesson URL
+// path, so nav hrefs compose directly from them.
+const toNav = (l: (typeof published)[number]): NavEntry => ({
+  title: l.data.title,
+  tier: l.data.tier,
+  href: `${base}learn/${l.id}/`
+});
+const prev = idx > 0 ? toNav(published[idx - 1]) : undefined;
+const next = idx < published.length - 1 ? toNav(published[idx + 1]) : undefined;
+
+// Sample outputs: frontmatter sampleIds -> committed fixtures, read at build time.
+const fixtureModules = import.meta.glob("../../../../tests/samples/*.expected", {
+  query: "?raw",
+  import: "default"
+});
+const samples: { id: string; output: string }[] = [];
+for (const id of data.sampleIds) {
+  const loader = fixtureModules[`../../../../tests/samples/${id}.expected`];
+  if (!loader) {
+    throw new Error(`lesson ${entry.id}: sample "${id}" has no tests/samples/${id}.expected fixture`);
+  }
+  samples.push({ id, output: (await loader()) as string });
+}
+---
+
+<Lesson
+  lang={data.lang}
+  slug={entry.id.split("/").slice(1).join("/")}
+  tier={data.tier}
+  title={data.title}
+  description={data.description}
+  estimatedMinutes={data.estimatedMinutes}
+  prev={prev}
+  next={next}
+  headings={headings}
+>
+  <Content />
+  {samples.length > 0 && (
+    <section class="mt-10">
+      <h2 class="text-xl font-semibold">Sample outputs</h2>
+      <p class="mt-1 text-sm text-muted">
+        Validated output for every tagged sample in this lesson, rendered at build time from the committed fixtures in
+        <code class="font-mono text-xs">tests/samples/</code>.
+      </p>
+      {samples.map((sample) => (
+        <CodeBlock code={sample.output} lang="text" title={`${sample.id} — output`} sampleId={sample.id} />
+      ))}
+    </section>
+  )}
+</Lesson>

@@ -1,7 +1,10 @@
 ---
 // Track layout — track hub for one language: title, progress bars with reset,
-// "Continue learning" link (points at the first uncompleted lesson in curriculum
-// order; updates live as lessons are checked off), and the full curriculum map.
+// "Continue learning" link, and the full curriculum map.
+// CTA target (build time): the lowest-order unpublished lesson, or the first
+// lesson when every lesson is published ("Track complete" state). The client
+// script refines the live target to the first *published* lesson not yet
+// checked off, so it never points at a "coming soon" entry that has no route.
 import Base from "./Base.astro";
 import TierBadge from "../components/TierBadge.astro";
 import TrackProgress from "../components/TrackProgress.astro";
@@ -11,6 +14,7 @@ type Tier = "beginner" | "intermediate" | "advanced";
 interface LessonRef {
   slug: string; // full lesson slug, e.g. "beginner/01-hello"
   title: string;
+  published?: boolean; // curriculum status — unpublished lessons render as "coming soon" (no route yet)
 }
 
 interface TierSection {
@@ -28,8 +32,20 @@ interface Props {
 const { lang, title, description, tiers } = Astro.props;
 
 const base = import.meta.env.BASE_URL;
+// `tiers` arrives in curriculum order (tier blocks in fixed tier order, lessons
+// sorted by order), so flatMap preserves curriculum order end to end.
 const allLessonIds = tiers.flatMap((tier) => tier.lessons.map((lesson) => lesson.slug));
-const firstHref = allLessonIds.length > 0 ? `${base}learn/${lang}/${allLessonIds[0]}/` : base;
+const publishedIds = tiers
+  .flatMap((tier) => tier.lessons.map((lesson) => ({ slug: lesson.slug, published: lesson.published ?? true })))
+  .filter((lesson) => lesson.published)
+  .map((lesson) => lesson.slug);
+// CTA target (build time): lowest-order unpublished lesson; when every lesson is
+// published the track is complete and the CTA points back at the first lesson.
+const firstUnpublishedId = tiers
+  .flatMap((tier) => tier.lessons.map((lesson) => ({ slug: lesson.slug, published: lesson.published ?? true })))
+  .find((lesson) => !lesson.published)?.slug;
+const ctaLabel = firstUnpublishedId ? "Continue learning" : "Track complete";
+const firstHref = allLessonIds.length > 0 ? `${base}learn/${lang}/${firstUnpublishedId ?? allLessonIds[0]}/` : base;
 ---
 
 <Base title={`${title ?? lang} track — Programming Tutorial`} description={description}>
@@ -44,8 +60,15 @@ const firstHref = allLessonIds.length > 0 ? `${base}learn/${lang}/${allLessonIds
     </section>
 
     <p class="mt-6">
-      <a data-continue-link data-continue-order={JSON.stringify(allLessonIds)} data-lang={lang} href={firstHref} class="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-on-accent hover:opacity-90">
-        Continue learning
+      <a
+        data-continue-link
+        data-continue-order={JSON.stringify(allLessonIds)}
+        data-published-order={JSON.stringify(publishedIds)}
+        data-lang={lang}
+        href={firstHref}
+        class="inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-on-accent hover:opacity-90"
+      >
+        {ctaLabel}
         <span aria-hidden="true">→</span>
       </a>
     </p>
@@ -57,14 +80,30 @@ const firstHref = allLessonIds.length > 0 ? `${base}learn/${lang}/${allLessonIds
           <span class="capitalize">{tier.tier}</span>
         </h2>
         <ol class="mt-4 space-y-2">
-          {tier.lessons.map((lesson) => (
-            <li>
-              <a href={`${base}learn/${lang}/${lesson.slug}/`} class="pt-card-lift flex items-center justify-between gap-3 rounded-lg border border-border bg-surface px-4 py-3 hover:border-accent">
-                <span class="font-medium text-text">{lesson.title}</span>
-                <span class="text-xs text-muted" data-done-marker={`${lang}/${lesson.slug}`}></span>
-              </a>
-            </li>
-          ))}
+          {tier.lessons.map((lesson) =>
+            lesson.published ?? true ? (
+              <li>
+                <a
+                  data-lesson-link={lesson.slug}
+                  href={`${base}learn/${lang}/${lesson.slug}/`}
+                  class="pt-card-lift flex items-center justify-between gap-3 rounded-lg border border-border bg-surface px-4 py-3 hover:border-accent"
+                >
+                  <span class="font-medium text-text">{lesson.title}</span>
+                  <span class="text-xs text-muted" data-done-marker={`${lang}/${lesson.slug}`}></span>
+                </a>
+              </li>
+            ) : (
+              <li>
+                <div
+                  data-lesson-pending={lesson.slug}
+                  class="flex items-center justify-between gap-3 rounded-lg border border-dashed border-border bg-surface px-4 py-3 opacity-70"
+                >
+                  <span class="font-medium text-muted">{lesson.title}</span>
+                  <span class="text-xs text-muted">Coming soon</span>
+                </div>
+              </li>
+            )
+          )}
         </ol>
       </section>
     ))}
@@ -86,13 +125,15 @@ const firstHref = allLessonIds.length > 0 ? `${base}learn/${lang}/${allLessonIds
 
   for (const link of document.querySelectorAll<HTMLAnchorElement>("[data-continue-link]")) {
     const lang = link.dataset.lang as string;
-    const order: string[] = JSON.parse(link.dataset.continueOrder ?? "[]");
+    // Only published lessons have routes, so the live target is computed over
+    // the published subset — it can never point at a "coming soon" entry.
+    const published: string[] = JSON.parse(link.dataset.publishedOrder ?? "[]");
 
     const update = () => {
-      if (order.length === 0) return;
+      if (published.length === 0) return;
       const store = load();
-      const firstOpen = order.find((slug) => !store[`${lang}/${slug}`]);
-      link.href = `${import.meta.env.BASE_URL}learn/${lang}/${firstOpen ?? order[order.length - 1]}/`;
+      const firstOpen = published.find((slug) => !store[`${lang}/${slug}`]);
+      link.href = `${import.meta.env.BASE_URL}learn/${lang}/${firstOpen ?? published[published.length - 1]}/`;
     };
 
     update();

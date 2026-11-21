@@ -54,7 +54,12 @@ const base = import.meta.env.BASE_URL;
 
     <div class="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_240px]">
       <div class="min-w-0">
-        <slot />
+        <!-- pt-article: content typography for the MDX body (see global.css);
+             scoped to the slot so checkbox/nav chrome keeps its own classes. -->
+        <div class="pt-article">
+          <slot />
+        </div>
+
         <div class="mt-8 border-t border-border pt-4">
           <LessonCheckbox id={`${lang}/${slug}`} />
         </div>

@@ -45,7 +45,12 @@ const html = highlighter.codeToHtml(code, {
 });
 ---
 
-<figure data-codeblock data-code={JSON.stringify(code)} class="my-4 overflow-hidden rounded-lg border border-border">
+<figure
+  data-codeblock
+  data-code={JSON.stringify(code)}
+  {...(sampleId ? { "data-sample": sampleId } : {})}
+  class="my-4 overflow-hidden rounded-lg border border-border"
+>
   <figcaption class="flex items-center justify-between gap-2 border-b border-border bg-surface-alt px-3 py-1.5 text-xs text-muted">
     <span class="flex items-center gap-1.5 font-mono text-text">
       <span class="h-2 w-2 shrink-0 rounded-full bg-accent" aria-hidden="true"></span>
