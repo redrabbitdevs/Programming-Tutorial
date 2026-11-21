@@ -12,30 +12,10 @@
       "status": "published",
       "updatedAt": "2026-11-18T14:33:00Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        },
-        {
-          "ts": "2026-11-18T13:15:07Z",
-          "from": "backlog",
-          "to": "assigned",
-          "note": "[Orchestrator] Assigned to curriculum-architect; branch agent/curriculum-architect/python-curriculum"
-        },
-        {
-          "ts": "2026-11-18T14:15:00Z",
-          "from": "assigned",
-          "to": "approved",
-          "note": "[Orchestrator] PR #10 gate complete: CI green on 55da16a; Code Validator PASS, Editorial APPROVED, QA & A11y APPROVED"
-        },
-        {
-          "ts": "2026-11-18T14:33:00Z",
-          "from": "approved",
-          "to": "published",
-          "note": "[Orchestrator] PR #10 squash-merged to main (c1c3405)"
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-18T13:15:07Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to curriculum-architect; branch agent/curriculum-architect/python-curriculum" },
+        { "ts": "2026-11-18T14:15:00Z", "from": "assigned", "to": "approved", "note": "[Orchestrator] PR #10 gate complete: CI green on 55da16a; Code Validator PASS, Editorial APPROVED, QA & A11y APPROVED" },
+        { "ts": "2026-11-18T14:33:00Z", "from": "approved", "to": "published", "note": "[Orchestrator] PR #10 squash-merged to main (c1c3405)" }
       ]
     },
     {
@@ -49,42 +29,12 @@
       "status": "published",
       "updatedAt": "2026-11-19T11:50:00Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        },
-        {
-          "ts": "2026-11-18T14:33:00Z",
-          "from": "backlog",
-          "to": "assigned",
-          "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-1"
-        },
-        {
-          "ts": "2026-11-19T11:21:00Z",
-          "from": "assigned",
-          "to": "rejected",
-          "note": "[Orchestrator] Editorial CHANGES REQUESTED on PR #11: L6 loops missing `strings` prerequisite (f-string in py-010, strings cross-ref); rework routed to lesson-writer on same branch"
-        },
-        {
-          "ts": "2026-11-19T11:21:00Z",
-          "from": "rejected",
-          "to": "assigned",
-          "note": "[Orchestrator] Rework dispatched to lesson-writer (same branch agent/lesson-writer/python-batch-1)"
-        },
-        {
-          "ts": "2026-11-19T11:41:00Z",
-          "from": "assigned",
-          "to": "approved",
-          "note": "[Orchestrator] PR #11 gate complete on 785e1af: CI green; Code Validator PASS 11/11; Editorial RE-APPROVED (rework verified); QA & A11y APPROVED scoped (lesson routes audit due at T-007)"
-        },
-        {
-          "ts": "2026-11-19T11:50:00Z",
-          "from": "approved",
-          "to": "published",
-          "note": "[Orchestrator] PR #11 squash-merged to main (1de63a8)"
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-18T14:33:00Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-1" },
+        { "ts": "2026-11-19T11:21:00Z", "from": "assigned", "to": "rejected", "note": "[Orchestrator] Editorial CHANGES REQUESTED on PR #11: L6 loops missing `strings` prerequisite (f-string in py-010, strings cross-ref); rework routed to lesson-writer on same branch" },
+        { "ts": "2026-11-19T11:21:00Z", "from": "rejected", "to": "assigned", "note": "[Orchestrator] Rework dispatched to lesson-writer (same branch agent/lesson-writer/python-batch-1)" },
+        { "ts": "2026-11-19T11:41:00Z", "from": "assigned", "to": "approved", "note": "[Orchestrator] PR #11 gate complete on 785e1af: CI green; Code Validator PASS 11/11; Editorial RE-APPROVED (rework verified); QA & A11y APPROVED scoped (lesson routes audit due at T-007)" },
+        { "ts": "2026-11-19T11:50:00Z", "from": "approved", "to": "published", "note": "[Orchestrator] PR #11 squash-merged to main (1de63a8)" }
       ]
     },
     {
@@ -98,36 +48,11 @@
       "status": "published",
       "updatedAt": "2026-11-20T04:24:00Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        },
-        {
-          "ts": "2026-11-19T11:50:00Z",
-          "from": "backlog",
-          "to": "assigned",
-          "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-2"
-        },
-        {
-          "ts": "2026-11-20T03:36:00Z",
-          "from": "assigned",
-          "to": "rejected",
-          "note": "[Orchestrator] T-003 rejected by Editorial on PR #12: (1) 11-error-handling missing `lists-and-tuples` prerequisite (py-019 star-unpacks tuples); (2) 07-functions lists `loops` but only uses f-strings — should be `strings`. Code Validator PASS + QA APPROVED stand; rework to lesson-writer on same branch."
-        },
-        {
-          "ts": "2026-11-20T04:16:30Z",
-          "from": "rejected",
-          "to": "approved",
-          "note": "[Orchestrator] T-003 approved on PR #12 (bd8df32): CI green + Code Validator PASS 11/11 standing (rework metadata-only) + Editorial RE-APPROVED + QA & A11y APPROVED standing (scoped; lesson routes audit due at T-007)."
-        },
-        {
-          "ts": "2026-11-20T04:24:00Z",
-          "from": "approved",
-          "to": "published",
-          "note": "[Orchestrator] T-003 published — PR #12 squash-merged to main (b0ec4a2)."
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-19T11:50:00Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-2" },
+        { "ts": "2026-11-20T03:36:00Z", "from": "assigned", "to": "rejected", "note": "[Orchestrator] T-003 rejected by Editorial on PR #12: (1) 11-error-handling missing `lists-and-tuples` prerequisite (py-019 star-unpacks tuples); (2) 07-functions lists `loops` but only uses f-strings — should be `strings`. Code Validator PASS + QA APPROVED stand; rework to lesson-writer on same branch." },
+        { "ts": "2026-11-20T04:16:30Z", "from": "rejected", "to": "approved", "note": "[Orchestrator] T-003 approved on PR #12 (bd8df32): CI green + Code Validator PASS 11/11 standing (rework metadata-only) + Editorial RE-APPROVED + QA & A11y APPROVED standing (scoped; lesson routes audit due at T-007)." },
+        { "ts": "2026-11-20T04:24:00Z", "from": "approved", "to": "published", "note": "[Orchestrator] T-003 published — PR #12 squash-merged to main (b0ec4a2)." }
       ]
     },
     {
@@ -141,36 +66,11 @@
       "status": "published",
       "updatedAt": "2026-11-20T09:36:00Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        },
-        {
-          "ts": "2026-11-20T04:24:00Z",
-          "from": "backlog",
-          "to": "assigned",
-          "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-3"
-        },
-        {
-          "ts": "2026-11-20T06:15:00Z",
-          "from": "assigned",
-          "to": "rejected",
-          "note": "[Orchestrator] T-004 rejected by Editorial on PR #14 (head e292ab3): 3 prerequisite-coherence findings — (1) 17-file-io falsely attributes FileNotFoundError to lesson 11 (introduce in-lesson); (2) 16-core-algorithms uses min()/max() never taught in lessons 01-12 (defining clause at first use); (3) 14-functional-idioms callout uses key= before it is taught in L16 (clause or example swap). Code Validator PASS + QA & A11y APPROVED stand; rework to lesson-writer on same branch."
-        },
-        {
-          "ts": "2026-11-20T06:53:30Z",
-          "from": "rejected",
-          "to": "approved",
-          "note": "[Orchestrator] T-004 approved on PR #14 (a37dcda): CI green + Code Validator PASS 14/14 standing (rework prose-only) + Editorial RE-APPROVED + QA & A11y APPROVED standing (no structural changes; lesson routes audit due at T-007)."
-        },
-        {
-          "ts": "2026-11-20T09:36:00Z",
-          "from": "approved",
-          "to": "published",
-          "note": "[Orchestrator] PR #14 squash-merged to main 90fcaa7; lessons 13-18 + samples py-023..py-036 live."
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-20T04:24:00Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-3" },
+        { "ts": "2026-11-20T06:15:00Z", "from": "assigned", "to": "rejected", "note": "[Orchestrator] T-004 rejected by Editorial on PR #14 (head e292ab3): 3 prerequisite-coherence findings — (1) 17-file-io falsely attributes FileNotFoundError to lesson 11 (introduce in-lesson); (2) 16-core-algorithms uses min()/max() never taught in lessons 01-12 (defining clause at first use); (3) 14-functional-idioms callout uses key= before it is taught in L16 (clause or example swap). Code Validator PASS + QA & A11y APPROVED stand; rework to lesson-writer on same branch." },
+        { "ts": "2026-11-20T06:53:30Z", "from": "rejected", "to": "approved", "note": "[Orchestrator] T-004 approved on PR #14 (a37dcda): CI green + Code Validator PASS 14/14 standing (rework prose-only) + Editorial RE-APPROVED + QA & A11y APPROVED standing (no structural changes; lesson routes audit due at T-007)." },
+        { "ts": "2026-11-20T09:36:00Z", "from": "approved", "to": "published", "note": "[Orchestrator] PR #14 squash-merged to main 90fcaa7; lessons 13-18 + samples py-023..py-036 live." }
       ]
     },
     {
@@ -184,36 +84,11 @@
       "status": "published",
       "updatedAt": "2026-11-20T18:16:41Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        },
-        {
-          "ts": "2026-11-20T09:36:00Z",
-          "from": "backlog",
-          "to": "assigned",
-          "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-4; orders 19-23 (testing-basics, type-hints, iterators-and-generators, context-managers, decorators); samples from py-037."
-        },
-        {
-          "ts": "2026-11-20T17:40:00Z",
-          "from": "assigned",
-          "to": "rejected",
-          "note": "[Orchestrator] T-005 rejected by Editorial on PR #15 (head 9aeadb7): 2 blocking prerequisite findings - (1) 20-type-hints declares unused prereq classes-and-oop (fix: [functions]); (2) 21-iterators-and-generators missing classes-and-oop (sample py-041 built on class syntax, prose attributes it to the OOP lessons). Plus 2 non-blocking nits: L21 undeclared error-handling usage; L20:18 static-analysis jargon. Code Validator PASS stands; rework to lesson-writer on same branch."
-        },
-        {
-          "ts": "2026-11-20T18:09:54Z",
-          "from": "rejected",
-          "to": "approved",
-          "note": "[Orchestrator] T-005 approved on PR #15 (head 0a215ed): CI 4/4 green + Code Validator PASS standing (samples py-037..py-049 untouched by rework; QA re-ran byte-exact) + Editorial RE-APPROVED (all 4 findings resolved, metadata+one-sentence diff only) + QA & A11y APPROVED at 0a215ed. Lesson-routes a11y audit deferred to T-007."
-        },
-        {
-          "ts": "2026-11-20T18:16:41Z",
-          "from": "approved",
-          "to": "published",
-          "note": "[Orchestrator] PR #15 squash-merged to main 1d437f5; lessons 19-23 + samples py-037..py-049 live."
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-20T09:36:00Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-4; orders 19-23 (testing-basics, type-hints, iterators-and-generators, context-managers, decorators); samples from py-037." },
+        { "ts": "2026-11-20T17:40:00Z", "from": "assigned", "to": "rejected", "note": "[Orchestrator] T-005 rejected by Editorial on PR #15 (head 9aeadb7): 2 blocking prerequisite findings - (1) 20-type-hints declares unused prereq classes-and-oop (fix: [functions]); (2) 21-iterators-and-generators missing classes-and-oop (sample py-041 built on class syntax, prose attributes it to the OOP lessons). Plus 2 non-blocking nits: L21 undeclared error-handling usage; L20:18 static-analysis jargon. Code Validator PASS stands; rework to lesson-writer on same branch." },
+        { "ts": "2026-11-20T18:09:54Z", "from": "rejected", "to": "approved", "note": "[Orchestrator] T-005 approved on PR #15 (head 0a215ed): CI 4/4 green + Code Validator PASS standing (samples py-037..py-049 untouched by rework; QA re-ran byte-exact) + Editorial RE-APPROVED (all 4 findings resolved, metadata+one-sentence diff only) + QA & A11y APPROVED at 0a215ed. Lesson-routes a11y audit deferred to T-007." },
+        { "ts": "2026-11-20T18:16:41Z", "from": "approved", "to": "published", "note": "[Orchestrator] PR #15 squash-merged to main 1d437f5; lessons 19-23 + samples py-037..py-049 live." }
       ]
     },
     {
@@ -227,30 +102,10 @@
       "status": "published",
       "updatedAt": "2026-11-21T05:17:14Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        },
-        {
-          "ts": "2026-11-20T18:16:41Z",
-          "from": "backlog",
-          "to": "assigned",
-          "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-5; orders 24-28 (memory-and-performance, concurrency-threads, asyncio, architecture-patterns, capstone-project); samples from py-050."
-        },
-        {
-          "ts": "2026-11-21T05:15:18Z",
-          "from": "assigned",
-          "to": "approved",
-          "note": "[Orchestrator] T-006 approved on PR #16 (head 356eaf4): CI 4/4 green + Code Validator PASS (64/64 x2 runs; py-051 reworked deterministic, 7-run evidence) + Editorial APPROVED (prereq coherence verified both directions; 2 non-blocking nits on record) + QA & A11y APPROVED. Lesson-routes a11y audit deferred to T-007."
-        },
-        {
-          "ts": "2026-11-21T05:17:14Z",
-          "from": "approved",
-          "to": "published",
-          "note": "[Orchestrator] PR #16 squash-merged to main b18f0dd; lessons 24-28 + samples py-050..py-064 live. Python track: all 28 lessons published."
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-20T18:16:41Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-5; orders 24-28 (memory-and-performance, concurrency-threads, asyncio, architecture-patterns, capstone-project); samples from py-050." },
+        { "ts": "2026-11-21T05:15:18Z", "from": "assigned", "to": "approved", "note": "[Orchestrator] T-006 approved on PR #16 (head 356eaf4): CI 4/4 green + Code Validator PASS (64/64 x2 runs; py-051 reworked deterministic, 7-run evidence) + Editorial APPROVED (prereq coherence verified both directions; 2 non-blocking nits on record) + QA & A11y APPROVED. Lesson-routes a11y audit deferred to T-007." },
+        { "ts": "2026-11-21T05:17:14Z", "from": "approved", "to": "published", "note": "[Orchestrator] PR #16 squash-merged to main b18f0dd; lessons 24-28 + samples py-050..py-064 live. Python track: all 28 lessons published." }
       ]
     },
     {
@@ -261,27 +116,13 @@
       "lang": "python",
       "branch": "agent/design-engineer/learn-routes-v4",
       "pr": 17,
-      "status": "rejected",
-      "updatedAt": "2026-11-21T06:49:23Z",
+      "status": "approved",
+      "updatedAt": "2026-11-21T07:08:15Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        },
-        {
-          "ts": "2026-11-21T05:17:14Z",
-          "from": "backlog",
-          "to": "assigned",
-          "note": "[Orchestrator] T-007 assigned to design-engineer on branch agent/design-engineer/learn-routes-v4 (4th attempt; 3 prior background sessions stalled after npm ci with zero commits - branches learn-routes, -v2, -v3 dead and ignored). Scope: /learn/<lang>/<tier>/NN-slug/ lesson routes + /learn/[lang]/index.astro track hub, data-driven from content collection (published only), reusing existing Lesson/Track layouts + components; static sample rendering from tests/samples/*.expected; lychee learn-exclusion removal; e2e+axe spec covering ALL 28 lesson routes (first a11y audit of these routes). Runs in foreground per user directive."
-        },
-        {
-          "ts": "2026-11-21T06:49:23Z",
-          "from": "assigned",
-          "to": "rejected",
-          "note": "[QA & A11y] CHANGES REQUESTED on PR #17 (head b35079d): skip link does not transfer focus - <main id=\"main\"> in src/layouts/Base.astro lacks tabindex=-1 (WCAG 2.4.1 Bypass Blocks, Level A; empirically verified in-audit). All other audit checks pass: Playwright 67/67, axe wcag2a/wcag2aa on all 32 pages, 64/64 sample outputs byte-equal to fixtures, zero link failures on learn routes + dashboard. Author applies the one-line fix on the same branch and re-pushes; QA re-audits sampled routes and posts explicit re-approval."
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-21T05:17:14Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] T-007 assigned to design-engineer on branch agent/design-engineer/learn-routes-v4 (4th attempt; 3 prior background sessions stalled after npm ci with zero commits - branches learn-routes, -v2, -v3 dead and ignored). Scope: /learn/<lang>/<tier>/NN-slug/ lesson routes + /learn/[lang]/index.astro track hub, data-driven from content collection (published only), reusing existing Lesson/Track layouts + components; static sample rendering from tests/samples/*.expected; lychee learn-exclusion removal; e2e+axe spec covering ALL 28 lesson routes (first a11y audit of these routes). Runs in foreground per user directive." },
+        { "ts": "2026-11-21T06:49:23Z", "from": "assigned", "to": "rejected", "note": "[QA & A11y] CHANGES REQUESTED on PR #17 (head b35079d): skip link does not transfer focus - <main id=\"main\"> in src/layouts/Base.astro lacks tabindex=-1 (WCAG 2.4.1 Bypass Blocks, Level A; empirically verified in-audit). All other audit checks pass: Playwright 67/67, axe wcag2a/wcag2aa on all 32 pages, 64/64 sample outputs byte-equal to fixtures, zero link failures on learn routes + dashboard. Author applies the one-line fix on the same branch and re-pushes; QA re-audits sampled routes and posts explicit re-approval." },
+        { "ts": "2026-11-21T07:08:15Z", "from": "rejected", "to": "approved", "note": "[QA & A11y] APPROVED on re-audit of head ee88785 (PR comment 7059021550): skip-link focus transfer verified 10/10 across tiers and activation methods; Playwright 67/67 incl. axe wcag2a/wcag2aa on all 32 pages; no regressions. CI 4/4 green (run 44877656420). Gate complete per plan type=design row (CV/Editorial not required); orchestrator final review spot-checks passed (diff scope = assignment; lesson-01 explicit link verified; Base.astro tabindex fix verified)." }
       ]
     },
     {
@@ -295,12 +136,7 @@
       "status": "backlog",
       "updatedAt": "2026-11-16T10:15:57Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
       ]
     },
     {
@@ -314,12 +150,7 @@
       "status": "backlog",
       "updatedAt": "2026-11-16T10:15:57Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
       ]
     },
     {
@@ -333,12 +164,7 @@
       "status": "backlog",
       "updatedAt": "2026-11-16T10:15:57Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
       ]
     },
     {
@@ -352,12 +178,7 @@
       "status": "backlog",
       "updatedAt": "2026-11-16T10:15:57Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
       ]
     },
     {
@@ -371,12 +192,7 @@
       "status": "backlog",
       "updatedAt": "2026-11-16T10:15:57Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
       ]
     },
     {
@@ -390,12 +206,7 @@
       "status": "backlog",
       "updatedAt": "2026-11-16T10:15:57Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
       ]
     },
     {
@@ -409,12 +220,7 @@
       "status": "backlog",
       "updatedAt": "2026-11-16T10:15:57Z",
       "history": [
-        {
-          "ts": "2026-11-16T10:15:57Z",
-          "from": null,
-          "to": "backlog",
-          "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)"
-        }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
       ]
     }
   ]
