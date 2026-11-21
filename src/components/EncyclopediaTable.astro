@@ -133,7 +133,10 @@ const statusStyles: Record<LangRecord["status"], string> = {
         return result * sortDir;
       });
 
-      for (const row of visibleRows) tbody.appendChild(row);
+      // Matching rows first (in sort order), then the non-matching rest in
+      // original order — the spec asserts the leading rows are exactly the
+      // matching records under the active sort.
+      for (const row of [...visibleRows, ...rows.filter((r) => !visibleRows.includes(r))]) tbody.appendChild(row);
       count?.replaceChildren(`${visibleRows.length} of ${rows.length} languages`);
     };
 
