@@ -1,0 +1,15 @@
+{
+  "name": "Python",
+  "aliases": ["python3"],
+  "paradigms": ["object-oriented", "procedural", "imperative", "functional"],
+  "year": 1991,
+  "era": "modern",
+  "status": "active",
+  "tiobeRank": 1,
+  "trackSlug": "python",
+  "helloWorld": {
+    "lang": "python",
+    "code": "print(\"Hello, World!\")\n"
+  },
+  "pageStatus": "published"
+}
