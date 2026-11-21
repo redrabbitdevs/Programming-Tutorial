@@ -166,11 +166,12 @@
       "lang": null,
       "branch": "agent/design-engineer/languages-index",
       "pr": 20,
-      "status": "assigned",
-      "updatedAt": "2026-11-21T09:02:07Z",
+      "status": "approved",
+      "updatedAt": "2026-11-21T09:36:27Z",
       "history": [
         { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
-        { "ts": "2026-11-21T08:45:26Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] T-010 assigned to design-engineer on branch agent/design-engineer/languages-index. Scope: /languages/ index (data-driven over all data/languages/*.json via existing EncyclopediaTable) + /languages/[slug].astro (published encyclopedia pages via existing Encyclopedia layout) + e2e/axe extension; lychee languages exclusion stays (demo slugs pending T-009/T-011). Gate per plan type=design row: CI + QA & A11y only." }
+        { "ts": "2026-11-21T08:45:26Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] T-010 assigned to design-engineer on branch agent/design-engineer/languages-index. Scope: /languages/ index (data-driven over all data/languages/*.json via existing EncyclopediaTable) + /languages/[slug].astro (published encyclopedia pages via existing Encyclopedia layout) + e2e/axe extension; lychee languages exclusion stays (demo slugs pending T-009/T-011). Gate per plan type=design row: CI + QA & A11y only." },
+        { "ts": "2026-11-21T09:36:27Z", "from": "assigned", "to": "approved", "note": "[Orchestrator] T-010 approved on PR #20 (head 2dc4ca6): CI 4/4 green + QA & A11y full audit APPROVED (comment 7060471894 — both routes light+dark, skip-link verified, data-driven proof, nav regression clean; 3 non-blocking findings). Gate per plan type=design row: CV/Editorial N/A." }
       ]
     },
     {
