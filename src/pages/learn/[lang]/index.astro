@@ -1,0 +1,64 @@
+---
+// Track hub — /learn/<lang>/ (docs/content-conventions.md). Curriculum map for
+// one language: tier groupings in curriculum order, per-lesson published state
+// from data/curriculum/<lang>.json, progress bars, and a "Continue learning" CTA.
+// Reuses layouts/Track.astro + components/TrackProgress, TierBadge.
+import Track from "../../../layouts/Track.astro";
+
+type Tier = "beginner" | "intermediate" | "advanced";
+const TIERS: Tier[] = ["beginner", "intermediate", "advanced"];
+
+interface CurriculumLesson {
+  order: number;
+  tier: string;
+  slug: string;
+  title?: string;
+  status?: string;
+}
+
+interface Curriculum {
+  lang: string;
+  title?: string;
+  lessons: CurriculumLesson[];
+}
+
+// Build-time read of committed curriculum JSON (same Vite-glob pattern as the
+// dashboard). Invalid JSON is reported by validate.mjs; skip defensively here.
+// The glob lives inside getStaticPaths so the static-paths module stays
+// self-contained (Astro splits it from the render-phase frontmatter).
+export function getStaticPaths() {
+  const curriculumModules = import.meta.glob("../../../../data/curriculum/*.json", { eager: true });
+  const curricula: Curriculum[] = [];
+  for (const mod of Object.values(curriculumModules)) {
+    try {
+      const raw = (mod as { default?: Curriculum }).default;
+      if (!raw || !Array.isArray(raw.lessons) || raw.lessons.length === 0) continue;
+      curricula.push(raw);
+    } catch {
+      // invalid curriculum JSON is reported by validate.mjs; skip here
+    }
+  }
+  return curricula.map((curriculum) => ({
+    params: { lang: curriculum.lang },
+    props: { curriculum }
+  }));
+}
+
+const { curriculum } = Astro.props;
+const ordered = [...curriculum.lessons].sort((a, b) => a.order - b.order);
+
+// Track.astro expects full lesson slugs ("<tier>/<NN>-<slug>") — the same keys
+// LessonCheckbox/TrackProgress use in the pt-progress-v1 store.
+const tiers = TIERS.map((tier) => ({
+  tier,
+  lessons: ordered
+    .filter((l) => l.tier === tier)
+    .map((l) => ({
+      slug: `${l.tier}/${String(l.order).padStart(2, "0")}-${l.slug}`,
+      title: String(l.title ?? l.slug),
+      published: l.status === "published"
+    }))
+})).filter((t) => t.lessons.length > 0);
+---
+
+<Track lang={curriculum.lang} title={curriculum.title} tiers={tiers} />
