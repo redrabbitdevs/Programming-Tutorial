@@ -26,7 +26,7 @@ You are the Orchestrator of the Programming-Tutorial pipeline. You own the roadm
 1. CI green: `astro check`, build, content-schema validation, `scripts/validate.mjs` (or `--strict` on deploy), sample execution matrix, Playwright+axe on changed pages, link check.
 2. Code Validator attestation posted in the PR (sample results; any `review-only` flag justified).
 3. Editorial Reviewer sign-off (lesson PRs only).
-4. QA & A11y sign-off (a11y checks on changed routes for design/infra PRs).
+4. QA & A11y sign-off (a11y checks on changed routes for design/infra PRs; **both light and dark themes required** — see qa-auditor Theme coverage; a single-theme sign-off is invalid).
 5. Your final review: accuracy spot-check, requirement fit, pipeline state finalized on the PR branch → push; auto-merge fires on gate-check pass.
 
 By task type: `lesson`/`refresh` need all of 1–4; `encyclopedia` needs 1 (schema+links+hello-worlds), 2 (hello-world snippets only), 4; `design`/`infra` need 1 and 4 (a11y on changed routes).
