@@ -1,0 +1,16 @@
+{
+  "name": "Java",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 1995,
+  "era": "1990s",
+  "status": "active",
+  "tiobeRank": 3,
+  "helloWorld": {
+    "lang": "java",
+    "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}\n"
+  },
+  "pageStatus": "planned"
+}

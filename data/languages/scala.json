@@ -1,0 +1,17 @@
+{
+  "name": "Scala",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "functional"
+  ],
+  "year": 2004,
+  "era": "2000s",
+  "status": "active",
+  "tiobeRank": 38,
+  "helloWorld": {
+    "lang": "scala",
+    "code": "object Main extends App {\n  println(\"Hello, World!\")\n}\n"
+  },
+  "pageStatus": "planned"
+}

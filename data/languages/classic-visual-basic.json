@@ -1,0 +1,20 @@
+{
+  "name": "Classic Visual Basic",
+  "aliases": [
+    "VB6",
+    "VB Classic"
+  ],
+  "paradigms": [
+    "object-oriented",
+    "procedural"
+  ],
+  "year": 1991,
+  "era": "1990s",
+  "status": "legacy",
+  "tiobeRank": 22,
+  "helloWorld": {
+    "lang": "vb",
+    "code": "MsgBox \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

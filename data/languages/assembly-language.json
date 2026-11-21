@@ -1,0 +1,16 @@
+{
+  "name": "Assembly language",
+  "aliases": [],
+  "paradigms": [
+    "assembly"
+  ],
+  "year": 1949,
+  "era": "1940s",
+  "status": "active",
+  "tiobeRank": 17,
+  "helloWorld": {
+    "lang": "asm",
+    "code": "section .data\nmsg db \"Hello, World!\", 10\n\nsection .text\nglobal _start\n_start:\n    mov rax, 1        ; sys_write\n    mov rdi, 1        ; stdout\n    lea rsi, [rel msg]\n    mov rdx, 14       ; length\n    syscall\n    mov rax, 60       ; sys_exit\n    xor rdi, rdi\n    syscall\n"
+  },
+  "pageStatus": "planned"
+}

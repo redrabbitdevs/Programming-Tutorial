@@ -1,0 +1,19 @@
+{
+  "name": "Visual Basic",
+  "aliases": [
+    "VB"
+  ],
+  "paradigms": [
+    "object-oriented",
+    "procedural"
+  ],
+  "year": 1991,
+  "era": "1990s",
+  "status": "active",
+  "tiobeRank": 9,
+  "helloWorld": {
+    "lang": "vb",
+    "code": "MsgBox \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

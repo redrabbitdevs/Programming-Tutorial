@@ -1,0 +1,17 @@
+{
+  "name": "R",
+  "aliases": [],
+  "paradigms": [
+    "imperative",
+    "functional"
+  ],
+  "year": 1995,
+  "era": "1990s",
+  "status": "active",
+  "tiobeRank": 7,
+  "helloWorld": {
+    "lang": "r",
+    "code": "cat(\"Hello, World!\\n\")\n"
+  },
+  "pageStatus": "planned"
+}

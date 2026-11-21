@@ -1,0 +1,19 @@
+{
+  "name": "Lua",
+  "aliases": [
+    "LuaJIT"
+  ],
+  "paradigms": [
+    "procedural",
+    "functional"
+  ],
+  "year": 1993,
+  "era": "1990s",
+  "status": "active",
+  "tiobeRank": 32,
+  "helloWorld": {
+    "lang": "lua",
+    "code": "print(\"Hello, World!\")\n"
+  },
+  "pageStatus": "planned"
+}

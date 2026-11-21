@@ -1,0 +1,18 @@
+{
+  "name": "Swift",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "procedural",
+    "functional"
+  ],
+  "year": 2014,
+  "era": "2010s",
+  "status": "active",
+  "tiobeRank": 18,
+  "helloWorld": {
+    "lang": "swift",
+    "code": "print(\"Hello, World!\")\n"
+  },
+  "pageStatus": "planned"
+}

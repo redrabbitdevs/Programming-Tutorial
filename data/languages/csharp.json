@@ -1,0 +1,18 @@
+{
+  "name": "C#",
+  "aliases": [
+    "C Sharp"
+  ],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 2000,
+  "era": "2000s",
+  "status": "active",
+  "tiobeRank": 5,
+  "helloWorld": {
+    "lang": "csharp",
+    "code": "using System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine(\"Hello, World!\");\n    }\n}\n"
+  },
+  "pageStatus": "planned"
+}

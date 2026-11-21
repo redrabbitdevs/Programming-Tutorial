@@ -1,0 +1,17 @@
+{
+  "name": "C",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "imperative"
+  ],
+  "year": 1972,
+  "era": "1970s",
+  "status": "active",
+  "tiobeRank": 2,
+  "helloWorld": {
+    "lang": "c",
+    "code": "#include <stdio.h>\n\nint main(void) {\n    printf(\"Hello, World!\\n\");\n    return 0;\n}\n"
+  },
+  "pageStatus": "planned"
+}

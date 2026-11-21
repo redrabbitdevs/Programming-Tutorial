@@ -1,0 +1,17 @@
+{
+  "name": "Kotlin",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "functional"
+  ],
+  "year": 2011,
+  "era": "2010s",
+  "status": "active",
+  "tiobeRank": 33,
+  "helloWorld": {
+    "lang": "kotlin",
+    "code": "fun main() {\n    println(\"Hello, World!\")\n}\n"
+  },
+  "pageStatus": "planned"
+}

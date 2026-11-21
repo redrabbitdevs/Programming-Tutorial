@@ -1,0 +1,20 @@
+{
+  "name": "JavaScript",
+  "aliases": [
+    "JS"
+  ],
+  "paradigms": [
+    "procedural",
+    "imperative",
+    "functional"
+  ],
+  "year": 1995,
+  "era": "1990s",
+  "status": "active",
+  "tiobeRank": 6,
+  "helloWorld": {
+    "lang": "javascript",
+    "code": "console.log(\"Hello, World!\");\n"
+  },
+  "pageStatus": "planned"
+}

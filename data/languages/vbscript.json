@@ -1,0 +1,20 @@
+{
+  "name": "VBScript",
+  "aliases": [
+    "VBS",
+    "Visual Basic Script",
+    "Visual Basic Scripting Edition"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1997,
+  "era": "1990s",
+  "status": "legacy",
+  "tiobeRank": 21,
+  "helloWorld": {
+    "lang": "vbscript",
+    "code": "MsgBox \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

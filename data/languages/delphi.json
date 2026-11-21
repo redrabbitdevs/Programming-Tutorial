@@ -1,0 +1,17 @@
+{
+  "name": "Delphi",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "procedural"
+  ],
+  "year": 1995,
+  "era": "1990s",
+  "status": "active",
+  "tiobeRank": 19,
+  "helloWorld": {
+    "lang": "pascal",
+    "code": "program Hello;\nbegin\n  WriteLn('Hello, World!');\nend.\n"
+  },
+  "pageStatus": "planned"
+}

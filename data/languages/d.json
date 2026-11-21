@@ -1,0 +1,20 @@
+{
+  "name": "D",
+  "aliases": [
+    "D Language"
+  ],
+  "paradigms": [
+    "procedural",
+    "object-oriented",
+    "functional"
+  ],
+  "year": 2001,
+  "era": "2000s",
+  "status": "active",
+  "tiobeRank": 35,
+  "helloWorld": {
+    "lang": "d",
+    "code": "void main() {\n    import std.stdio;\n    writeln(\"Hello, World!\");\n}\n"
+  },
+  "pageStatus": "planned"
+}
