@@ -99,12 +99,13 @@
       "lang": "python",
       "branch": "agent/lesson-writer/python-batch-5",
       "pr": 16,
-      "status": "approved",
-      "updatedAt": "2026-11-21T05:15:18Z",
+      "status": "published",
+      "updatedAt": "2026-11-21T05:17:14Z",
       "history": [
         { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
         { "ts": "2026-11-20T18:16:41Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-5; orders 24-28 (memory-and-performance, concurrency-threads, asyncio, architecture-patterns, capstone-project); samples from py-050." },
-        { "ts": "2026-11-21T05:15:18Z", "from": "assigned", "to": "approved", "note": "[Orchestrator] T-006 approved on PR #16 (head 356eaf4): CI 4/4 green + Code Validator PASS (64/64 x2 runs; py-051 reworked deterministic, 7-run evidence) + Editorial APPROVED (prereq coherence verified both directions; 2 non-blocking nits on record) + QA & A11y APPROVED. Lesson-routes a11y audit deferred to T-007." }
+        { "ts": "2026-11-21T05:15:18Z", "from": "assigned", "to": "approved", "note": "[Orchestrator] T-006 approved on PR #16 (head 356eaf4): CI 4/4 green + Code Validator PASS (64/64 x2 runs; py-051 reworked deterministic, 7-run evidence) + Editorial APPROVED (prereq coherence verified both directions; 2 non-blocking nits on record) + QA & A11y APPROVED. Lesson-routes a11y audit deferred to T-007." },
+        { "ts": "2026-11-21T05:17:14Z", "from": "approved", "to": "published", "note": "[Orchestrator] PR #16 squash-merged to main b18f0dd; lessons 24-28 + samples py-050..py-064 live. Python track: all 28 lessons published." }
       ]
     },
     {
@@ -113,12 +114,13 @@
       "agent": "design-engineer",
       "type": "design",
       "lang": "python",
-      "branch": null,
+      "branch": "agent/design-engineer/learn-routes-v4",
       "pr": null,
-      "status": "backlog",
-      "updatedAt": "2026-11-16T10:15:57Z",
+      "status": "assigned",
+      "updatedAt": "2026-11-21T05:17:14Z",
       "history": [
-        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-21T05:17:14Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] T-007 assigned to design-engineer on branch agent/design-engineer/learn-routes-v4 (4th attempt; 3 prior background sessions stalled after npm ci with zero commits - branches learn-routes, -v2, -v3 dead and ignored). Scope: /learn/<lang>/<tier>/NN-slug/ lesson routes + /learn/[lang]/index.astro track hub, data-driven from content collection (published only), reusing existing Lesson/Track layouts + components; static sample rendering from tests/samples/*.expected; lychee learn-exclusion removal; e2e+axe spec covering ALL 28 lesson routes (first a11y audit of these routes). Runs in foreground per user directive." }
       ]
     },
     {
