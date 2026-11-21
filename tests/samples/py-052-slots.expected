@@ -1,0 +1,3 @@
+plain has __dict__: True
+slotted has __dict__: False
+adding attribute: 'PointSlots' object has no attribute 'z' and no __dict__ for setting new attributes

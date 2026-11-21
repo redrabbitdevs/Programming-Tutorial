@@ -1,0 +1,130 @@
+---
+lang: python
+tier: advanced
+title: "Async I/O with asyncio"
+description: "Handle thousands of concurrent waits on a single thread with coroutines, await, and the event loop — and know when cooperative concurrency beats threads."
+order: 26
+prerequisites: [concurrency-threads, functions]
+estimatedMinutes: 15
+status: published
+sampleIds: [py-056-async-basic, py-057-gather-tasks, py-058-async-generator]
+---
+
+import Callout from "../../../../components/Callout.astro";
+
+# Async I/O with asyncio
+
+Threads overlap waiting by switching between lines of execution; **asyncio** overlaps it on a single line. A program written as **coroutines** — functions that can pause and resume at marked points — is scheduled by an **event loop**, which parks each task the moment it waits and runs the rest. One thread, no shared memory to lock, and room for thousands of concurrent operations.
+
+## Coroutines and the event loop
+
+Mark a function with `async def` and calling it does not run it: you get a **coroutine** object — a paused unit of work that only executes when something awaits it. The **event loop** is the scheduler: it runs every ready task until one reaches an `await` on something not yet done, parks it, and moves to the next. `asyncio.run()` is the standard entry point — it creates a fresh event loop, runs your top-level coroutine to completion, and closes the loop:
+
+```python sample=py-056-async-basic
+import asyncio
+
+
+async def fetch(name, delay):
+    print(f"{name}: request sent")
+    await asyncio.sleep(delay)
+    print(f"{name}: response received")
+    return f"{name} data"
+
+
+async def main():
+    result = await fetch("report", 0.1)
+    print("got:", result)
+
+
+asyncio.run(main())
+```
+
+```text
+report: request sent
+report: response received
+got: report data
+```
+
+Read the `await asyncio.sleep(delay)` line as the whole model in miniature: this sleep is not a thread sleeping — it tells the loop "I cannot continue for this long; run something else." The coroutine resumes when the time is up. Real I/O works identically: awaiting a file read or socket wait hands control back instead of blocking the thread, which is why one asyncio program can hold open thousands of connections where a threaded one would need thousands of threads.
+
+## Sequential awaits vs concurrent tasks
+
+`await` is also what makes work *sequential*: each `await` waits for its result before the next line runs. The difference between waiting in order and waiting together is small syntactically — and large in total time:
+
+```python sample=py-057-gather-tasks
+import asyncio
+
+
+async def fetch(name, delay):
+    await asyncio.sleep(delay)
+    return name
+
+
+async def main():
+    first = await fetch("first", 0.2)
+    second = await fetch("second", 0.1)
+    print("sequential:", [first, second])
+
+    results = await asyncio.gather(fetch("slow", 0.3), fetch("fast", 0.1))
+    print("gathered:", results)
+
+
+asyncio.run(main())
+```
+
+```text
+sequential: ['first', 'second']
+gathered: ['slow', 'fast']
+```
+
+The sequential pair takes the sum of both delays; `asyncio.gather` starts all of its arguments at once and returns their results in argument order — so "slow" (the longer wait) still comes first in the list, even though "fast" finished first. Gather is the workhorse for fan-out: fetch N pages, read N files, query N services, then combine.
+
+Because everything runs on one thread, there are no data races to lock against — a task either has control or it does not. The trade-off is that switching is **cooperative**: a task only yields at `await` points, so any blocking call (a synchronous file read, a long computation) stalls every other task in the loop. Threads under the GIL are preempted by the interpreter; asyncio tasks must behave.
+
+## Async generators
+
+The two ideas combine into an **async generator** — an on-demand value producer, like an ordinary `yield` function, that can additionally pause at `await` points between values:
+
+```python sample=py-058-async-generator
+import asyncio
+
+
+async def ticker(count):
+    for i in range(1, count + 1):
+        await asyncio.sleep(0.01)
+        yield i * 10
+
+
+async def main():
+    total = 0
+    async for value in ticker(4):
+        total += value
+    print("total:", total)
+
+
+asyncio.run(main())
+```
+
+```text
+total: 100
+```
+
+An `async def` containing `yield` returns an async generator instead of a coroutine; you consume it with **`async for`**, which pulls one value at a time and resumes the producer between them. This is the shape of streaming I/O — reading a download chunk by chunk, consuming a live feed line by line — where buffering the whole stream into memory is impossible or wasteful.
+
+## When asyncio beats threads
+
+From the concurrency lesson: threads overlap I/O waits but cost a thread per operation and need locks for shared state. asyncio's single-threaded model removes both costs — ideal when one program must juggle many simultaneous waits (web requests, database queries, file reads) with no CPU-heavy step in between. The moment your work is compute-bound, go back to threads or processes: an awaited computation still blocks the loop just like a synchronous one would.
+
+## Common mistakes
+
+- **Calling blocking code inside a coroutine**: a synchronous `time.sleep`, a blocking file read, or a heavy loop pauses every task in the event loop — the whole program freezes at that line. The fix is to run such calls in a worker thread via `asyncio.to_thread` and await its result.
+- **Forgetting `await`**: calling a coroutine without awaiting it returns an object and does nothing — no error, just silently missing work.
+- **Calling `asyncio.run()` inside a running loop**: it creates a new loop, which is illegal while one is already running; call it once at the top level of your program.
+- **Assuming tasks run in parallel on cores**: they do not — asyncio scales concurrency (many waits), not computation. CPU-bound work belongs with the threads and processes from the previous lesson.
+
+## Summary
+
+- A coroutine (`async def`) pauses at `await` points; the event loop schedules them, parking waiters and running the rest on a single thread.
+- `asyncio.run()` is the entry point: it creates the loop, runs your top-level coroutine, and closes the loop.
+- Sequential awaits add their delays; `asyncio.gather` starts everything at once and returns results in argument order.
+- Async generators (`async for`) stream values across await points — and because tasks switch cooperatively, any blocking call stalls the entire loop.

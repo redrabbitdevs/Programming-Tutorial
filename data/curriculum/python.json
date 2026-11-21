@@ -192,7 +192,7 @@
       "slug": "memory-and-performance",
       "title": "Memory, Garbage Collection & Performance",
       "prerequisites": ["data-structures-and-complexity", "iterators-and-generators"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 25,
@@ -200,7 +200,7 @@
       "slug": "concurrency-threads",
       "title": "Threads, the GIL & Multiprocessing",
       "prerequisites": ["functions", "file-io"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 26,
@@ -208,7 +208,7 @@
       "slug": "asyncio",
       "title": "Async I/O with asyncio",
       "prerequisites": ["concurrency-threads", "functions"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 27,
@@ -216,7 +216,7 @@
       "slug": "architecture-patterns",
       "title": "Architecture Patterns in Python",
       "prerequisites": ["oop-advanced", "decorators", "modules-and-packages"],
-      "status": "planned"
+      "status": "published"
     },
     {
       "order": 28,
@@ -224,7 +224,7 @@
       "slug": "capstone-project",
       "title": "Capstone: Building a Complete CLI Application",
       "prerequisites": ["testing-basics", "architecture-patterns"],
-      "status": "planned"
+      "status": "published"
     }
   ]
 }
