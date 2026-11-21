@@ -21,8 +21,14 @@ interface Props {
   languages?: LangOption[];
 }
 
+// No page passes `links` explicitly — Base renders <Header /> with defaults, so
+// the default array IS the site-wide primary nav. Keep it in sync when adding
+// top-level sections.
 const {
-  links = [{ label: "Design system", href: "docs/design-system/" }],
+  links = [
+    { label: "Languages", href: "languages/" },
+    { label: "Design system", href: "docs/design-system/" }
+  ],
   languages = []
 } = Astro.props;
 

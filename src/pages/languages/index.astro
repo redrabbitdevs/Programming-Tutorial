@@ -1,0 +1,79 @@
+---
+// Encyclopedia index — /languages/ (plan structure line 36). At build time, reads
+// ALL committed data/languages/*.json records and maps each to the LangRecord
+// shape components/EncyclopediaTable expects; the table then provides the
+// client-side filter (paradigm/era/status) + sort (name/year) with an aria-live
+// result count. Fully data-driven: when T-009 lands the ~900+ roadmap records,
+// this page picks them up with zero code changes.
+import Base from "../../layouts/Base.astro";
+import EncyclopediaTable from "../../components/EncyclopediaTable.astro";
+
+interface DataRecord {
+  name: string;
+  paradigms?: string[];
+  year?: number;
+  era?: string;
+  status: "active" | "legacy" | "historical";
+  trackSlug?: string;
+}
+
+interface LangRecord {
+  name: string;
+  slug: string;
+  paradigms: string[];
+  year?: number;
+  era?: string;
+  status: DataRecord["status"];
+  hasTrack: boolean;
+}
+
+// Build-time read of committed data records (same Vite-glob pattern as the
+// dashboard and track hubs). Invalid JSON is reported by validate.mjs.
+const recordModules = import.meta.glob("../../../data/languages/*.json", { eager: true });
+
+const records: LangRecord[] = Object.entries(recordModules)
+  .map(([path, mod]): LangRecord | null => {
+    const record = (mod as { default?: DataRecord }).default;
+    if (!record || typeof record.name !== "string") return null;
+    // slug: the filename without extension — data/languages/<slug>.json is the
+    // canonical source for encyclopedia entries (docs/content-conventions.md),
+    // and it doubles as the /languages/<slug>/ route param.
+    const slug = path.split("/").pop()!.replace(/\.json$/, "");
+    return {
+      name: record.name,
+      slug,
+      paradigms: record.paradigms ?? [],
+      year: record.year,
+      era: record.era,
+      status: record.status,
+      // hasTrack: true when the record declares a trackSlug — i.e. a
+      // /learn/<trackSlug>/ track hub exists for this language. The table shows
+      // a "Track" badge so readers can jump from the encyclopedia to lessons.
+      hasTrack: Boolean(record.trackSlug)
+    };
+  })
+  .filter((record): record is LangRecord => record !== null)
+  // Deterministic first paint matching the table's default name-ascending sort;
+  // the client script re-applies the active sort on load either way.
+  .sort((a, b) => a.name.localeCompare(b.name));
+---
+
+<Base
+  title="Languages — Programming Tutorial encyclopedia"
+  description="The programming language encyclopedia: paradigms, history, and status for every major language. Filter by paradigm, era, or status; sort by name or year."
+>
+  <article class="mx-auto max-w-6xl px-4 py-8">
+    <header>
+      <h1 class="text-3xl font-bold tracking-tight">Languages</h1>
+      <p class="mt-2 max-w-2xl text-sm text-muted">
+        Every language in the encyclopedia, from a single data record each. Filter by paradigm, era, or status and sort by name
+        or year — all client-side, no reload. Languages with a full lesson track are marked{" "}
+        <span class="rounded-full bg-accent px-1.5 py-0.5 text-[11px] font-semibold text-on-accent">Track</span>.
+      </p>
+    </header>
+
+    <div class="mt-6">
+      <EncyclopediaTable records={records} />
+    </div>
+  </article>
+</Base>
