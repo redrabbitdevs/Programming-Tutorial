@@ -98,12 +98,13 @@
       "type": "lesson",
       "lang": "python",
       "branch": "agent/lesson-writer/python-batch-5",
-      "pr": null,
-      "status": "assigned",
-      "updatedAt": "2026-11-20T18:16:41Z",
+      "pr": 16,
+      "status": "approved",
+      "updatedAt": "2026-11-21T05:15:18Z",
       "history": [
         { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
-        { "ts": "2026-11-20T18:16:41Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-5; orders 24-28 (memory-and-performance, concurrency-threads, asyncio, architecture-patterns, capstone-project); samples from py-050." }
+        { "ts": "2026-11-20T18:16:41Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] Assigned to lesson-writer; branch agent/lesson-writer/python-batch-5; orders 24-28 (memory-and-performance, concurrency-threads, asyncio, architecture-patterns, capstone-project); samples from py-050." },
+        { "ts": "2026-11-21T05:15:18Z", "from": "assigned", "to": "approved", "note": "[Orchestrator] T-006 approved on PR #16 (head 356eaf4): CI 4/4 green + Code Validator PASS (64/64 x2 runs; py-051 reworked deterministic, 7-run evidence) + Editorial APPROVED (prereq coherence verified both directions; 2 non-blocking nits on record) + QA & A11y APPROVED. Lesson-routes a11y audit deferred to T-007." }
       ]
     },
     {
