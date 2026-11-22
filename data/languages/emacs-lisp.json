@@ -1,0 +1,18 @@
+{
+  "name": "Emacs Lisp",
+  "aliases": [
+    "Elisp"
+  ],
+  "paradigms": [
+    "functional",
+    "imperative"
+  ],
+  "year": 1976,
+  "era": "1970s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "lisp",
+    "code": "(message \"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

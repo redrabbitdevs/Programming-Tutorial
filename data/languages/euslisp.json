@@ -1,0 +1,17 @@
+{
+  "name": "EusLisp",
+  "aliases": [
+    "EusLisp Robot Programming Language"
+  ],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 1986,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "lisp",
+    "code": "(format t \"Hello, World!~%\")"
+  },
+  "pageStatus": "planned"
+}

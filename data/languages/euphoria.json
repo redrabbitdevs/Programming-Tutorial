@@ -1,0 +1,15 @@
+{
+  "name": "Euphoria",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1998,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "euphoria",
+    "code": "puts(1, \"Hello, World!\\n\")"
+  },
+  "pageStatus": "planned"
+}

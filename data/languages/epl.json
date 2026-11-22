@@ -1,0 +1,19 @@
+{
+  "name": "Easy Programming Language",
+  "aliases": [
+    "EPL",
+    "YiLanguage"
+  ],
+  "paradigms": [
+    "visual",
+    "procedural"
+  ],
+  "year": 1998,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "epl",
+    "code": "print(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "es",
+  "aliases": [
+    "extensible shell"
+  ],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 1996,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "bash",
+    "code": "echo \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

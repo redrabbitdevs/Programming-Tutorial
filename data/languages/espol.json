@@ -1,0 +1,17 @@
+{
+  "name": "ESPOL",
+  "aliases": [
+    "Executive Systems Problem Oriented Language"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1967,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "espol",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

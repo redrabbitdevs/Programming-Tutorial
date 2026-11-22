@@ -1,0 +1,15 @@
+{
+  "name": "CA-IDEAL",
+  "aliases": [],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 1980,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "ca-ideal",
+    "code": "DISPLAY \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

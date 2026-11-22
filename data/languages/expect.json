@@ -1,0 +1,15 @@
+{
+  "name": "Expect",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1990,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "tcl",
+    "code": "puts \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

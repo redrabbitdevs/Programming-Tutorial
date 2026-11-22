@@ -1,0 +1,17 @@
+{
+  "name": "EXEC",
+  "aliases": [
+    "CMS EXEC"
+  ],
+  "paradigms": [
+    "imperative"
+  ],
+  "year": 1967,
+  "era": "1960s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "exec",
+    "code": "DISPLAY \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

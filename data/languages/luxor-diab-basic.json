@@ -1,0 +1,21 @@
+{
+  "name": "Luxor/DIAB BASIC",
+  "aliases": [
+    "DIAB BASIC",
+    "Luxor BASIC",
+    "BASIC I",
+    "BASIC II",
+    "BASIC III"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1975,
+  "era": "1970s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "EXEC 2",
+  "aliases": [],
+  "paradigms": [
+    "imperative"
+  ],
+  "year": 1975,
+  "era": "1970s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "exec",
+    "code": "DISPLAY \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

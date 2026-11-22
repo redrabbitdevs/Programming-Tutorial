@@ -1,0 +1,16 @@
+{
+  "name": "Esterel",
+  "aliases": [],
+  "paradigms": [
+    "imperative",
+    "concurrent"
+  ],
+  "year": 1978,
+  "era": "1970s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "esterel",
+    "code": "OUTPUT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

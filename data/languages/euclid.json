@@ -1,0 +1,15 @@
+{
+  "name": "Euclid",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1975,
+  "era": "1970s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "euclid",
+    "code": "WRITE \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

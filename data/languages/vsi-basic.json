@@ -1,0 +1,21 @@
+{
+  "name": "VSI BASIC for OpenVMS",
+  "aliases": [
+    "DEC BASIC",
+    "Compaq BASIC for OpenVMS",
+    "VAX BASIC",
+    "BASIC Plus 2",
+    "BASIC-PLUS"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1978,
+  "era": "1970s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

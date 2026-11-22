@@ -1,0 +1,16 @@
+{
+  "name": "Elixir",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "concurrent"
+  ],
+  "year": 2011,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "elixir",
+    "code": "IO.puts(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

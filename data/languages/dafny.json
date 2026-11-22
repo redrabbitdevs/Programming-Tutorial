@@ -1,0 +1,16 @@
+{
+  "name": "Dafny",
+  "aliases": [],
+  "paradigms": [
+    "imperative",
+    "functional"
+  ],
+  "year": 2006,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "dafny",
+    "code": "method Main()\n{\n    print \"Hello, World!\\n\";\n}"
+  },
+  "pageStatus": "planned"
+}

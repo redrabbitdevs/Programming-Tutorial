@@ -1,0 +1,16 @@
+{
+  "name": "Erlang",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "concurrent"
+  ],
+  "year": 1986,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "erlang",
+    "code": "-module(hello).\n-export([start/0]).\n\nstart() ->\n    io:format(\"Hello, World!~n\")."
+  },
+  "pageStatus": "planned"
+}
