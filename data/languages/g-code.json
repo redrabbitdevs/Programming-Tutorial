@@ -1,0 +1,17 @@
+{
+  "name": "G-code",
+  "aliases": [
+    "RS-274"
+  ],
+  "paradigms": [
+    "imperative"
+  ],
+  "year": 1963,
+  "era": "1960s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "gcode",
+    "code": "(Hello, World!)\nG21\nM30\n"
+  },
+  "pageStatus": "planned"
+}

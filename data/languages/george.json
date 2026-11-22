@@ -1,0 +1,17 @@
+{
+  "name": "GEORGE",
+  "aliases": [
+    "General Order Generator"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1957,
+  "era": "1950s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "george",
+    "code": "\"Hello, World!\" PRINT\n"
+  },
+  "pageStatus": "planned"
+}

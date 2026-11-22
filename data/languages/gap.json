@@ -1,0 +1,18 @@
+{
+  "name": "GAP",
+  "aliases": [
+    "Groups, Algorithms, Programming"
+  ],
+  "paradigms": [
+    "imperative",
+    "functional"
+  ],
+  "year": 1988,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "gap",
+    "code": "Say(\"Hello, World!\");\n"
+  },
+  "pageStatus": "planned"
+}
