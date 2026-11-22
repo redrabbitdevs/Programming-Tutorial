@@ -1,0 +1,16 @@
+{
+  "name": "DataFlex",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "procedural"
+  ],
+  "year": 1983,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "dataflex",
+    "code": "Response \"Hello, World!\";"
+  },
+  "pageStatus": "planned"
+}

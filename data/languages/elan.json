@@ -1,0 +1,15 @@
+{
+  "name": "ELAN",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1974,
+  "era": "1970s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "elan",
+    "code": "WRITE(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

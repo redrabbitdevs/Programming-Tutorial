@@ -1,0 +1,19 @@
+{
+  "name": "ECMAScript",
+  "aliases": [
+    "ECMA-262"
+  ],
+  "paradigms": [
+    "procedural",
+    "imperative",
+    "functional"
+  ],
+  "year": 1997,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "javascript",
+    "code": "console.log(\"Hello, World!\");\n"
+  },
+  "pageStatus": "planned"
+}

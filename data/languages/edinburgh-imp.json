@@ -1,0 +1,16 @@
+{
+  "name": "Edinburgh IMP",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "imperative"
+  ],
+  "year": 1966,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "edinburgh-imp",
+    "code": "WRITE \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

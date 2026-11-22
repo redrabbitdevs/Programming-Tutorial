@@ -1,0 +1,15 @@
+{
+  "name": "DinkC",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1999,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "c",
+    "code": "// DinkC (C-like scripting language for Dink Smallwood)\nPrintln(\"Hello, World!\");"
+  },
+  "pageStatus": "planned"
+}

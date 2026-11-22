@@ -1,0 +1,16 @@
+{
+  "name": "Dylan",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "functional"
+  ],
+  "year": 1994,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "dylan",
+    "code": "use system;\nwriteln(\"Hello, World!\");"
+  },
+  "pageStatus": "planned"
+}

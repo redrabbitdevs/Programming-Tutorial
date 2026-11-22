@@ -1,0 +1,15 @@
+{
+  "name": "dc",
+  "aliases": [],
+  "paradigms": [
+    "imperative"
+  ],
+  "year": 1970,
+  "era": "1970s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "dc",
+    "code": "[Hello, World!]p"
+  },
+  "pageStatus": "planned"
+}

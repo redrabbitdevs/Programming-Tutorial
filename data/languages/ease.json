@@ -1,0 +1,15 @@
+{
+  "name": "Ease",
+  "aliases": [],
+  "paradigms": [
+    "concurrent"
+  ],
+  "year": 2017,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "ease",
+    "code": "print(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Dog",
+  "aliases": [],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 2012,
+  "era": "2010s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "dog",
+    "code": "say \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

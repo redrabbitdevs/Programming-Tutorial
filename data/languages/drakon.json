@@ -1,0 +1,16 @@
+{
+  "name": "DRAKON",
+  "aliases": [],
+  "paradigms": [
+    "visual",
+    "procedural"
+  ],
+  "year": 1986,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "drakon",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

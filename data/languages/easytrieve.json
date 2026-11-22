@@ -1,0 +1,17 @@
+{
+  "name": "Easytrieve",
+  "aliases": [
+    "EASYTRIEVE PLUS"
+  ],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 1978,
+  "era": "1970s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "easytrieve",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

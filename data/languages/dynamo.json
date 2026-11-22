@@ -1,0 +1,15 @@
+{
+  "name": "DYNAMO",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1958,
+  "era": "1950s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "dynamo",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}
