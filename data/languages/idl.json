@@ -1,0 +1,17 @@
+{
+  "name": "IDL",
+  "aliases": [
+    "Interactive Data Language"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1985,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "idl",
+    "code": "printl, 'Hello, World!'\n"
+  },
+  "pageStatus": "planned"
+}
