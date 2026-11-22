@@ -28,7 +28,7 @@ Required per theme, with evidence (measured values or screenshots) in the PR com
    - All interactive elements keyboard-reachable with visible focus in both themes.
    - Semantic landmarks, heading order, alt text on meaningful images, ARIA correct and minimal.
    - No content conveyed by color alone.
-2. **Render correctness**: changed pages render without layout breakage in both themes, code blocks highlight correctly in both themes, tabs/accordions work, no hydration errors.
+2. **Render correctness**: changed pages render without layout breakage in both themes, code blocks highlight correctly in both themes, tabs/accordions work, no hydration errors. **Content typography hierarchy** on every audited content page (lesson/encyclopedia bodies): headings visually distinct from body text (size/weight), links visibly differentiated (accent color + underline), lists rendered with markers — verify the `.pt-article` scope is applied to MDX body slots in both themes. Known defect class: a layout rendering MDX without `.pt-article` passes axe but ships visually flat content (headings at body size, unstyled links) — PR #25.
 3. **Links & references**: no broken internal links (check against built `dist/`), external links resolve, anchor targets exist.
 4. **Content regression**: no orphaned prerequisites, no missing sample outputs, curriculum order intact for changed lessons.
 5. **Build health**: `npm run build` clean; no new console warnings in built pages.
