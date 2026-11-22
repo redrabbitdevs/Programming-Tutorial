@@ -1,0 +1,15 @@
+{
+  "name": "Galaksija BASIC",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1983,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "10 PRINT \"Hello, World!\"\n20 END\n"
+  },
+  "pageStatus": "planned"
+}
