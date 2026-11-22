@@ -104,4 +104,45 @@ test.describe('encyclopedia language page', () => {
     const firstSentence = firstLine!.split(/(?<=[.!?])\s+/)[0]
     await expect(page.getByText(firstSentence)).toBeVisible()
   })
+
+  // Regression guard for the /languages/ flat-typography defect: the MDX body
+  // must render inside the .pt-article scope (src/styles/global.css), because
+  // Tailwind preflight strips native heading/list/link styles — unscoped, h2s
+  // collapse to body size/weight and prose links lose their accent + underline.
+  test('applies .pt-article content typography to the MDX body', async ({ page }) => {
+    await page.goto('languages/python/')
+
+    const article = page.locator('.pt-article')
+    await expect(article).toHaveCount(1)
+    await expect(article.locator('h2')).not.toHaveCount(0)
+
+    // First h2 ("Overview"): 1.25rem / weight 600 per `.pt-article h2` in global.css.
+    const h2Style = await article.locator('h2').first().evaluate((el) => {
+      const cs = getComputedStyle(el)
+      return { fontSize: cs.fontSize, fontWeight: cs.fontWeight }
+    })
+    expect(h2Style.fontSize, '.pt-article h2 must be 1.25rem (20px at the default 16px root)').toBe('20px')
+    expect(h2Style.fontWeight).toBe('600')
+
+    // Prose link inside a body p ("Learn it here" section): accent color +
+    // underline per `.pt-article a`. The probe element resolves the same token
+    // var in-page, so the comparison holds in any theme.
+    const linkStyle = await article.locator('p > a').first().evaluate((el) => {
+      const cs = getComputedStyle(el)
+      const probe = document.createElement('span')
+      probe.style.color = 'var(--token-accent)'
+      probe.style.display = 'none'
+      document.body.appendChild(probe)
+      const accent = getComputedStyle(probe).color
+      probe.remove()
+      return { color: cs.color, textDecorationLine: cs.textDecorationLine, accent }
+    })
+    expect(linkStyle.color, 'prose links must use the accent token').toBe(linkStyle.accent)
+    expect(linkStyle.textDecorationLine, 'prose links must be underlined').toContain('underline')
+
+    // The References list keeps its list style (disc per `.pt-article ul`).
+    const uls = article.locator('ul')
+    await expect(uls).toHaveCount(1)
+    expect(await uls.first().evaluate((el) => getComputedStyle(el).listStyleType)).toBe('disc')
+  })
 })

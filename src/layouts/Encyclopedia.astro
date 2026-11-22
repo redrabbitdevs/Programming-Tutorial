@@ -69,7 +69,9 @@ const statusStyles: Record<Status, string> = {
       </dl>
     </header>
 
-    <div class="mt-8">
+    <!-- pt-article: content typography for the MDX body (see global.css);
+         scoped to the slot so header chrome keeps its own Tailwind classes. -->
+    <div class="mt-8 pt-article">
       <slot />
     </div>
   </article>
