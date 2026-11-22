@@ -1,0 +1,17 @@
+{
+  "name": "GPSS",
+  "aliases": [
+    "General Purpose Simulation System"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1964,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "gpss",
+    "code": "GENERATE 1,0,1\nTERMINATE\n"
+  },
+  "pageStatus": "planned"
+}

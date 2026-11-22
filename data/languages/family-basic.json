@@ -1,0 +1,17 @@
+{
+  "name": "Family BASIC",
+  "aliases": [
+    "Famicom BASIC"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1984,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "10 PRINT \"Hello, World!\"\n20 END\n"
+  },
+  "pageStatus": "planned"
+}

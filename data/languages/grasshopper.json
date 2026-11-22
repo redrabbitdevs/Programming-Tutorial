@@ -1,0 +1,16 @@
+{
+  "name": "Grasshopper",
+  "aliases": [],
+  "paradigms": [
+    "visual",
+    "declarative"
+  ],
+  "year": 2004,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "grasshopper",
+    "code": "# Visual language: drag a Message Box component and set its text to \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

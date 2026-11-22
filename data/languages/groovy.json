@@ -1,0 +1,18 @@
+{
+  "name": "Groovy",
+  "aliases": [
+    "Apache Groovy"
+  ],
+  "paradigms": [
+    "object-oriented",
+    "imperative"
+  ],
+  "year": 2003,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "groovy",
+    "code": "println \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}
