@@ -1,0 +1,17 @@
+{
+  "name": "FOIL",
+  "aliases": [
+    "File-Oriented Interpretive Language"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1967,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "foil",
+    "code": "TY Hello, World!\nSTOP\n"
+  },
+  "pageStatus": "planned"
+}
