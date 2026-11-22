@@ -1,0 +1,15 @@
+{
+  "name": "Hopscotch",
+  "aliases": [],
+  "paradigms": [
+    "visual"
+  ],
+  "year": 2013,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "hopscotch",
+    "code": "when Stage starts\n    say \"Hello, World!\" for 2 seconds\n"
+  },
+  "pageStatus": "planned"
+}
