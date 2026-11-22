@@ -1,0 +1,16 @@
+{
+  "name": "Golo",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "imperative"
+  ],
+  "year": 2012,
+  "era": "2010s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "golo",
+    "code": "println(\"Hello, World!\")\n"
+  },
+  "pageStatus": "planned"
+}

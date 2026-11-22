@@ -1,0 +1,15 @@
+{
+  "name": "CFEngine",
+  "aliases": [],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 1993,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "cfengine",
+    "code": "body promise hello_world()\n{\n  actions => \"echo 'Hello, World!'\";\n}"
+  },
+  "pageStatus": "planned"
+}

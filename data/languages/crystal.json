@@ -1,0 +1,16 @@
+{
+  "name": "Crystal",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "procedural"
+  ],
+  "year": 2014,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "crystal",
+    "code": "puts \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

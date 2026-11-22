@@ -1,0 +1,17 @@
+{
+  "name": "Accent",
+  "aliases": [
+    "Rational Synergy Accent"
+  ],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 2004,
+  "era": "2000s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "accent",
+    "code": "Console.WriteLine(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

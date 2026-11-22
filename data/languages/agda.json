@@ -1,0 +1,15 @@
+{
+  "name": "Agda",
+  "aliases": [],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 2007,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "agda",
+    "code": "main : IO ()\nmain = putStrLn \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

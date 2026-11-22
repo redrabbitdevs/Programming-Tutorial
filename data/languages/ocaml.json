@@ -1,0 +1,17 @@
+{
+  "name": "OCaml",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "imperative"
+  ],
+  "year": 1996,
+  "era": "1990s",
+  "status": "active",
+  "tiobeRank": 34,
+  "helloWorld": {
+    "lang": "ocaml",
+    "code": "print_endline \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

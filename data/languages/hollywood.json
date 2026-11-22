@@ -1,0 +1,15 @@
+{
+  "name": "Hollywood",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 2002,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "hollywood",
+    "code": "Screen.Clear()\nText.Print(10, 10, \"Hello, World!\")\n"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Cuneiform",
+  "aliases": [],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 2014,
+  "era": "2010s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "cuneiform",
+    "code": "print \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

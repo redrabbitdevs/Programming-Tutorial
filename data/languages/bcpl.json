@@ -1,0 +1,15 @@
+{
+  "name": "BCPL",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1967,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "bcpl",
+    "code": "get global(outchar)\ntext\nbegin outchar(\"Hello, World!\")\nend"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Flex",
+  "aliases": [
+    "FLEX"
+  ],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 1968,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "flex",
+    "code": "print(\"Hello, World!\")\n"
+  },
+  "pageStatus": "planned"
+}

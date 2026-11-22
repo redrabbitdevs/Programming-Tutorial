@@ -1,0 +1,15 @@
+{
+  "name": "CHIP-8",
+  "aliases": [],
+  "paradigms": [
+    "assembly"
+  ],
+  "year": 1975,
+  "era": "1970s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "chip-8",
+    "code": "0x2000  0x6003   ; LD V0, 0x03 - font glyph index\n0x2003  0xD5E0   ; DRW V0, V0, 14 - draw glyph (\"Hello, World!\" is rendered as a sequence of font sprites)"
+  },
+  "pageStatus": "planned"
+}

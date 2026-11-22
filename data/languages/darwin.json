@@ -1,0 +1,15 @@
+{
+  "name": "Darwin",
+  "aliases": [],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 1991,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "darwin",
+    "code": "print(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

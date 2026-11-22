@@ -1,0 +1,16 @@
+{
+  "name": "Claire",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "functional"
+  ],
+  "year": 2004,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "claire",
+    "code": "write(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

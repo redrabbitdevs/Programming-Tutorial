@@ -1,0 +1,19 @@
+{
+  "name": "Scratch",
+  "aliases": [
+    "Scratch 3"
+  ],
+  "paradigms": [
+    "visual",
+    "procedural"
+  ],
+  "year": 2003,
+  "era": "2000s",
+  "status": "active",
+  "tiobeRank": 14,
+  "helloWorld": {
+    "lang": "scratch",
+    "code": "when green flag clicked\nsay [Hello, World!] for 2 seconds\n"
+  },
+  "pageStatus": "planned"
+}

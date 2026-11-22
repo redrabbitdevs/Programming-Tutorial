@@ -1,0 +1,17 @@
+{
+  "name": "ALGOL",
+  "aliases": [
+    "Algol family"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1958,
+  "era": "1950s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "algol",
+    "code": "begin\n  print \"Hello, World!\"\nend"
+  },
+  "pageStatus": "planned"
+}

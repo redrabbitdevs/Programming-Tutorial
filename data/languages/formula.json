@@ -1,0 +1,17 @@
+{
+  "name": "Formula",
+  "aliases": [
+    "@Formula"
+  ],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 1989,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "formula",
+    "code": "@PromptOK(\"Hello, World!\")\n"
+  },
+  "pageStatus": "planned"
+}

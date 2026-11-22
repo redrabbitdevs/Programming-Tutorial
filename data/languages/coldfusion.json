@@ -1,0 +1,19 @@
+{
+  "name": "ColdFusion",
+  "aliases": [
+    "CFML",
+    "Adobe ColdFusion"
+  ],
+  "paradigms": [
+    "procedural",
+    "declarative"
+  ],
+  "year": 1995,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "coldfusion",
+    "code": "<cfset msg = \"Hello, World!\">\n<cfoutput>#msg#</cfoutput>"
+  },
+  "pageStatus": "planned"
+}

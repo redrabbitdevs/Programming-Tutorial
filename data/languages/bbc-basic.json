@@ -1,0 +1,15 @@
+{
+  "name": "BBC BASIC",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1981,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

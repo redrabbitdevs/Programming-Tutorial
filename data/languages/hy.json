@@ -1,0 +1,15 @@
+{
+  "name": "Hy",
+  "aliases": [],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 2013,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "hy",
+    "code": "(print \"Hello, World!\")\n"
+  },
+  "pageStatus": "planned"
+}

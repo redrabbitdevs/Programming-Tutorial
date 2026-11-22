@@ -1,0 +1,18 @@
+{
+  "name": "XSLT",
+  "aliases": [
+    "XSL Transformations"
+  ],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 1999,
+  "era": "1990s",
+  "status": "active",
+  "tiobeRank": 46,
+  "helloWorld": {
+    "lang": "xml",
+    "code": "<xsl:template match=\"/\">\n    <xsl:value-of select=\"'Hello, World!'\"/>\n</xsl:template>\n"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Flix",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "imperative",
+    "logic"
+  ],
+  "year": 2015,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "flix",
+    "code": "pub def main(): Unit =\n  println(\"Hello, World!\")\n"
+  },
+  "pageStatus": "planned"
+}

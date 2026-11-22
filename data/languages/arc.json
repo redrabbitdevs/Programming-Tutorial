@@ -1,0 +1,15 @@
+{
+  "name": "Arc",
+  "aliases": [],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 2007,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "lisp",
+    "code": "(display \"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

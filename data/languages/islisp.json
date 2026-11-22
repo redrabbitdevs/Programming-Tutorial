@@ -1,0 +1,18 @@
+{
+  "name": "ISLISP",
+  "aliases": [
+    "ISLisp"
+  ],
+  "paradigms": [
+    "functional",
+    "procedural"
+  ],
+  "year": 1995,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "islisp",
+    "code": "(format t \"Hello, World!\")\n"
+  },
+  "pageStatus": "planned"
+}

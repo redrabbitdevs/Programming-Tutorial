@@ -1,0 +1,15 @@
+{
+  "name": "Ceylon",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 2014,
+  "era": "2010s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "ceylon",
+    "code": "shared void main() {\n    print(\"Hello, World!\");\n}"
+  },
+  "pageStatus": "planned"
+}

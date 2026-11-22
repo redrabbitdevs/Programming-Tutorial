@@ -1,0 +1,17 @@
+{
+  "name": "Prolog",
+  "aliases": [],
+  "paradigms": [
+    "logic",
+    "declarative"
+  ],
+  "year": 1972,
+  "era": "1970s",
+  "status": "active",
+  "tiobeRank": 31,
+  "helloWorld": {
+    "lang": "prolog",
+    "code": ":- write('Hello, World!'), nl.\n"
+  },
+  "pageStatus": "planned"
+}

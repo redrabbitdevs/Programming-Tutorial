@@ -1,0 +1,16 @@
+{
+  "name": "Argus",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "concurrent"
+  ],
+  "year": 1989,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "argus",
+    "code": "class hello { }"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Cayenne",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "object-oriented"
+  ],
+  "year": 1995,
+  "era": "1990s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "cayenne",
+    "code": "main = puts \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

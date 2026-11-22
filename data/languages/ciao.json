@@ -1,0 +1,19 @@
+{
+  "name": "Ciao",
+  "aliases": [
+    "Ciao MLL"
+  ],
+  "paradigms": [
+    "logic",
+    "functional",
+    "object-oriented"
+  ],
+  "year": 1984,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "prolog",
+    "code": ":- module(hello, [hello/0]).\n\nhello :- writeln('Hello, World!')."
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "TypeScript",
+  "aliases": [
+    "TS"
+  ],
+  "paradigms": [
+    "object-oriented",
+    "procedural"
+  ],
+  "year": 2012,
+  "era": "2010s",
+  "status": "active",
+  "tiobeRank": 41,
+  "helloWorld": {
+    "lang": "typescript",
+    "code": "console.log(\"Hello, World!\");\n"
+  },
+  "pageStatus": "planned"
+}

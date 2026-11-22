@@ -1,0 +1,17 @@
+{
+  "name": "Fantom",
+  "aliases": [
+    "Fan"
+  ],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 2005,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "fantom",
+    "code": "class Main\n{\n    static Void main()\n    {\n        echo(\"Hello, World!\")\n    }\n}\n"
+  },
+  "pageStatus": "planned"
+}

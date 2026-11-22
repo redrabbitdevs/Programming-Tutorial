@@ -1,0 +1,16 @@
+{
+  "name": "Bosque",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "object-oriented"
+  ],
+  "year": 2024,
+  "era": "2020s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "bosque",
+    "code": "print(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

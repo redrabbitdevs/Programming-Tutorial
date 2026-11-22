@@ -1,0 +1,21 @@
+{
+  "name": "Ada",
+  "aliases": [
+    "Ada 2012",
+    "Ada 2022"
+  ],
+  "paradigms": [
+    "procedural",
+    "object-oriented",
+    "concurrent"
+  ],
+  "year": 1983,
+  "era": "1980s",
+  "status": "active",
+  "tiobeRank": 28,
+  "helloWorld": {
+    "lang": "ada",
+    "code": "with Ada.Text_IO; use Ada.Text_IO;\n\nprocedure Hello is\nbegin\n    Put_Line (\"Hello, World!\");\nend Hello;\n"
+  },
+  "pageStatus": "planned"
+}

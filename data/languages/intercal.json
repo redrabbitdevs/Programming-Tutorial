@@ -1,0 +1,15 @@
+{
+  "name": "INTERCAL",
+  "aliases": [],
+  "paradigms": [
+    "imperative"
+  ],
+  "year": 1972,
+  "era": "1970s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "intercal",
+    "code": "PLEASE READ OUT THE MESSAGE.\n"
+  },
+  "pageStatus": "planned"
+}

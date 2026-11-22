@@ -1,0 +1,17 @@
+{
+  "name": "Cyc",
+  "aliases": [
+    "CycL"
+  ],
+  "paradigms": [
+    "logic"
+  ],
+  "year": 1984,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "cyc",
+    "code": "(print \"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

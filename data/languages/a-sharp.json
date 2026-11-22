@@ -1,0 +1,19 @@
+{
+  "name": "A#",
+  "aliases": [
+    "A Sharp",
+    "A.NET"
+  ],
+  "paradigms": [
+    "imperative",
+    "procedural"
+  ],
+  "year": 2004,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "ada",
+    "code": "with Ada.Text_IO; use Ada.Text_IO;\nprocedure Main is\nbegin\n   Put_Line (\"Hello, World!\");\nend Main;"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "A+",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "declarative"
+  ],
+  "year": 1988,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "a-plus",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

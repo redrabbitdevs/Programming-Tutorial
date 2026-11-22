@@ -1,0 +1,16 @@
+{
+  "name": "Datalog",
+  "aliases": [],
+  "paradigms": [
+    "declarative",
+    "logic"
+  ],
+  "year": 1977,
+  "era": "1970s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "datalog",
+    "code": ":- hello_world."
+  },
+  "pageStatus": "planned"
+}

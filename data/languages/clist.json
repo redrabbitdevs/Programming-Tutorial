@@ -1,0 +1,17 @@
+{
+  "name": "CLIST",
+  "aliases": [
+    "Command List"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1966,
+  "era": "1960s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "clist",
+    "code": "%PUT OUT 'Hello, World!'"
+  },
+  "pageStatus": "planned"
+}

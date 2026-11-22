@@ -1,0 +1,17 @@
+{
+  "name": "Bash",
+  "aliases": [
+    "Bourne Again Shell"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1989,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "bash",
+    "code": "echo \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "CAL",
+  "aliases": [
+    "Conversational Algebraic Language"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1967,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "cal",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "CA-Realizer",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1992,
+  "era": "1990s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "ca-realizer",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Clarion",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "object-oriented"
+  ],
+  "year": 1986,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "clarion",
+    "code": "Program\n  Method\n    %PROC 'Hello, World!'\nEnd"
+  },
+  "pageStatus": "planned"
+}

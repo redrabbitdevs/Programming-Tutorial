@@ -1,0 +1,15 @@
+{
+  "name": "Icon",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1977,
+  "era": "1970s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "icon",
+    "code": "procedure main()\n    write(\"Hello, World!\")\nend procedure\n"
+  },
+  "pageStatus": "planned"
+}

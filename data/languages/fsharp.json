@@ -1,0 +1,19 @@
+{
+  "name": "F#",
+  "aliases": [
+    "F sharp"
+  ],
+  "paradigms": [
+    "functional",
+    "object-oriented",
+    "imperative"
+  ],
+  "year": 2005,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "fsharp",
+    "code": "printfn \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "CHICKEN",
+  "aliases": [
+    "Chicken Scheme"
+  ],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 2003,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "scheme",
+    "code": "(display \"Hello, World!\")\n(newline)"
+  },
+  "pageStatus": "planned"
+}

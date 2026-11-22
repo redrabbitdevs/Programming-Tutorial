@@ -1,0 +1,15 @@
+{
+  "name": "ARexx",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1994,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "rexx",
+    "code": "Say \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

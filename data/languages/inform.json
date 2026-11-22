@@ -1,0 +1,15 @@
+{
+  "name": "Inform",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1993,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "inform",
+    "code": "When play begins, say \"Hello, World!\".\n"
+  },
+  "pageStatus": "planned"
+}

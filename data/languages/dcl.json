@@ -1,0 +1,17 @@
+{
+  "name": "DCL",
+  "aliases": [
+    "DIGITAL Command Language"
+  ],
+  "paradigms": [
+    "imperative"
+  ],
+  "year": 1969,
+  "era": "1960s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "dcl",
+    "code": "WRITE SYS$OUTPUT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

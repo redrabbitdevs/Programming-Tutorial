@@ -1,0 +1,18 @@
+{
+  "name": "IBM Basic Assembly Language",
+  "aliases": [
+    "BAL",
+    "IBM basic assembly language and successors"
+  ],
+  "paradigms": [
+    "assembly"
+  ],
+  "year": 1964,
+  "era": "1960s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "asm",
+    "code": "* HELLO WORLD IN BAL\nSTART\nLA 5,MSG\nST 0,OUT\nMSG DC A'HELLO WORLD'\nEND\n"
+  },
+  "pageStatus": "planned"
+}

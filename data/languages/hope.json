@@ -1,0 +1,15 @@
+{
+  "name": "Hope",
+  "aliases": [],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 1980,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "hope",
+    "code": "print \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

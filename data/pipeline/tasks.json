@@ -150,12 +150,13 @@
       "agent": "reference-curator",
       "type": "encyclopedia",
       "lang": null,
-      "branch": null,
+      "branch": "agent/reference-curator/language-roadmap",
       "pr": null,
-      "status": "backlog",
-      "updatedAt": "2026-11-16T10:15:57Z",
+      "status": "assigned",
+      "updatedAt": "2026-11-21T10:47:14Z",
       "history": [
-        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" }
+        { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
+        { "ts": "2026-11-21T10:47:14Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] T-009 assigned to reference-curator on branch agent/reference-curator/language-roadmap. Scope: full ~900+ language roadmap as data/languages/<slug>.json records (Wikipedia 'List of programming languages' + sub-lists + TIOBE sourced), all pageStatus planned, no MDX pages, zero code changes. Conventions in notes/T-009.md: kebab slugs, era decade buckets (normalize python.json modern→1990s), paradigms lowercase-kebab 1-4, tiobeRank only for current TIOBE top-50, helloWorld canonical minimal (NOT CI-executed). Batching ~150-200 records/session commit, TIOBE top-50 first. Gate per plan type=encyclopedia row: CI (schema over all records) + CV stratified sample attestation (~30-50 snippets spanning families) + QA full /languages/ audit both themes; Editorial N/A." }
       ]
     },
     {
@@ -166,12 +167,13 @@
       "lang": null,
       "branch": "agent/design-engineer/languages-index",
       "pr": 20,
-      "status": "approved",
-      "updatedAt": "2026-11-21T09:36:27Z",
+      "status": "published",
+      "updatedAt": "2026-11-21T10:47:14Z",
       "history": [
         { "ts": "2026-11-16T10:15:57Z", "from": null, "to": "backlog", "note": "Seeded by Site Ops on behalf of Orchestrator (Phase 2)" },
         { "ts": "2026-11-21T08:45:26Z", "from": "backlog", "to": "assigned", "note": "[Orchestrator] T-010 assigned to design-engineer on branch agent/design-engineer/languages-index. Scope: /languages/ index (data-driven over all data/languages/*.json via existing EncyclopediaTable) + /languages/[slug].astro (published encyclopedia pages via existing Encyclopedia layout) + e2e/axe extension; lychee languages exclusion stays (demo slugs pending T-009/T-011). Gate per plan type=design row: CI + QA & A11y only." },
-        { "ts": "2026-11-21T09:36:27Z", "from": "assigned", "to": "approved", "note": "[Orchestrator] T-010 approved on PR #20 (head 2dc4ca6): CI 4/4 green + QA & A11y full audit APPROVED (comment 7060471894 — both routes light+dark, skip-link verified, data-driven proof, nav regression clean; 3 non-blocking findings). Gate per plan type=design row: CV/Editorial N/A." }
+        { "ts": "2026-11-21T09:36:27Z", "from": "assigned", "to": "approved", "note": "[Orchestrator] T-010 approved on PR #20 (head 2dc4ca6): CI 4/4 green + QA & A11y full audit APPROVED (comment 7060471894 — both routes light+dark, skip-link verified, data-driven proof, nav regression clean; 3 non-blocking findings). Gate per plan type=design row: CV/Editorial N/A." },
+        { "ts": "2026-11-21T10:47:14Z", "from": "approved", "to": "published", "note": "[Orchestrator] T-010 published: PR #20 squash-merged to main (20b2a2a); /languages/ index + /languages/python/ live with Languages nav site-wide; deploy verified HTTP 200. State commit folded into T-009 dispatch per convention." }
       ]
     },
     {

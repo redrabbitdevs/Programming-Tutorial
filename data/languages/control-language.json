@@ -1,0 +1,15 @@
+{
+  "name": "Control Language",
+  "aliases": [],
+  "paradigms": [
+    "imperative"
+  ],
+  "year": 1988,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "control-language",
+    "code": "CALL PGM(MYLIB/HELLO)"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Gambas",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 1999,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "PRINT \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

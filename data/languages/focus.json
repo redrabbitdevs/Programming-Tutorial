@@ -1,0 +1,17 @@
+{
+  "name": "FOCUS",
+  "aliases": [
+    "WebFOCUS"
+  ],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 1970,
+  "era": "1970s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "focus",
+    "code": "-* Hello world\nPRINT \"Hello, World!\"\nRUN\n"
+  },
+  "pageStatus": "planned"
+}

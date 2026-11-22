@@ -1,0 +1,15 @@
+{
+  "name": "Atari BASIC",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1979,
+  "era": "1970s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "10 PRINT \"Hello, World!\"\n20 END"
+  },
+  "pageStatus": "planned"
+}

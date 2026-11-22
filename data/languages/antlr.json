@@ -1,0 +1,15 @@
+{
+  "name": "ANTLR",
+  "aliases": [],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 1996,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "antlr",
+    "code": "grammar Hello;\ntokens { GREETING }\ngreeting : 'Hello, World!' ;"
+  },
+  "pageStatus": "planned"
+}

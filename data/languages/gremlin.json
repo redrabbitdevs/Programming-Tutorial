@@ -1,0 +1,15 @@
+{
+  "name": "Gremlin",
+  "aliases": [],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 2014,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "gremlin",
+    "code": "g.V()\n"
+  },
+  "pageStatus": "planned"
+}

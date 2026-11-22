@@ -1,0 +1,17 @@
+{
+  "name": "BASIC-E",
+  "aliases": [
+    "submarine BASIC"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1983,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

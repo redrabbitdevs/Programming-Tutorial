@@ -1,0 +1,16 @@
+{
+  "name": "Babbage",
+  "aliases": [],
+  "paradigms": [
+    "visual",
+    "procedural"
+  ],
+  "year": 2015,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "babbage",
+    "code": "// block stub: Hello, World!"
+  },
+  "pageStatus": "planned"
+}

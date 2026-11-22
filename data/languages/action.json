@@ -1,0 +1,17 @@
+{
+  "name": "action!",
+  "aliases": [
+    "Action! (Atari)"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1986,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "action",
+    "code": "PROGRAM Hello;\nBEGIN\n  WRITELN('Hello, World!');\nEND."
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Chipmunk Basic",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "object-oriented"
+  ],
+  "year": 1992,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

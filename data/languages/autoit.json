@@ -1,0 +1,15 @@
+{
+  "name": "AutoIt",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 2000,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "autoit",
+    "code": "MsgBox(0, \"Title\", \"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

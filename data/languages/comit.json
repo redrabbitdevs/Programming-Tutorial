@@ -1,0 +1,15 @@
+{
+  "name": "COMIT",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1957,
+  "era": "1950s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "comit",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

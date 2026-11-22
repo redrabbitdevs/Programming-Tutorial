@@ -1,0 +1,15 @@
+{
+  "name": "Filetab",
+  "aliases": [],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 1968,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "filetab",
+    "code": "MESSAGE 'HELLO, WORLD'\n"
+  },
+  "pageStatus": "planned"
+}

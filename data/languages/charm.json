@@ -1,0 +1,15 @@
+{
+  "name": "Charm",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1996,
+  "era": "1990s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "charm",
+    "code": "program hello\nbegin\n  write \"Hello, World!\"\nend"
+  },
+  "pageStatus": "planned"
+}

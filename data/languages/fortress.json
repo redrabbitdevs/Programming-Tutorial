@@ -1,0 +1,16 @@
+{
+  "name": "Fortress",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "imperative"
+  ],
+  "year": 2006,
+  "era": "2000s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "fortress",
+    "code": "program hello()\n  print(\"Hello, World!\")\nend program\n"
+  },
+  "pageStatus": "planned"
+}

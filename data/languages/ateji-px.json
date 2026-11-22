@@ -1,0 +1,16 @@
+{
+  "name": "Ateji PX",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "concurrent"
+  ],
+  "year": 2010,
+  "era": "2010s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "java",
+    "code": "public class Hello {\n  public static void main(String[] args) {\n    System.out.println(\"Hello, World!\");\n  }\n}"
+  },
+  "pageStatus": "planned"
+}

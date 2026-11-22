@@ -1,0 +1,15 @@
+{
+  "name": "dBase",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1979,
+  "era": "1970s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "dbase",
+    "code": "? \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

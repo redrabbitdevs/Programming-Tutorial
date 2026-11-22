@@ -1,0 +1,16 @@
+{
+  "name": "Handel-C",
+  "aliases": [],
+  "paradigms": [
+    "concurrent",
+    "procedural"
+  ],
+  "year": 1996,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "c",
+    "code": "#include <stdio.h>\nvoid main() {\n    printf(\"Hello, World!\\n\");\n}\n"
+  },
+  "pageStatus": "planned"
+}

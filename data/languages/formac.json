@@ -1,0 +1,17 @@
+{
+  "name": "FORMAC",
+  "aliases": [
+    "Formula Manipulation Compiler"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1963,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "fortran",
+    "code": "      PRINT *, 'Hello, World!'\n      STOP\n      END\n"
+  },
+  "pageStatus": "planned"
+}

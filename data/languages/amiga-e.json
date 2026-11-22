@@ -1,0 +1,15 @@
+{
+  "name": "Amiga E",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1990,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "amiga-e",
+    "code": "MODULE Hello;\nPROCEDURE Main;\nBEGIN\n  WriteLn('Hello, World!')\nEND."
+  },
+  "pageStatus": "planned"
+}

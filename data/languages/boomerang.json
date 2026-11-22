@@ -1,0 +1,16 @@
+{
+  "name": "Boomerang",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "declarative"
+  ],
+  "year": 2018,
+  "era": "2010s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "boomerang",
+    "code": "-- lens stub: Hello, World!"
+  },
+  "pageStatus": "planned"
+}

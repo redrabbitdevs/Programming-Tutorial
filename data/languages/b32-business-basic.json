@@ -1,0 +1,15 @@
+{
+  "name": "B32 Business Basic",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1978,
+  "era": "1970s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

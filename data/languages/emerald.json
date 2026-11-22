@@ -1,0 +1,15 @@
+{
+  "name": "Emerald",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 1985,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "emerald",
+    "code": "print(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "COBOL",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "declarative"
+  ],
+  "year": 1959,
+  "era": "1950s",
+  "status": "active",
+  "tiobeRank": 24,
+  "helloWorld": {
+    "lang": "cobol",
+    "code": "       IDENTIFICATION DIVISION.\n       PROGRAM-ID. HELLO.\n       PROCEDURE DIVISION.\n           DISPLAY 'Hello, World!'.\n           STOP RUN.\n"
+  },
+  "pageStatus": "planned"
+}

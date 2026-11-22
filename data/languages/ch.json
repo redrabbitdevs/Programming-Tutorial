@@ -1,0 +1,17 @@
+{
+  "name": "Ch",
+  "aliases": [
+    "CH"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1995,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "ch",
+    "code": "print(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

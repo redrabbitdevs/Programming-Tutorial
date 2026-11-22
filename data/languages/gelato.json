@@ -1,0 +1,17 @@
+{
+  "name": "Gelato",
+  "aliases": [
+    "Gelato Shading Language"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 2004,
+  "era": "2000s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "sl",
+    "code": "surface hello()\n{\n    Ci = red;\n}\n"
+  },
+  "pageStatus": "planned"
+}

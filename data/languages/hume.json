@@ -1,0 +1,15 @@
+{
+  "name": "Hume",
+  "aliases": [],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 2000,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "hume",
+    "code": "def main() {\n    print(\"Hello, World!\");\n}\n"
+  },
+  "pageStatus": "planned"
+}

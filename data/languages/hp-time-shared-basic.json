@@ -1,0 +1,17 @@
+{
+  "name": "HP Time-Shared BASIC",
+  "aliases": [
+    "HP TSB"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1971,
+  "era": "1970s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "10 PRINT \"Hello, World!\"\n20 END\n"
+  },
+  "pageStatus": "planned"
+}

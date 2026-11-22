@@ -1,0 +1,15 @@
+{
+  "name": "ECLiPSe",
+  "aliases": [],
+  "paradigms": [
+    "logic"
+  ],
+  "year": 1995,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "prolog",
+    "code": ":- write('Hello, World!'), nl."
+  },
+  "pageStatus": "planned"
+}

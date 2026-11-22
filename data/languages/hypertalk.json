@@ -1,0 +1,15 @@
+{
+  "name": "HyperTalk",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1987,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "hypertalk",
+    "code": "put \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

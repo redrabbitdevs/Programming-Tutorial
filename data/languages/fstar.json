@@ -1,0 +1,17 @@
+{
+  "name": "F*",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "object-oriented",
+    "imperative"
+  ],
+  "year": 2011,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "fstar",
+    "code": "let main () =\n  printf \"Hello, World!\\n\"\n"
+  },
+  "pageStatus": "planned"
+}

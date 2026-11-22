@@ -1,0 +1,15 @@
+{
+  "name": "Calcpad",
+  "aliases": [],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 2014,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "calcpad",
+    "code": "Hello, World!"
+  },
+  "pageStatus": "planned"
+}

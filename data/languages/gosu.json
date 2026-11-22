@@ -1,0 +1,16 @@
+{
+  "name": "Gosu",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "procedural"
+  ],
+  "year": 2010,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "gosu",
+    "code": "print(\"Hello, World!\")\n"
+  },
+  "pageStatus": "planned"
+}

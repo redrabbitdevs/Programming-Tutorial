@@ -1,0 +1,15 @@
+{
+  "name": "ACC",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1988,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "c",
+    "code": "#include <stdio.h>\nmain() { puts(\"Hello, World!\"); }"
+  },
+  "pageStatus": "planned"
+}

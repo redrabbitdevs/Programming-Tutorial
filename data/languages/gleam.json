@@ -1,0 +1,15 @@
+{
+  "name": "Gleam",
+  "aliases": [],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 2016,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "gleam",
+    "code": "pub fn main() {\n  io.println(\"Hello, World!\")\n}\n"
+  },
+  "pageStatus": "planned"
+}

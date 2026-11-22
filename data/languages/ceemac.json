@@ -1,0 +1,15 @@
+{
+  "name": "CEEMAC",
+  "aliases": [],
+  "paradigms": [
+    "visual"
+  ],
+  "year": 1980,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "ceemac",
+    "code": "SCORE\n  NOTE \"Hello, World!\"\nEND"
+  },
+  "pageStatus": "planned"
+}

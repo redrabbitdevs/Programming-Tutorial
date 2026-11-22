@@ -1,0 +1,15 @@
+{
+  "name": "Futhark",
+  "aliases": [],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 2014,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "futhark",
+    "code": "def main (): void =\n  print \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

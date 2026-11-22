@@ -1,0 +1,15 @@
+{
+  "name": "Bend",
+  "aliases": [],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 2023,
+  "era": "2020s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "bend",
+    "code": "fn main() { println(\"Hello, World!\") }"
+  },
+  "pageStatus": "planned"
+}

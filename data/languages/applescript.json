@@ -1,0 +1,15 @@
+{
+  "name": "AppleScript",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1993,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "applescript",
+    "code": "display dialog \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

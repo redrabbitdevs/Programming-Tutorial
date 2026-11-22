@@ -1,0 +1,18 @@
+{
+  "name": "ML",
+  "aliases": [
+    "Meta Language"
+  ],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 1973,
+  "era": "1970s",
+  "status": "legacy",
+  "tiobeRank": 43,
+  "helloWorld": {
+    "lang": "sml",
+    "code": "print \"Hello, World!\\n\";\n"
+  },
+  "pageStatus": "planned"
+}

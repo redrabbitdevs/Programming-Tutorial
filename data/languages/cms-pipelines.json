@@ -1,0 +1,17 @@
+{
+  "name": "CMS Pipelines",
+  "aliases": [
+    "Hartmann pipelines"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1986,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "cms-pipelines",
+    "code": "LIST 'Hello, World!'"
+  },
+  "pageStatus": "planned"
+}

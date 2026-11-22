@@ -1,0 +1,16 @@
+{
+  "name": "E",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "concurrent"
+  ],
+  "year": 1997,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "e",
+    "code": "print(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

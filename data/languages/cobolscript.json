@@ -1,0 +1,15 @@
+{
+  "name": "CobolScript",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1999,
+  "era": "1990s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "cobol",
+    "code": "       IDENTIFICATION DIVISION.\n       PROGRAM-ID. HELLO.\n       PROCEDURE DIVISION.\n           DISPLAY 'Hello, World!'.\n           STOP RUN."
+  },
+  "pageStatus": "planned"
+}

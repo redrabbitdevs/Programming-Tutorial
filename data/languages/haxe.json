@@ -1,0 +1,16 @@
+{
+  "name": "Haxe",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "functional"
+  ],
+  "year": 2005,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "haxe",
+    "code": "class Main {\n    static function main() {\n        trace(\"Hello, World!\");\n    }\n}\n"
+  },
+  "pageStatus": "planned"
+}

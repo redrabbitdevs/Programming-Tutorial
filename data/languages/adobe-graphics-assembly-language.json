@@ -1,0 +1,17 @@
+{
+  "name": "Adobe Graphics Assembly Language",
+  "aliases": [
+    "AGAL"
+  ],
+  "paradigms": [
+    "assembly"
+  ],
+  "year": 2005,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "agal",
+    "code": "// Hello, World! shader stub"
+  },
+  "pageStatus": "planned"
+}

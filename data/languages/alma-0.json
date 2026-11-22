@@ -1,0 +1,16 @@
+{
+  "name": "Alma-0",
+  "aliases": [],
+  "paradigms": [
+    "logic",
+    "declarative"
+  ],
+  "year": 1987,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "alma-0",
+    "code": "% Hello, World!"
+  },
+  "pageStatus": "planned"
+}

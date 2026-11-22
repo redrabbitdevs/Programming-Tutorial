@@ -1,0 +1,15 @@
+{
+  "name": "HAL/S",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1972,
+  "era": "1970s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "hal-s",
+    "code": "PROGRAM HELLO\nWRITE (*,*) 'HELLO WORLD'\nEND\n"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "AspectJ",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 2001,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "java",
+    "code": "public class Hello {\n  public static void main(String[] args) {\n    System.out.println(\"Hello, World!\");\n  }\n}"
+  },
+  "pageStatus": "planned"
+}

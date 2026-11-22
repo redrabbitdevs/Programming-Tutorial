@@ -1,0 +1,17 @@
+{
+  "name": "C Shell",
+  "aliases": [
+    "csh"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1978,
+  "era": "1970s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "shellscript",
+    "code": "echo \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

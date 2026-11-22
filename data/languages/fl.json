@@ -1,0 +1,17 @@
+{
+  "name": "FL",
+  "aliases": [
+    "Function Level"
+  ],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 1989,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "fl",
+    "code": "hello = print . \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

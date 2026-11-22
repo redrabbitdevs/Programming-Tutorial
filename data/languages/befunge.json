@@ -1,0 +1,17 @@
+{
+  "name": "Befunge",
+  "aliases": [
+    "Befunge-93"
+  ],
+  "paradigms": [
+    "imperative"
+  ],
+  "year": 1993,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "befunge",
+    "code": "\"!dlroW ,olleH\"~~~~~~~~~~~~~~"
+  },
+  "pageStatus": "planned"
+}

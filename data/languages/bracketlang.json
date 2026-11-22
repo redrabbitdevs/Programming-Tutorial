@@ -1,0 +1,15 @@
+{
+  "name": "BracketLang",
+  "aliases": [],
+  "paradigms": [
+    "imperative"
+  ],
+  "year": 2016,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "bracketlang",
+    "code": "{Hello, World!}"
+  },
+  "pageStatus": "planned"
+}

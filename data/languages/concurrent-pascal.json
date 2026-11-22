@@ -1,0 +1,16 @@
+{
+  "name": "Concurrent Pascal",
+  "aliases": [],
+  "paradigms": [
+    "concurrent",
+    "procedural"
+  ],
+  "year": 1980,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "pascal",
+    "code": "program Hello;\nbegin\n  writeln('Hello, World!')\nend."
+  },
+  "pageStatus": "planned"
+}

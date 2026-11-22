@@ -1,0 +1,17 @@
+{
+  "name": "GAMS",
+  "aliases": [
+    "General Algebraic Modeling System"
+  ],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 1978,
+  "era": "1970s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "gams",
+    "code": "display \"Hello, World!\";\n"
+  },
+  "pageStatus": "planned"
+}

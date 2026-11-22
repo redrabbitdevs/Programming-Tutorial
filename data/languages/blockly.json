@@ -1,0 +1,16 @@
+{
+  "name": "Blockly",
+  "aliases": [],
+  "paradigms": [
+    "visual",
+    "procedural"
+  ],
+  "year": 2012,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "javascript",
+    "code": "console.log(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

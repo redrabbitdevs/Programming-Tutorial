@@ -1,0 +1,20 @@
+{
+  "name": "PHP",
+  "aliases": [
+    "PHP: Hypertext Preprocessor"
+  ],
+  "paradigms": [
+    "procedural",
+    "object-oriented",
+    "imperative"
+  ],
+  "year": 1995,
+  "era": "1990s",
+  "status": "active",
+  "tiobeRank": 12,
+  "helloWorld": {
+    "lang": "php",
+    "code": "<?php echo \"Hello, World!\"; ?>\n"
+  },
+  "pageStatus": "planned"
+}

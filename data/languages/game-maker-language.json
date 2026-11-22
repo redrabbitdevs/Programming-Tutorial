@@ -1,0 +1,19 @@
+{
+  "name": "Game Maker Language",
+  "aliases": [
+    "GML"
+  ],
+  "paradigms": [
+    "procedural",
+    "object-oriented"
+  ],
+  "year": 2002,
+  "era": "2000s",
+  "status": "active",
+  "tiobeRank": 42,
+  "helloWorld": {
+    "lang": "gml",
+    "code": "show_message(\"Hello, World!\");\n"
+  },
+  "pageStatus": "planned"
+}

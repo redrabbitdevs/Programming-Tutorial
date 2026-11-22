@@ -1,0 +1,15 @@
+{
+  "name": "C preprocessor",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1972,
+  "era": "1970s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "c",
+    "code": "#define GREETING \"Hello, World!\"\n\n#include <stdio.h>\n\nint main(void)\n{\n    puts(GREETING);\n    return 0;\n}"
+  },
+  "pageStatus": "planned"
+}

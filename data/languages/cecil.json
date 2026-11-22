@@ -1,0 +1,15 @@
+{
+  "name": "Cecil",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 1992,
+  "era": "1990s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "cecil",
+    "code": "class Main {\n  fun main() {\n    print(\"Hello, World!\");\n  }\n}"
+  },
+  "pageStatus": "planned"
+}

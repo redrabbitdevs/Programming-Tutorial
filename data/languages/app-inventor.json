@@ -1,0 +1,18 @@
+{
+  "name": "MIT App Inventor",
+  "aliases": [
+    "App Inventor"
+  ],
+  "paradigms": [
+    "visual",
+    "procedural"
+  ],
+  "year": 2010,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "javascript",
+    "code": "console.log(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

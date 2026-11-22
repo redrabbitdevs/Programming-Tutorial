@@ -1,0 +1,16 @@
+{
+  "name": "Halide",
+  "aliases": [],
+  "paradigms": [
+    "declarative",
+    "functional"
+  ],
+  "year": 2012,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "halide",
+    "code": "#include \"Halide.h\"\nusing namespace Halide;\nint main() {\n    Func img(\"img\");\n    Var x, y;\n    img(x, y) = 0;\n}\n"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Elm",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "declarative"
+  ],
+  "year": 2012,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "elm",
+    "code": "import Browser\n\nmain =\n    Browser.sandbox\n        { init = \"Hello, World!\"\n        , update = always\n        , view = identity\n        }\n"
+  },
+  "pageStatus": "planned"
+}

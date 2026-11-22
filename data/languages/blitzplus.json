@@ -1,0 +1,15 @@
+{
+  "name": "BlitzPlus",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1998,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "Print \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

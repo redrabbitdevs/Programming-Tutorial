@@ -1,0 +1,16 @@
+{
+  "name": "ACL2",
+  "aliases": [],
+  "paradigms": [
+    "logic",
+    "functional"
+  ],
+  "year": 1998,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "acl2",
+    "code": "(defconst *greeting* \"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

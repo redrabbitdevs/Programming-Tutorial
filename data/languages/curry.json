@@ -1,0 +1,16 @@
+{
+  "name": "Curry",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "logic"
+  ],
+  "year": 2003,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "curry",
+    "code": "main = putStrLn \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

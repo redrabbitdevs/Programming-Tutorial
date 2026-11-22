@@ -1,0 +1,20 @@
+{
+  "name": "Ladder",
+  "aliases": [
+    "Ladder Logic",
+    "Ladder Diagram"
+  ],
+  "paradigms": [
+    "visual",
+    "procedural"
+  ],
+  "year": 1980,
+  "era": "1980s",
+  "status": "active",
+  "tiobeRank": 37,
+  "helloWorld": {
+    "lang": "ladder",
+    "code": "|----[ IN ]--------( OUT )----|\n"
+  },
+  "pageStatus": "planned"
+}

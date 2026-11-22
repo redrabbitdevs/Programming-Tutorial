@@ -1,0 +1,17 @@
+{
+  "name": "GRASS",
+  "aliases": [
+    "GRAphics Symbiosis System"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1974,
+  "era": "1970s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "grass",
+    "code": "PRINT \"HELLO, WORLD\"\nEND\n"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "SAS",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "declarative"
+  ],
+  "year": 1976,
+  "era": "1970s",
+  "status": "active",
+  "tiobeRank": 26,
+  "helloWorld": {
+    "lang": "sas",
+    "code": "put \"Hello, World!\";\n"
+  },
+  "pageStatus": "planned"
+}

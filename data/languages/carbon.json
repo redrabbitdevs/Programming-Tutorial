@@ -1,0 +1,16 @@
+{
+  "name": "Carbon",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "procedural"
+  ],
+  "year": 2022,
+  "era": "2020s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "carbon",
+    "code": "fn main() {\n    puts(\"Hello, World!\");\n}"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Flavors",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 1980,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "lisp",
+    "code": "(format t \"Hello, World!~%\")\n"
+  },
+  "pageStatus": "planned"
+}

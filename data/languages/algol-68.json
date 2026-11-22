@@ -1,0 +1,15 @@
+{
+  "name": "ALGOL 68",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1968,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "algol",
+    "code": "int i;\nprintf(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

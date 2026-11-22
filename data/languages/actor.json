@@ -1,0 +1,15 @@
+{
+  "name": "Actor",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 1988,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "actor",
+    "code": "spawn hello"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Draco",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1985,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "draco",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "FOCAL",
+  "aliases": [
+    "Formulating On-Line Calculations in Algebraic Language"
+  ],
+  "paradigms": [
+    "procedural",
+    "imperative"
+  ],
+  "year": 1968,
+  "era": "1960s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "focal",
+    "code": "PRINT \"Hello, World!\"\nHALT\n"
+  },
+  "pageStatus": "planned"
+}

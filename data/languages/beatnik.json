@@ -1,0 +1,15 @@
+{
+  "name": "Beatnik",
+  "aliases": [],
+  "paradigms": [
+    "imperative"
+  ],
+  "year": 2015,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "beatnik",
+    "code": "// esolang stub: Hello, World!"
+  },
+  "pageStatus": "planned"
+}

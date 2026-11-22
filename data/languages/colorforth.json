@@ -1,0 +1,15 @@
+{
+  "name": "colorForth",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1990,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "forth",
+    "code": "\"Hello, World!\" ."
+  },
+  "pageStatus": "planned"
+}

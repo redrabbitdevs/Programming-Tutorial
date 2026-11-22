@@ -1,0 +1,16 @@
+{
+  "name": "Escher",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "logic"
+  ],
+  "year": 1995,
+  "era": "1990s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "escher",
+    "code": "write(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

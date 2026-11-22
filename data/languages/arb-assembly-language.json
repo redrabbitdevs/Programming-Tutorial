@@ -1,0 +1,15 @@
+{
+  "name": "ARB assembly language",
+  "aliases": [],
+  "paradigms": [
+    "assembly"
+  ],
+  "year": 1980,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "arb",
+    "code": "; Hello, World!"
+  },
+  "pageStatus": "planned"
+}

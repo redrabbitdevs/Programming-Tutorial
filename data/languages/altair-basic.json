@@ -1,0 +1,19 @@
+{
+  "name": "Altair BASIC",
+  "aliases": [
+    "MITS 4K BASIC",
+    "MITS 8K BASIC",
+    "Altair Disk Extended BASIC"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1975,
+  "era": "1970s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "10 PRINT \"Hello, World!\"\n20 END"
+  },
+  "pageStatus": "planned"
+}

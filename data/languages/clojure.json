@@ -1,0 +1,16 @@
+{
+  "name": "Clojure",
+  "aliases": [],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 2007,
+  "era": "2000s",
+  "status": "active",
+  "tiobeRank": 50,
+  "helloWorld": {
+    "lang": "clojure",
+    "code": "(println \"Hello, World!\")\n"
+  },
+  "pageStatus": "planned"
+}
