@@ -1,0 +1,17 @@
+{
+  "name": "Instruction List",
+  "aliases": [
+    "IL"
+  ],
+  "paradigms": [
+    "assembly"
+  ],
+  "year": 1993,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "instruction-list",
+    "code": "{\n    OUT Indicator := TRUE;\n}\n"
+  },
+  "pageStatus": "planned"
+}

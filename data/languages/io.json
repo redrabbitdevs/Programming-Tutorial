@@ -1,0 +1,16 @@
+{
+  "name": "Io",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "concurrent"
+  ],
+  "year": 2002,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "io",
+    "code": "\"Hello, World!\" println\n"
+  },
+  "pageStatus": "planned"
+}
