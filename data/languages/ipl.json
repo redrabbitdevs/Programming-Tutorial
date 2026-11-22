@@ -1,0 +1,17 @@
+{
+  "name": "Information Processing Language",
+  "aliases": [
+    "IPL"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1956,
+  "era": "1950s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "ipl",
+    "code": "(PRINT \"HELLO WORLD\")\n"
+  },
+  "pageStatus": "planned"
+}

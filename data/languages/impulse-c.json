@@ -1,0 +1,16 @@
+{
+  "name": "Impulse C",
+  "aliases": [],
+  "paradigms": [
+    "concurrent",
+    "procedural"
+  ],
+  "year": 2003,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "c",
+    "code": "#include <stdio.h>\nint main() {\n    printf(\"Hello, World!\\n\");\n    return 0;\n}\n"
+  },
+  "pageStatus": "planned"
+}

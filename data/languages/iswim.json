@@ -1,0 +1,15 @@
+{
+  "name": "ISWIM",
+  "aliases": [],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 1966,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "iswim",
+    "code": "print(\"Hello, World!\")\n"
+  },
+  "pageStatus": "planned"
+}

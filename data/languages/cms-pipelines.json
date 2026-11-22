@@ -1,6 +1,8 @@
 {
   "name": "CMS Pipelines",
-  "aliases": [],
+  "aliases": [
+    "Hartmann pipelines"
+  ],
   "paradigms": [
     "procedural"
   ],
