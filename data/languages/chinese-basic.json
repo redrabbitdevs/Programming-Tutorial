@@ -1,0 +1,15 @@
+{
+  "name": "Chinese BASIC",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1980,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "10 PRINT \"Hello, World!\"\n20 END"
+  },
+  "pageStatus": "planned"
+}

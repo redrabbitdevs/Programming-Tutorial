@@ -1,0 +1,17 @@
+{
+  "name": "Cybil",
+  "aliases": [
+    "Cyber Implementation Language of the Control Data Network Operating System"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1980,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "cybil",
+    "code": "program hello\nbegin\n  writeln('Hello, World!')\nend."
+  },
+  "pageStatus": "planned"
+}

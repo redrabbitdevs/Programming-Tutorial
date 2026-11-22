@@ -1,0 +1,17 @@
+{
+  "name": "COWSEL",
+  "aliases": [
+    "COntrolled Working SpacE Language"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1964,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "cowsel",
+    "code": "'Hello, World!' PRINT"
+  },
+  "pageStatus": "planned"
+}

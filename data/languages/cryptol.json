@@ -1,0 +1,16 @@
+{
+  "name": "Cryptol",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "declarative"
+  ],
+  "year": 2006,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "cryptol",
+    "code": "main : ()\nmain = do\n    println \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

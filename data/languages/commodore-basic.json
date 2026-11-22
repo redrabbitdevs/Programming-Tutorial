@@ -1,0 +1,18 @@
+{
+  "name": "Commodore BASIC",
+  "aliases": [
+    "PET BASIC",
+    "CBM-BASIC"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1977,
+  "era": "1970s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "10 PRINT \"Hello, World!\"\n20 END"
+  },
+  "pageStatus": "planned"
+}

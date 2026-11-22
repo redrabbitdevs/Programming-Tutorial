@@ -1,0 +1,17 @@
+{
+  "name": "Casio BASIC",
+  "aliases": [
+    "BasicLike"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 2003,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "Print \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}
