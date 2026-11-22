@@ -1,0 +1,16 @@
+{
+  "name": "Harbour",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "object-oriented"
+  ],
+  "year": 1998,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "harbour",
+    "code": "#include <hbstdinc.ch>\nPROCEDURE Main\n    ? \"Hello, World!\"\nENDPROCEDURE\nRUN\n"
+  },
+  "pageStatus": "planned"
+}

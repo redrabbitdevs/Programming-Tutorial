@@ -1,0 +1,17 @@
+{
+  "name": "Haggis",
+  "aliases": [
+    "HAGGIS"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 2013,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "haggis",
+    "code": "PRINT \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

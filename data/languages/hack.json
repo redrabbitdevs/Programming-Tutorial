@@ -1,0 +1,16 @@
+{
+  "name": "Hack",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "procedural"
+  ],
+  "year": 2014,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "hack",
+    "code": "<?hh\necho \"Hello, World!\";\n"
+  },
+  "pageStatus": "planned"
+}
