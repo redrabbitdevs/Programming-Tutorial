@@ -1,0 +1,17 @@
+{
+  "name": "Catrobat",
+  "aliases": [
+    "Pocket Code"
+  ],
+  "paradigms": [
+    "visual"
+  ],
+  "year": 2010,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "catrobat",
+    "code": "when program starts\nsay \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

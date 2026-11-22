@@ -1,0 +1,16 @@
+{
+  "name": "CLIPS",
+  "aliases": [],
+  "paradigms": [
+    "logic",
+    "declarative"
+  ],
+  "year": 1985,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "clips",
+    "code": "(deffacts init)\n\n(defrule hello \"Print Hello World\"\n  (init)\n  =>\n  (printout \"Hello, World!\" crlf))"
+  },
+  "pageStatus": "planned"
+}

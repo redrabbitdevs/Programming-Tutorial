@@ -1,0 +1,17 @@
+{
+  "name": "C/AL",
+  "aliases": [
+    "Client/server Application Language"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1997,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "c-al",
+    "code": "BEGIN\n  MESSAGE('Hello, World!');\nEND;"
+  },
+  "pageStatus": "planned"
+}

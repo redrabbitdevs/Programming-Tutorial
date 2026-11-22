@@ -1,0 +1,16 @@
+{
+  "name": "ChucK",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "concurrent"
+  ],
+  "year": 2001,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "chuck",
+    "code": "\"Hello, World!\" => now;"
+  },
+  "pageStatus": "planned"
+}

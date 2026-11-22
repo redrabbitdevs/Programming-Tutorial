@@ -1,0 +1,17 @@
+{
+  "name": "CMS-2",
+  "aliases": [
+    "Compiler Monitor System"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1968,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "cms-2",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

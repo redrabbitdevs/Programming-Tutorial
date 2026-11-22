@@ -1,0 +1,17 @@
+{
+  "name": "CHILL",
+  "aliases": [
+    "CCITT High Level Language"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1980,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "chill",
+    "code": "procedure main\nbegin\n  print \"Hello, World!\"\nend"
+  },
+  "pageStatus": "planned"
+}

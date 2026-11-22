@@ -1,0 +1,20 @@
+{
+  "name": "Cilk",
+  "aliases": [
+    "Cilk++",
+    "Cilk Plus",
+    "OpenCilk"
+  ],
+  "paradigms": [
+    "concurrent",
+    "procedural"
+  ],
+  "year": 1994,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "c",
+    "code": "#include <cilk/cilk.h>\n\nint main(void)\n{\n    printf(\"Hello, World!\\n\");\n    return 0;\n}"
+  },
+  "pageStatus": "planned"
+}

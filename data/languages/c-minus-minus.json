@@ -1,0 +1,17 @@
+{
+  "name": "C--",
+  "aliases": [
+    "C minus minus"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1997,
+  "era": "1990s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "c-minus-minus",
+    "code": "module Main\n{\n  int main ()\n  {\n    puts \"Hello, World!\"; return 0;\n  }\n}"
+  },
+  "pageStatus": "planned"
+}

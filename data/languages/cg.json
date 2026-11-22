@@ -1,0 +1,19 @@
+{
+  "name": "Cg",
+  "aliases": [
+    "HLSL",
+    "C for Graphics"
+  ],
+  "paradigms": [
+    "procedural",
+    "declarative"
+  ],
+  "year": 2003,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "hlsl",
+    "code": "void main()\n{\n    printf(\"Hello, World!\\n\");\n}"
+  },
+  "pageStatus": "planned"
+}

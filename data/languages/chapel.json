@@ -1,0 +1,19 @@
+{
+  "name": "Chapel",
+  "aliases": [
+    "CHPL",
+    "Cascade High Productivity Language"
+  ],
+  "paradigms": [
+    "concurrent",
+    "procedural"
+  ],
+  "year": 2013,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "chapel",
+    "code": "module HelloWorld\n{\n  writeln(\"Hello, World!\");\n}"
+  },
+  "pageStatus": "planned"
+}

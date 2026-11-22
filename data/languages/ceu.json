@@ -1,0 +1,16 @@
+{
+  "name": "Céu",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "concurrent"
+  ],
+  "year": 2014,
+  "era": "2010s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "ceu",
+    "code": "out \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}
