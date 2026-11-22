@@ -1,0 +1,16 @@
+{
+  "name": "Frink",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "functional"
+  ],
+  "year": 2001,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "frink",
+    "code": "print(\"Hello, World!\");\n"
+  },
+  "pageStatus": "planned"
+}

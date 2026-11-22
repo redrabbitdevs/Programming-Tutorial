@@ -1,0 +1,15 @@
+{
+  "name": "GNU Data Language",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 2004,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "gnu-data-language",
+    "code": "printl, \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "FRIL",
+  "aliases": [],
+  "paradigms": [
+    "logic"
+  ],
+  "year": 1980,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "fril",
+    "code": ":- output('Hello, World!').\n"
+  },
+  "pageStatus": "planned"
+}
