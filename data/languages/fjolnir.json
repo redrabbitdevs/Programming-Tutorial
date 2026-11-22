@@ -1,0 +1,19 @@
+{
+  "name": "Fjölnir",
+  "aliases": [
+    "Fjolnir",
+    "Fjoelnir"
+  ],
+  "paradigms": [
+    "functional",
+    "declarative"
+  ],
+  "year": 1985,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "fjolnir",
+    "code": "PRINT \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

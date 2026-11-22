@@ -1,0 +1,16 @@
+{
+  "name": "Factor",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "object-oriented"
+  ],
+  "year": 2003,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "factor",
+    "code": "USING: io.core ;\n\"Hello, World!\" .\n"
+  },
+  "pageStatus": "planned"
+}

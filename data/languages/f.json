@@ -1,0 +1,16 @@
+{
+  "name": "F",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "imperative"
+  ],
+  "year": 1992,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "f",
+    "code": "module hello\ncontains\n  subroutine main\n    print *, \"Hello, World!\"\n  end subroutine main\nend module hello\n"
+  },
+  "pageStatus": "planned"
+}
