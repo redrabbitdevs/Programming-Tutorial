@@ -1,0 +1,17 @@
+{
+  "name": "FP",
+  "aliases": [
+    "FFP"
+  ],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 1978,
+  "era": "1970s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "fp",
+    "code": "print . \"Hello, World!\"\n"
+  },
+  "pageStatus": "planned"
+}

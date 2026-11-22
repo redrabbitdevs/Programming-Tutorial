@@ -1,0 +1,18 @@
+{
+  "name": "Franz Lisp",
+  "aliases": [
+    "FranzLisp"
+  ],
+  "paradigms": [
+    "functional",
+    "imperative"
+  ],
+  "year": 1980,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "lisp",
+    "code": "(format t \"Hello, World!~%\")\n"
+  },
+  "pageStatus": "planned"
+}
