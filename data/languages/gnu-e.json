@@ -1,0 +1,15 @@
+{
+  "name": "GNU E",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 1991,
+  "era": "1990s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "cpp",
+    "code": "#include <iostream>\n\nint main() {\n    std::cout << \"Hello, World!\" << std::endl;\n}\n"
+  },
+  "pageStatus": "planned"
+}

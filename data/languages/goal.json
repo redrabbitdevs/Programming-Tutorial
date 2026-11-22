@@ -1,0 +1,18 @@
+{
+  "name": "Goal",
+  "aliases": [
+    "Game Oriented Assembly Lisp"
+  ],
+  "paradigms": [
+    "functional",
+    "imperative"
+  ],
+  "year": 2001,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "lisp",
+    "code": "(format t \"Hello, World!~%\")\n"
+  },
+  "pageStatus": "planned"
+}

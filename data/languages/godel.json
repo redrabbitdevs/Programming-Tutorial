@@ -1,0 +1,16 @@
+{
+  "name": "Gödel",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "functional"
+  ],
+  "year": 1992,
+  "era": "1990s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "godel",
+    "code": "output(\"Hello, World!\");\n"
+  },
+  "pageStatus": "planned"
+}
