@@ -1,0 +1,19 @@
+{
+  "name": "Authorware",
+  "aliases": [
+    "Macromedia Authorware",
+    "Adobe Authorware"
+  ],
+  "paradigms": [
+    "visual",
+    "procedural"
+  ],
+  "year": 1992,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "authorware",
+    "code": "// icon-based display: Hello, World!"
+  },
+  "pageStatus": "planned"
+}

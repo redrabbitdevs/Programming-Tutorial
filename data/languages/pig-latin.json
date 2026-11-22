@@ -1,0 +1,17 @@
+{
+  "name": "Pig Latin",
+  "aliases": [
+    "Apache Pig"
+  ],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 2006,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "pig",
+    "code": "A = LOAD 'input';\nDUMP A;"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Alice ML",
+  "aliases": [
+    "AliceML"
+  ],
+  "paradigms": [
+    "functional",
+    "logic"
+  ],
+  "year": 1997,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "alice-ml",
+    "code": "print \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

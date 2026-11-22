@@ -1,0 +1,18 @@
+{
+  "name": "AMOS BASIC",
+  "aliases": [
+    "Easy AMOS",
+    "AMOS Pro"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1986,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

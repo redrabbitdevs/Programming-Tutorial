@@ -1,0 +1,15 @@
+{
+  "name": "ABC",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1974,
+  "era": "1970s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "abc",
+    "code": "program Hello;\nbegin\n  writeln('Hello, World!')\nend Hello."
+  },
+  "pageStatus": "planned"
+}

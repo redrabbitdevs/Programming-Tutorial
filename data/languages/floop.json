@@ -1,0 +1,17 @@
+{
+  "name": "FlooP",
+  "aliases": [
+    "GEB FlooP"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1979,
+  "era": "1970s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "floop",
+    "code": "procedure main(x)\n  if x = 0 then\n    print(\"Hello, World!\")\n  end\nend"
+  },
+  "pageStatus": "planned"
+}

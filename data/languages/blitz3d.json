@@ -1,0 +1,15 @@
+{
+  "name": "Blitz3D",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 2000,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "blitz3d",
+    "code": "Print \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

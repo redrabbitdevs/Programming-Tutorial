@@ -1,0 +1,18 @@
+{
+  "name": "AWK",
+  "aliases": [
+    "gawk",
+    "mawk"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1977,
+  "era": "1970s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "awk",
+    "code": "BEGIN { print \"Hello, World!\" }"
+  },
+  "pageStatus": "planned"
+}

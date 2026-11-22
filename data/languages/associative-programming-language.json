@@ -1,0 +1,18 @@
+{
+  "name": "Associative Programming Language",
+  "aliases": [
+    "APL (GM)",
+    "GM APL"
+  ],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 1966,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "gm-apl",
+    "code": "// GM associative database query stub"
+  },
+  "pageStatus": "planned"
+}

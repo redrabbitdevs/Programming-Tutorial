@@ -1,0 +1,15 @@
+{
+  "name": "B",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1969,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "b",
+    "code": "main() { print \"Hello, World!\" }"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,17 @@
+{
+  "name": "BlooP",
+  "aliases": [
+    "GEB BlooP"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1979,
+  "era": "1970s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "bloop",
+    "code": "procedure hello()\n  print(\"Hello, World!\")\nend"
+  },
+  "pageStatus": "planned"
+}

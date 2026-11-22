@@ -1,0 +1,19 @@
+{
+  "name": "ActionScript",
+  "aliases": [
+    "AS1",
+    "AS2",
+    "AS3"
+  ],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 2000,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "actionscript",
+    "code": "trace(\"Hello, World!\");"
+  },
+  "pageStatus": "planned"
+}

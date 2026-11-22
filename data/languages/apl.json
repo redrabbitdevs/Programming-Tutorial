@@ -1,0 +1,16 @@
+{
+  "name": "APL",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "declarative"
+  ],
+  "year": 1968,
+  "era": "1960s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "apl",
+    "code": "'Hello, World!'"
+  },
+  "pageStatus": "planned"
+}

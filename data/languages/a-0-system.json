@@ -1,0 +1,17 @@
+{
+  "name": "A-0 System",
+  "aliases": [
+    "Grace Hopper A-0"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1951,
+  "era": "1950s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "a-0",
+    "code": "RUN"
+  },
+  "pageStatus": "planned"
+}

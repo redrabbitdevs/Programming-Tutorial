@@ -1,0 +1,17 @@
+{
+  "name": "Basic-256",
+  "aliases": [
+    "KidBASIC"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 2007,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

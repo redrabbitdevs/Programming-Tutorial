@@ -1,0 +1,16 @@
+{
+  "name": "ATS",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "procedural"
+  ],
+  "year": 2012,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "ats",
+    "code": "fn main() = println(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "1C:Enterprise",
+  "aliases": [
+    "1C",
+    "One C"
+  ],
+  "paradigms": [
+    "object-oriented",
+    "procedural"
+  ],
+  "year": 1991,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "1c",
+    "code": "Msg(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

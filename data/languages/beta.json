@@ -1,0 +1,16 @@
+{
+  "name": "BETA",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "concurrent"
+  ],
+  "year": 1983,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "beta",
+    "code": "// BETA object stub: Hello, World!"
+  },
+  "pageStatus": "planned"
+}

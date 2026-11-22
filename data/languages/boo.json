@@ -1,0 +1,16 @@
+{
+  "name": "Boo",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented",
+    "procedural"
+  ],
+  "year": 2006,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "boo",
+    "code": "print \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

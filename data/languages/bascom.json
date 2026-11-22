@@ -1,0 +1,19 @@
+{
+  "name": "BASCOM",
+  "aliases": [
+    "BASCOM-AVR",
+    "BASCOM-8051",
+    "BASCOM-LT"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1998,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "bascom",
+    "code": "Print \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

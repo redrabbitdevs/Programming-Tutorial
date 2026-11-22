@@ -1,0 +1,16 @@
+{
+  "name": "Aldor",
+  "aliases": [],
+  "paradigms": [
+    "functional",
+    "object-oriented"
+  ],
+  "year": 2005,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "aldor",
+    "code": "hello := \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

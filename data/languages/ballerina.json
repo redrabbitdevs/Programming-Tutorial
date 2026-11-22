@@ -1,0 +1,16 @@
+{
+  "name": "Ballerina",
+  "aliases": [],
+  "paradigms": [
+    "concurrent",
+    "procedural"
+  ],
+  "year": 2016,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "ballerina",
+    "code": "main() {\n  io:println(\"Hello, World!\")\n}"
+  },
+  "pageStatus": "planned"
+}

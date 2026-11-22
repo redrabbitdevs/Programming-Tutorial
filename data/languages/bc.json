@@ -1,0 +1,17 @@
+{
+  "name": "bc",
+  "aliases": [
+    "GNU bc"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1977,
+  "era": "1970s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "bc",
+    "code": "print \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

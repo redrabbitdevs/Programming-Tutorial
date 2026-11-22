@@ -1,0 +1,15 @@
+{
+  "name": "BrightScript",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 2010,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "brightscript",
+    "code": "Print \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

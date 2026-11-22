@@ -1,0 +1,15 @@
+{
+  "name": "Apple Business BASIC",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1980,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

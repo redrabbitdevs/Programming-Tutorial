@@ -1,0 +1,17 @@
+{
+  "name": "APT",
+  "aliases": [
+    "Automatically Programmed Tape"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1960,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "apt",
+    "code": "PART IN\nMOVE TO /START"
+  },
+  "pageStatus": "planned"
+}

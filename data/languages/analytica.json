@@ -1,0 +1,16 @@
+{
+  "name": "Analytica",
+  "aliases": [],
+  "paradigms": [
+    "declarative",
+    "procedural"
+  ],
+  "year": 1987,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "analytica",
+    "code": "// decision model stub: Hello, World!"
+  },
+  "pageStatus": "planned"
+}

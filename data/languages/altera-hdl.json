@@ -1,0 +1,17 @@
+{
+  "name": "Altera Hardware Description Language",
+  "aliases": [
+    "AHDL"
+  ],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 1985,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "ahdl",
+    "code": "PIN 1 = \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

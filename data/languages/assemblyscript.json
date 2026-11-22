@@ -1,0 +1,15 @@
+{
+  "name": "AssemblyScript",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 2018,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "typescript",
+    "code": "console.log(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

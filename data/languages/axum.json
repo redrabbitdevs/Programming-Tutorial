@@ -1,0 +1,15 @@
+{
+  "name": "Axum",
+  "aliases": [],
+  "paradigms": [
+    "functional"
+  ],
+  "year": 2015,
+  "era": "2010s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "axum",
+    "code": "// Hello, World!"
+  },
+  "pageStatus": "planned"
+}

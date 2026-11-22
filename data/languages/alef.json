@@ -1,0 +1,15 @@
+{
+  "name": "Alef",
+  "aliases": [],
+  "paradigms": [
+    "concurrent"
+  ],
+  "year": 1993,
+  "era": "1990s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "alef",
+    "code": "send(ch, \"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

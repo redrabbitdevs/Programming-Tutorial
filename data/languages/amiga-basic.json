@@ -1,0 +1,17 @@
+{
+  "name": "Amiga BASIC",
+  "aliases": [
+    "ABasiC"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1985,
+  "era": "1980s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

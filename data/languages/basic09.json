@@ -1,0 +1,15 @@
+{
+  "name": "BASIC09",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1982,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "PRINT \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

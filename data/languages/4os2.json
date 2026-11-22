@@ -1,0 +1,17 @@
+{
+  "name": "4OS/2",
+  "aliases": [
+    "ARexx-based OS/2 shell"
+  ],
+  "paradigms": [
+    "imperative"
+  ],
+  "year": 1996,
+  "era": "1990s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "batch",
+    "code": "echo Hello, World!"
+  },
+  "pageStatus": "planned"
+}

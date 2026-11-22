@@ -1,0 +1,17 @@
+{
+  "name": "Advanced Boolean Expression Language",
+  "aliases": [
+    "ABEL"
+  ],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 1983,
+  "era": "1980s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "abel",
+    "code": "EQU HELLO, \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

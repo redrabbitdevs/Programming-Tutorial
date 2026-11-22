@@ -1,0 +1,16 @@
+{
+  "name": "BeanShell",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "object-oriented"
+  ],
+  "year": 1999,
+  "era": "1990s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "beanshell",
+    "code": "System.out.println(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}

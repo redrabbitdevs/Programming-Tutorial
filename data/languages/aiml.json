@@ -1,0 +1,17 @@
+{
+  "name": "AIML",
+  "aliases": [
+    "Artificial Intelligence Markup Language"
+  ],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 2001,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "xml",
+    "code": "<?xml version=\"1.0\"?>\n<aiml>\n  <category>\n    <pattern>*</pattern>\n    <response>Hello, World!</response>\n  </category>\n</aiml>"
+  },
+  "pageStatus": "planned"
+}

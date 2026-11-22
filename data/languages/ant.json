@@ -1,0 +1,17 @@
+{
+  "name": "Ant",
+  "aliases": [
+    "Apache Ant"
+  ],
+  "paradigms": [
+    "declarative"
+  ],
+  "year": 2000,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "xml",
+    "code": "<project name=\"hello\">\n  <target name=\"main\">\n    <echo message=\"Hello, World!\"/>\n  </target>\n</project>"
+  },
+  "pageStatus": "planned"
+}

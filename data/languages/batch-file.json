@@ -1,0 +1,18 @@
+{
+  "name": "Batch file",
+  "aliases": [
+    "Windows batch",
+    "MS-DOS batch"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1981,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "batch",
+    "code": "@echo off\necho Hello, World!"
+  },
+  "pageStatus": "planned"
+}

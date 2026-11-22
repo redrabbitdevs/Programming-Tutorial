@@ -1,0 +1,15 @@
+{
+  "name": "64K BASIC",
+  "aliases": [],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 2020,
+  "era": "2020s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "basic",
+    "code": "10 PRINT \"Hello, World!\"\n20 END"
+  },
+  "pageStatus": "planned"
+}
