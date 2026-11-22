@@ -1,0 +1,17 @@
+{
+  "name": "COMPASS",
+  "aliases": [
+    "COMPrehensive ASSembler"
+  ],
+  "paradigms": [
+    "assembly"
+  ],
+  "year": 1967,
+  "era": "1960s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "compass",
+    "code": "        TITLE HELLO\n        START\n        PRINT 'Hello, World!'\n        END"
+  },
+  "pageStatus": "planned"
+}

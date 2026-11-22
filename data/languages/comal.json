@@ -1,0 +1,17 @@
+{
+  "name": "COMAL",
+  "aliases": [
+    "Common Algorithmic Language"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1975,
+  "era": "1970s",
+  "status": "historical",
+  "helloWorld": {
+    "lang": "comal",
+    "code": "PROGRAM HELLO\nBEGIN\n  WRITE \"Hello, World!\"\nEND"
+  },
+  "pageStatus": "planned"
+}

@@ -1,0 +1,16 @@
+{
+  "name": "CoffeeScript",
+  "aliases": [],
+  "paradigms": [
+    "procedural",
+    "functional"
+  ],
+  "year": 2009,
+  "era": "2000s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "coffee",
+    "code": "console.log \"Hello, World!\""
+  },
+  "pageStatus": "planned"
+}

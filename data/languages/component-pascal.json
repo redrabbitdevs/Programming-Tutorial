@@ -1,0 +1,17 @@
+{
+  "name": "Component Pascal",
+  "aliases": [
+    "Oberon/L"
+  ],
+  "paradigms": [
+    "procedural"
+  ],
+  "year": 1983,
+  "era": "1980s",
+  "status": "active",
+  "helloWorld": {
+    "lang": "pascal",
+    "code": "MODULE Hello;\nBEGIN\n  WriteLn(\"Hello, World!\")\nEND Hello."
+  },
+  "pageStatus": "planned"
+}

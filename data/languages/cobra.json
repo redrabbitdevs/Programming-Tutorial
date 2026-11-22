@@ -1,0 +1,15 @@
+{
+  "name": "Cobra",
+  "aliases": [],
+  "paradigms": [
+    "object-oriented"
+  ],
+  "year": 2008,
+  "era": "2000s",
+  "status": "legacy",
+  "helloWorld": {
+    "lang": "cobra",
+    "code": "class Program\n  new shared static Main()\n    println(\"Hello, World!\")"
+  },
+  "pageStatus": "planned"
+}
