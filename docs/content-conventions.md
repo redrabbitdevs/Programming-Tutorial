@@ -73,6 +73,18 @@ Page ↔ record consistency **[V]**: every `src/content/languages/<slug>.mdx` ha
 
 Absolute paths in content may omit or include the base prefix `/Programming-Tutorial/`; both validate. Links must resolve to a known route (page, lesson URL, language page, or `public/` asset). Relative links are resolved against the file's own output URL.
 
+## Layouts & content typography
+
+Any layout (or page) that renders an MDX/prose body **must** wrap the slot in `.pt-article` (defined in `src/styles/global.css`). Content typography — heading scale, paragraph rhythm, list styles, link accent + underline, inline code, tables — is scoped to that class because Tailwind preflight strips native heading/list/paragraph/link styles; unscoped content renders flat (headings at body size/weight, links indistinguishable from prose) in both themes.
+
+Rules:
+
+- Only the MDX body goes inside `.pt-article`. Page chrome around the slot (back link, `h1`, status badges, metadata `dl`) stays **outside** the scope and keeps its explicit Tailwind classes.
+- Components rendered *from* the MDX body (Callout, Tabs, CodeBlock) need no extra wrapping — they render as descendants of `.pt-article` and inherit the scoped rules.
+- Reference implementations: `src/layouts/Lesson.astro`, `src/layouts/Encyclopedia.astro`. Guarded by e2e: `tests/e2e/languages.spec.ts` (article typography on `/languages/python/`) and `tests/e2e/dark-theme.spec.ts` (dark variant).
+
+**Defect class this prevents**: `/languages/<slug>/` encyclopedia pages shipped without the scope — h2 sections rendered at body size, prose links unaccented and ununderlined, reference list unstyled (both themes). Caught by the e2e guard above; see the 2026-11-22 hotfix.
+
 ## Sample execution toolchain matrix
 
 | Runner | Languages |

@@ -51,3 +51,37 @@ test('lesson 01 sample output keeps >= 4.5:1 contrast in dark theme', async ({ p
   // WCAG 2.1 AA normal text; the pt-dark theme pair is #eeeeee on #111111.
   expect(contrastRatio(fg!, bg!)).toBeGreaterThanOrEqual(4.5)
 })
+
+// Dark variant of the /languages/ article-typography guard (light twin in
+// languages.spec.ts): heading scale, accent + underline links, and list style
+// must all hold with the dark token set active. The accent comparison resolves
+// var(--token-accent) in-page, so it tracks whichever theme is live.
+test('/languages/python/ keeps .pt-article typography in dark theme', async ({ page }) => {
+  await page.goto('languages/python/')
+
+  // Sanity: the theme island must have resolved to dark before first paint.
+  expect(await page.evaluate(() => document.documentElement.dataset.theme)).toBe('dark')
+
+  const article = page.locator('.pt-article')
+  await expect(article).toHaveCount(1)
+
+  const h2Style = await article.locator('h2').first().evaluate((el) => {
+    const cs = getComputedStyle(el)
+    return { fontSize: cs.fontSize, fontWeight: cs.fontWeight }
+  })
+  expect(h2Style.fontSize).toBe('20px')
+  expect(h2Style.fontWeight).toBe('600')
+
+  const linkStyle = await article.locator('p > a').first().evaluate((el) => {
+    const cs = getComputedStyle(el)
+    const probe = document.createElement('span')
+    probe.style.color = 'var(--token-accent)'
+    probe.style.display = 'none'
+    document.body.appendChild(probe)
+    const accent = getComputedStyle(probe).color
+    probe.remove()
+    return { color: cs.color, textDecorationLine: cs.textDecorationLine, accent }
+  })
+  expect(linkStyle.color, 'prose links must use the dark accent token').toBe(linkStyle.accent)
+  expect(linkStyle.textDecorationLine, 'prose links must be underlined').toContain('underline')
+})

@@ -20,6 +20,7 @@ You own the site's visual identity: the token layer, layout shell, reusable comp
 3. **Component API**: props are typed and minimal; no leaked implementation details; each component has a single responsibility.
 4. **Accessibility is non-negotiable**: WCAG 2.1 AA contrast, focus-visible states, semantic HTML, ARIA only where required. QA & A11y signs off on changed routes.
 5. **No new dependencies** without Orchestrator approval; prefer native CSS/HTML over JS islands.
+6. **Content typography scope**: any layout or page that renders an MDX/prose body must wrap the slot in `.pt-article` (see `src/styles/global.css`) — Tailwind preflight strips native heading/list/link styles, so unscoped content renders flat in both themes. When creating or modifying a layout that renders MDX/prose, verify the slot wrapper carries `.pt-article` (or equivalent scoped typography) and keep page chrome (back links, h1, badges, metadata) outside the scope; components rendered *from* the body inherit the scope as descendants. Defect class: `/languages/<slug>/` encyclopedia pages shipped without it (2026-11-22 hotfix).
 
 ## Definition of done
 
